@@ -3,20 +3,152 @@
   "WorkspaceRootPath": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\migrations\\20250730181101_resendotpmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\migrations\\20250730181101_resendotpmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\passwordresetcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\passwordresetcode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\identity\\addidentitydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\identity\\addidentitydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\erroes\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\erroes\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\migrations\\20250730133900_entitesandrelationmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\migrations\\20250730133900_entitesandrelationmigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\sessionconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\sessionconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\session.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\patientprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\patientprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\doctorprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\doctorprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\progresstracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\progresstracker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\progresstrackerconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\progresstrackerconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\supporterconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\supporterconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\resourceconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\resourceconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\patientprofileconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\patientprofileconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\notificationconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\notificationconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\doctorprofileconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\doctorprofileconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\doctorapplicationconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\doctorapplicationconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\chatmassageconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\chatmassageconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\supporter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\supporter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\resource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\resource.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\notification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\doctorapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\doctorapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\chatmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\chatmessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\enums\\resourcetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\enums\\resourcetype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\enums\\maritalstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\enums\\maritalstatus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\refreshtoken.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\configurations\\refreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\configurations\\refreshtokenconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\enums\\gender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\enums\\gender.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\enums\\sessiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\enums\\sessiontype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\enums\\notificationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\enums\\notificationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\enums\\status.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\enums\\status.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\domain.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F06A7D5F-1FA0-4717-A667-B949194CFF6B}|Application\\Application.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\application\\dto\\tokendto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -31,20 +163,12 @@
       "RelativeMoniker": "D:0:0:{F06A7D5F-1FA0-4717-A667-B949194CFF6B}|Application\\Application.csproj|solutionrelative:application\\dto\\registerdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\extesion\\addidentityextensionmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\extesion\\addidentityextensionmethod.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F06A7D5F-1FA0-4717-A667-B949194CFF6B}|Application\\Application.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\application\\dto\\resetpasswordotpdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F06A7D5F-1FA0-4717-A667-B949194CFF6B}|Application\\Application.csproj|solutionrelative:application\\dto\\resetpasswordotpdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\identity\\addidentitydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\identity\\addidentitydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F06A7D5F-1FA0-4717-A667-B949194CFF6B}|Application\\Application.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\application\\services\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,10 +195,6 @@
       "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\interfaces\\itokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\domain\\entites\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{87B91B54-A1E7-4B95-A438-40E39ED8911C}|Domain\\Domain.csproj|solutionrelative:domain\\entites\\appuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F06A7D5F-1FA0-4717-A667-B949194CFF6B}|Application\\Application.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\application\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F06A7D5F-1FA0-4717-A667-B949194CFF6B}|Application\\Application.csproj|solutionrelative:application\\dto\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -93,10 +213,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\erroes\\apivalidationerrorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\erroes\\apivalidationerrorresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\psychiatric and addiction hospital\\erroes\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF9CBF47-AACE-4998-9EDD-F80316A5A27C}|Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital.csproj|solutionrelative:psychiatric and addiction hospital\\erroes\\apiresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2FC6F10D-95EF-4A91-8A22-ED28ABE51AEB}|Infrastructure\\Infrastructure.csproj|c:\\users\\original\\source\\repos\\psychiatric and addiction hospital\\infrastructure\\migrations\\20250722114006_initialidentitymigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -130,24 +246,470 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "20250730181101_ResendOtpMigration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250730181101_ResendOtpMigration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250730181101_ResendOtpMigration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250730181101_ResendOtpMigration.cs",
+              "RelativeToolTip": "Infrastructure\\Migrations\\20250730181101_ResendOtpMigration.cs",
+              "ViewState": "AgIAAAsAAAAAMzMzMzMTwBEAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T18:11:18.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PasswordResetCode.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\PasswordResetCode.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\PasswordResetCode.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\PasswordResetCode.cs",
+              "RelativeToolTip": "Domain\\Entites\\PasswordResetCode.cs",
+              "ViewState": "AgIAAAcAAABAMzMzMzMbwA8AAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T17:40:53.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "20250730133900_EntitesandRelationMigration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250730133900_EntitesandRelationMigration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250730133900_EntitesandRelationMigration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250730133900_EntitesandRelationMigration.cs",
+              "RelativeToolTip": "Infrastructure\\Migrations\\20250730133900_EntitesandRelationMigration.cs",
+              "ViewState": "AgIAAOAAAAAAZmZmZmYkwOYAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T13:39:18.645Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SessionConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\SessionConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\SessionConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\SessionConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\SessionConfiguration.cs",
+              "ViewState": "AgIAABEAAAAAMzMzMzMrwBMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T11:14:04.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AddIdentityDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Identity\\AddIdentityDbContext.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Identity\\AddIdentityDbContext.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Identity\\AddIdentityDbContext.cs",
+              "RelativeToolTip": "Infrastructure\\Identity\\AddIdentityDbContext.cs",
+              "ViewState": "AgIAABEAAACgZmZmZmYowBYAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T11:09:23.764Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Domain",
-              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Domain.csproj",
-              "RelativeDocumentMoniker": "Domain\\Domain.csproj",
-              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Domain.csproj",
-              "RelativeToolTip": "Domain\\Domain.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-25T16:27:33.866Z",
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\appsettings.json",
+              "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\appsettings.json",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\appsettings.json",
+              "RelativeToolTip": "Psychiatric and Addiction Hospital\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-21T12:25:56.229Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
+              "Title": "Session.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Session.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\Session.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Session.cs",
+              "RelativeToolTip": "Domain\\Entites\\Session.cs",
+              "ViewState": "AgIAABAAAAAAmJmZmZnZvxQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:07:32.493Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "DoctorProfile.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\DoctorProfile.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\DoctorProfile.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\DoctorProfile.cs",
+              "RelativeToolTip": "Domain\\Entites\\DoctorProfile.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAxwBYAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:00:22.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AppUser.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\AppUser.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\AppUser.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\AppUser.cs",
+              "RelativeToolTip": "Domain\\Entites\\AppUser.cs",
+              "ViewState": "AgIAABIAAAAAaGZmZmYIwBUAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T12:43:03.17Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAOMAAACAMzMzMzMrwOwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-21T11:29:39.23Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ApiResponse.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
+              "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
+              "RelativeToolTip": "Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
+              "ViewState": "AgIAAAkAAADAzMzMzMwmwA0AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T14:02:22.427Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ProgressTracker.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\ProgressTracker.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\ProgressTracker.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\ProgressTracker.cs",
+              "RelativeToolTip": "Domain\\Entites\\ProgressTracker.cs",
+              "ViewState": "AgIAAAkAAAAAMzMzMzMrwA4AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:08:58.047Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ProgressTrackerConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\ProgressTrackerConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\ProgressTrackerConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\ProgressTrackerConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\ProgressTrackerConfiguration.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAkwBEAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T01:04:21.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PatientProfile.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\PatientProfile.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\PatientProfile.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\PatientProfile.cs",
+              "RelativeToolTip": "Domain\\Entites\\PatientProfile.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAABQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:03:12.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SupporterConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\SupporterConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\SupporterConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\SupporterConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\SupporterConfiguration.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAiwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T01:29:29.186Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "ResourceConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\ResourceConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\ResourceConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\ResourceConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\ResourceConfiguration.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T01:23:29.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "patientProfileConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\patientProfileConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\patientProfileConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\patientProfileConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\patientProfileConfiguration.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAiwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T23:17:44.558Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "NotificationConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\NotificationConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\NotificationConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\NotificationConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\NotificationConfiguration.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAmwB4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T00:49:10.416Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "DoctorProfileConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\DoctorProfileConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\DoctorProfileConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\DoctorProfileConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\DoctorProfileConfiguration.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T23:01:22.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DoctorApplicationConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\DoctorApplicationConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\DoctorApplicationConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\DoctorApplicationConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\DoctorApplicationConfiguration.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAiwBYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T23:56:03.189Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "ChatMassageConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\ChatMassageConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\ChatMassageConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\ChatMassageConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\ChatMassageConfiguration.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-30T00:33:16.896Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "Supporter.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Supporter.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\Supporter.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Supporter.cs",
+              "RelativeToolTip": "Domain\\Entites\\Supporter.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAwwBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:11:09.591Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Resource.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Resource.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\Resource.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Resource.cs",
+              "RelativeToolTip": "Domain\\Entites\\Resource.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:10:21.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Notification.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Notification.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\Notification.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\Notification.cs",
+              "RelativeToolTip": "Domain\\Entites\\Notification.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAxwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:13:57.941Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "DoctorApplication.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\DoctorApplication.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\DoctorApplication.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\DoctorApplication.cs",
+              "RelativeToolTip": "Domain\\Entites\\DoctorApplication.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAxwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:06:09.382Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "ChatMessage.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\ChatMessage.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\ChatMessage.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\ChatMessage.cs",
+              "RelativeToolTip": "Domain\\Entites\\ChatMessage.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:12:23.394Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "BaseEntity.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\BaseEntity.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\BaseEntity.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\BaseEntity.cs",
+              "RelativeToolTip": "Domain\\Entites\\BaseEntity.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:16:38.66Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "ResourceType.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\ResourceType.cs",
+              "RelativeDocumentMoniker": "Domain\\Enums\\ResourceType.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\ResourceType.cs",
+              "RelativeToolTip": "Domain\\Enums\\ResourceType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAsAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T19:16:16.918Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "RefreshToken.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\RefreshToken.cs",
+              "RelativeDocumentMoniker": "Domain\\Entites\\RefreshToken.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\RefreshToken.cs",
+              "RelativeToolTip": "Domain\\Entites\\RefreshToken.cs",
+              "ViewState": "AgIAAA4AAABQmZmZmZk1wAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-22T18:43:27.413Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "MaritalStatus.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\MaritalStatus.cs",
+              "RelativeDocumentMoniker": "Domain\\Enums\\MaritalStatus.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\MaritalStatus.cs",
+              "RelativeToolTip": "Domain\\Enums\\MaritalStatus.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:30:01.717Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "RefreshTokenConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\RefreshTokenConfiguration.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Configurations\\RefreshTokenConfiguration.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Configurations\\RefreshTokenConfiguration.cs",
+              "RelativeToolTip": "Infrastructure\\Configurations\\RefreshTokenConfiguration.cs",
+              "ViewState": "AgIAAAsAAACAmZmZmZkBwA0AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T23:06:12.122Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Gender.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\Gender.cs",
+              "RelativeDocumentMoniker": "Domain\\Enums\\Gender.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\Gender.cs",
+              "RelativeToolTip": "Domain\\Enums\\Gender.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:24:39.537Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 32,
+              "Title": "SessionType.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\SessionType.cs",
+              "RelativeDocumentMoniker": "Domain\\Enums\\SessionType.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\SessionType.cs",
+              "RelativeToolTip": "Domain\\Enums\\SessionType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T18:26:10.281Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 33,
+              "Title": "NotificationType.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\NotificationType.cs",
+              "RelativeDocumentMoniker": "Domain\\Enums\\NotificationType.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\NotificationType.cs",
+              "RelativeToolTip": "Domain\\Enums\\NotificationType.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAmwBUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T21:29:41.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 34,
+              "Title": "Status.cs",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\Status.cs",
+              "RelativeDocumentMoniker": "Domain\\Enums\\Status.cs",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Enums\\Status.cs",
+              "RelativeToolTip": "Domain\\Enums\\Status.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-29T17:53:41.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 35,
+              "Title": "Domain.csproj",
+              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Domain.csproj",
+              "RelativeDocumentMoniker": "Domain\\Domain.csproj",
+              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Domain.csproj",
+              "RelativeToolTip": "Domain\\Domain.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-07-25T16:27:33.866Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
               "Title": "ResetPasswordOtpDto.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\DTO\\ResetPasswordOtpDto.cs",
               "RelativeDocumentMoniker": "Application\\DTO\\ResetPasswordOtpDto.cs",
@@ -159,7 +721,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 58,
               "Title": "20250723183430_ForGetPassWordIdentityMigration.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250723183430_ForGetPassWordIdentityMigration.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250723183430_ForGetPassWordIdentityMigration.cs",
@@ -171,7 +733,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 43,
               "Title": "IEmailService.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Interfaces\\IEmailService.cs",
               "RelativeDocumentMoniker": "Domain\\Interfaces\\IEmailService.cs",
@@ -183,7 +745,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 42,
               "Title": "EmailService.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\Services\\EmailService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\EmailService.cs",
@@ -195,7 +757,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 45,
               "Title": "20250723144214_RelationIdentityMigration.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250723144214_RelationIdentityMigration.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250723144214_RelationIdentityMigration.cs",
@@ -207,7 +769,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 49,
               "Title": "IAuthService.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\Interfaces\\IAuthService.cs",
               "RelativeDocumentMoniker": "Application\\Interfaces\\IAuthService.cs",
@@ -219,7 +781,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 37,
               "Title": "TokenDto.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\DTO\\TokenDto.cs",
               "RelativeDocumentMoniker": "Application\\DTO\\TokenDto.cs",
@@ -231,7 +793,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 57,
               "Title": "20250723112016_RefreshTokenIdentityMigration.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250723112016_RefreshTokenIdentityMigration.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250723112016_RefreshTokenIdentityMigration.cs",
@@ -243,20 +805,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RefreshToken.cs",
-              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\RefreshToken.cs",
-              "RelativeDocumentMoniker": "Domain\\Entites\\RefreshToken.cs",
-              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\RefreshToken.cs",
-              "RelativeToolTip": "Domain\\Entites\\RefreshToken.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T18:43:27.413Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 44,
               "Title": "AddApplicationServices.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Extesion\\AddApplicationServices.cs",
               "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Extesion\\AddApplicationServices.cs",
@@ -268,7 +817,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 46,
               "Title": "TokenService.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\Services\\TokenService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\TokenService.cs",
@@ -280,7 +829,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 47,
               "Title": "ITokenService.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Interfaces\\ITokenService.cs",
               "RelativeDocumentMoniker": "Domain\\Interfaces\\ITokenService.cs",
@@ -292,7 +841,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 52,
               "Title": "ApiValidationErrorResponse.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Erroes\\ApiValidationErrorResponse.cs",
               "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Erroes\\ApiValidationErrorResponse.cs",
@@ -305,20 +854,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "ApiResponse.cs",
-              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
-              "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
-              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
-              "RelativeToolTip": "Psychiatric and Addiction Hospital\\Erroes\\ApiResponse.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAAAAIAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T14:02:22.427Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 56,
               "Title": "20250722132023_editedatadentityMigration.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250722132023_editedatadentityMigration.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250722132023_editedatadentityMigration.cs",
@@ -330,19 +866,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "AppUser.cs",
-              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\AppUser.cs",
-              "RelativeDocumentMoniker": "Domain\\Entites\\AppUser.cs",
-              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Domain\\Entites\\AppUser.cs",
-              "RelativeToolTip": "Domain\\Entites\\AppUser.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAwwBEAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T12:43:03.17Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 50,
               "Title": "MappingProfile.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\mapping\\MappingProfile.cs",
               "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\mapping\\MappingProfile.cs",
@@ -354,7 +878,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 38,
               "Title": "LoginDto.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\DTO\\LoginDto.cs",
               "RelativeDocumentMoniker": "Application\\DTO\\LoginDto.cs",
@@ -366,7 +890,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 51,
               "Title": "Application.csproj",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\Application.csproj",
               "RelativeDocumentMoniker": "Application\\Application.csproj",
@@ -374,12 +898,11 @@
               "RelativeToolTip": "Application\\Application.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-07-22T12:14:57.885Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-22T12:14:57.885Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 48,
               "Title": "UserDto.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\DTO\\UserDto.cs",
               "RelativeDocumentMoniker": "Application\\DTO\\UserDto.cs",
@@ -391,7 +914,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 39,
               "Title": "RegisterDto.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Application\\DTO\\RegisterDto.cs",
               "RelativeDocumentMoniker": "Application\\DTO\\RegisterDto.cs",
@@ -403,7 +926,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 53,
               "Title": "20250722114006_InitialIdentityMigration.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Migrations\\20250722114006_InitialIdentityMigration.cs",
               "RelativeDocumentMoniker": "Infrastructure\\Migrations\\20250722114006_InitialIdentityMigration.cs",
@@ -415,19 +938,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "AddIdentityDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Identity\\AddIdentityDbContext.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\Identity\\AddIdentityDbContext.cs",
-              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Infrastructure\\Identity\\AddIdentityDbContext.cs",
-              "RelativeToolTip": "Infrastructure\\Identity\\AddIdentityDbContext.cs",
-              "ViewState": "AgIAAA0AAAAwMzMzMzMnwBEAAAA+AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-22T11:09:23.764Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 40,
               "Title": "AddIdentityExtensionMethod.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Extesion\\AddIdentityExtensionMethod.cs",
               "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Extesion\\AddIdentityExtensionMethod.cs",
@@ -440,7 +951,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 54,
               "Title": "launchSettings.json",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Properties\\launchSettings.json",
@@ -452,7 +963,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 36,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Program.cs",
               "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Program.cs",
@@ -460,24 +971,11 @@
               "RelativeToolTip": "Psychiatric and Addiction Hospital\\Program.cs",
               "ViewState": "AgIAACUAAAAAAAAAAAAgwCwAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T12:31:04.922Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-21T12:31:04.922Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\appsettings.json",
-              "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\appsettings.json",
-              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\appsettings.json",
-              "RelativeToolTip": "Psychiatric and Addiction Hospital\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAvAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-07-21T12:25:56.229Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 55,
               "Title": "BaseController.cs",
               "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Controllers\\BaseController.cs",
               "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Controllers\\BaseController.cs",
@@ -486,19 +984,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-21T11:31:47.652Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AccountController.cs",
-              "DocumentMoniker": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
-              "RelativeDocumentMoniker": "Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
-              "ToolTip": "C:\\Users\\original\\source\\repos\\Psychiatric and Addiction Hospital\\Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
-              "RelativeToolTip": "Psychiatric and Addiction Hospital\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAJUAAACAMjMzMzMrwJ0AAABGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-21T11:29:39.23Z",
-              "EditorCaption": ""
             }
           ]
         }

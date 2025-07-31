@@ -13,3 +13,4 @@ C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Application\ob
 C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Application\obj\Release\net9.0\refint\Application.dll
 C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Application\obj\Release\net9.0\Application.pdb
 C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Application\obj\Release\net9.0\ref\Application.dll
+C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Application\obj\Release\net9.0\Application.sourcelink.json

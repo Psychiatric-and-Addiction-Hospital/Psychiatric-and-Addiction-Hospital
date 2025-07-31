@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Psychiatric and Addiction Hospital")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34e2ea64f031aa114ba346a1b39d92ed6c677fda")]
 [assembly: System.Reflection.AssemblyProductAttribute("Psychiatric and Addiction Hospital")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Psychiatric and Addiction Hospital")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

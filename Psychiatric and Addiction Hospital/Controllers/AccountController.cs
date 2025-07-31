@@ -36,7 +36,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
             _signin = signin;
             _mapper = mapper;
             _EmailService = EmailService;
-              _context = context;
+            _context = context;
             _AuthService = AuthService;
 
 
@@ -57,11 +57,12 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto register)
         {
-            if (ExistingEmail(register.Email).Result.Value)
+            if (_User.FindByEmailAsync(register.Email) != null)
             {
                 return BadRequest(new ApiValidationErrorResponse
                 {
                     Errors = new[] { "Email is already in use" }
+
                 });
             }
             else
@@ -72,8 +73,9 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
                 }
                 var user = _mapper.Map<AppUser>(register);
                 var result = await _User.CreateAsync(user, register.Password);
+
                 if (!result.Succeeded) return BadRequest(new ApiResponse(400));
-                var Tokens =await  _AuthService.CreateTokenWithRefresh(user);
+                var Tokens = await _AuthService.CreateTokenWithRefresh(user);
                 var userDto = _mapper.Map<UserDto>(user);
                 userDto.AccessToken = Tokens.AccessToken;
                 userDto.RefreshToken = Tokens.RefreshToken;
@@ -108,25 +110,6 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
             return Ok(tokens);
         }
 
-        [Authorize]
-        [HttpGet("GetCurrentUser")]
-        public async Task<ActionResult<UserDto>> GetCurrentUser()
-        {
-            var email = User.FindFirstValue(ClaimTypes.Email);
-            var user = await _User.FindByEmailAsync(email);
-            var Tokens = await _AuthService.CreateTokenWithRefresh(user);
-            var userDto = _mapper.Map<UserDto>(user);
-            userDto.AccessToken = Tokens.AccessToken;
-            userDto.RefreshToken = Tokens.RefreshToken;
-           
-            return Ok(userDto);
-        }
-
-        [HttpGet("emailexists")]
-        public async Task<ActionResult<bool>> ExistingEmail([FromQuery] string email)
-        {
-            return await _User.FindByEmailAsync(email) != null;
-        }
         [HttpPost("send-otp")]
         public async Task<IActionResult> SendOtp([FromBody] SendOtpDto dto)
         {
@@ -184,11 +167,11 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
             if (user == null)
                 return BadRequest(new ApiResponse(400, "Invalid Email"));
 
-            // تحقق من كود OTP من جدول PasswordResetCodes
+            
             var resetCode = await _context.PasswordResetCodes
-                .FirstOrDefaultAsync(x => x.Email == dto.Email && x.Code == dto.Otp 
+                .FirstOrDefaultAsync(x => x.Email == dto.Email && x.Code == dto.Otp
                 );
-            //&& !x.Used && x.Expiry > DateTime.UtcNow
+            
 
             if (resetCode == null)
                 return BadRequest(new ApiResponse(400, "Invalid or expired OTP"));
@@ -205,6 +188,49 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(new ApiResponse(200, "Password has been reset successfully"));
+        }
+
+        [HttpPost("resend-otp")]
+        public async Task<IActionResult> ResendOtp([FromBody] SendOtpDto dto)
+        {
+            var user = await _User.FindByEmailAsync(dto.Email);
+            if (user == null)
+                return BadRequest(new ApiResponse(400, "Email not found"));
+
+            var lastCode = await _context.PasswordResetCodes
+                .Where(c => c.Email == dto.Email && !c.Used && c.Expiry > DateTime.UtcNow)
+                .OrderByDescending(c => c.CreatedAt)
+                .FirstOrDefaultAsync();
+
+            if (lastCode != null)
+            {
+                var timeSinceLastCode = DateTime.UtcNow - lastCode.CreatedAt;
+                if (timeSinceLastCode.TotalSeconds < 60)
+                {
+                    return BadRequest(new ApiResponse(400, $"Please wait {60 - (int)timeSinceLastCode.TotalSeconds} seconds before requesting a new OTP."));
+                }
+            }
+
+            
+            var otp = new Random().Next(100000, 999999).ToString();
+
+            var newCode = new PasswordResetCode
+            {
+                Email = dto.Email,
+                Code = otp,
+                CreatedAt = DateTime.UtcNow,
+                Expiry = DateTime.UtcNow.AddMinutes(10),
+                Used = false
+            };
+
+            await _context.PasswordResetCodes.AddAsync(newCode);
+            await _context.SaveChangesAsync();
+
+            string subject = "Reset Code";
+            string body = $"<p>Your OTP is: <strong>{otp}</strong></p><p>It expires in 10 minutes.</p>";
+            await _EmailService.SendOtpAsync(dto.Email, subject, body);
+
+            return Ok(new ApiResponse(200, "OTP sent to your email"));
         }
 
     }

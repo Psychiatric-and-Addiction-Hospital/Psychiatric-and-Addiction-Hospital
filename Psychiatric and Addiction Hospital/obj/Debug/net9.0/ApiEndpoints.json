@@ -1,52 +1,6 @@
 [
   {
     "ContainingType": "Psychiatric_and_Addiction_Hospital.Controllers.AccountController",
-    "Method": "ExistingEmail",
-    "RelativePath": "api/Account/emailexists",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "email",
-        "Type": "System.String",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Boolean",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Psychiatric_and_Addiction_Hospital.Controllers.AccountController",
-    "Method": "GetCurrentUser",
-    "RelativePath": "api/Account/GetCurrentUser",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "Application.DTO.UserDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "Psychiatric_and_Addiction_Hospital.Controllers.AccountController",
     "Method": "Login",
     "RelativePath": "api/Account/login",
     "HttpMethod": "POST",
@@ -122,6 +76,22 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Psychiatric_and_Addiction_Hospital.Controllers.AccountController",
+    "Method": "ResendOtp",
+    "RelativePath": "api/Account/resend-otp",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "Application.DTO.SendOtpDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "Psychiatric_and_Addiction_Hospital.Controllers.AccountController",

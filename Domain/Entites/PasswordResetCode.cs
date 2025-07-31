@@ -13,5 +13,7 @@ namespace Domain.Entites
         public string Code { get; set; }
         public DateTime Expiry { get; set; }
         public bool Used { get; set; } = false;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
     }
 }

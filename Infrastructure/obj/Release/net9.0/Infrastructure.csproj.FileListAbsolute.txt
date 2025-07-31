@@ -17,3 +17,4 @@ C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Infrastructure
 C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Infrastructure\obj\Release\net9.0\Infrastructure.pdb
 C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Infrastructure\obj\Release\net9.0\Infrastructure.genruntimeconfig.cache
 C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Infrastructure\obj\Release\net9.0\ref\Infrastructure.dll
+C:\Users\original\source\repos\Psychiatric and Addiction Hospital\Infrastructure\obj\Release\net9.0\Infrastructure.sourcelink.json
