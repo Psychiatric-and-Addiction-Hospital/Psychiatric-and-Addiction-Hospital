@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Psychiatric and Addiction Hospital.props" />
+</Project>
