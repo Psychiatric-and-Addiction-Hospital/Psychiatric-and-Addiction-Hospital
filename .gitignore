@@ -106,3 +106,11 @@ _ReSharper*/
 
 # Other VS generated files
 Generated\ Files/
+# Visual Studio cache & build folders
+.vs/
+bin/
+obj/
+
+# Publish profiles
+*.pubxml
+*.pubxml.user
