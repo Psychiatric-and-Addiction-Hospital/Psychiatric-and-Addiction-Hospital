@@ -57,7 +57,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto register)
         {
-            if (_User.FindByEmailAsync(register.Email) != null)
+            if (await _User.FindByEmailAsync(register.Email) != null)
             {
                 return BadRequest(new ApiValidationErrorResponse
                 {

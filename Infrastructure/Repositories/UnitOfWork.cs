@@ -1,6 +1,6 @@
 ﻿using Domain.Entites;
 using Domain.Interfaces;
-using Infrastructure.Data;
+using Infrastructure.Identity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,9 +13,9 @@ namespace Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
 
     {
-        private readonly PsychiatricDbContext _dbContext;
+        private readonly AddIdentityDbContext _dbContext;
         private Hashtable _repositories;
-        public UnitOfWork(PsychiatricDbContext dbContext)
+        public UnitOfWork(AddIdentityDbContext dbContext)
         {
             _dbContext = dbContext;
             _repositories = new Hashtable();

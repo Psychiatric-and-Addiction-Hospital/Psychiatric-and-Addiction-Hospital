@@ -1,7 +1,7 @@
 ﻿using Domain.Entites;
 using Domain.Interfaces;
 using Domain.Specifications;
-using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,9 +14,9 @@ namespace Infrastructure.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
-        private readonly PsychiatricDbContext _context;
+        private readonly AddIdentityDbContext _context;
 
-        public GenericRepository(PsychiatricDbContext context)
+        public GenericRepository(AddIdentityDbContext context)
         {
             _context = context;
         }

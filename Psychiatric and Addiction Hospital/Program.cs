@@ -1,5 +1,8 @@
 using Application.Services;
+using Application.Validator_DTO;
 using Domain.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -55,6 +58,10 @@ builder.Services.AddDbContext<AddIdentityDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("IdntityConnection")
 ));
 
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
+builder.Services.AddValidatorsFromAssembly(typeof(RegisterDtoValidator).Assembly);
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
