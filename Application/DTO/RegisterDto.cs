@@ -1,4 +1,5 @@
 ﻿
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,5 +18,6 @@ namespace Application.DTO
         public string Addres { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
+        
     }
 }

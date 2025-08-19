@@ -3,6 +3,7 @@ using Application.Interfaces;
 using Application.Services;
 using AutoMapper;
 using Domain.Entites;
+using Domain.Enums;
 using Domain.Interfaces;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -72,6 +73,9 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
                     return BadRequest(new ApiResponse(400, "Password and Confirm Password do not match"));
                 }
                 var user = _mapper.Map<AppUser>(register);
+                user.RoleType = RoleType.Patient;
+
+                user.IsActive = true;
                 var result = await _User.CreateAsync(user, register.Password);
 
                 if (!result.Succeeded) return BadRequest(new ApiResponse(400));
