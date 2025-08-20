@@ -237,5 +237,84 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
             return Ok(new ApiResponse(200, "OTP sent to your email"));
         }
 
+        // Doctor Application "Join Us" Endpoint by => T1-Z3
+        [HttpPost("join")]
+        public async Task<IActionResult> JoinAsDoctor([FromBody] DoctorApplicationCreateDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // check if the email is already used for an application
+            bool alreadyApplied = await _context.DoctorApplications
+                .AnyAsync(d => d.Email == dto.Email);
+
+            if (alreadyApplied)
+                return BadRequest("You have already submitted an application.");
+
+            // check for password strength  
+            if (!IsValidPassword(dto.Password))
+                return BadRequest("Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character.");
+
+            // new user creation
+            var user = new AppUser
+            {
+                UserName = dto.Email,
+                Email = dto.Email
+            };
+
+            var result = await _User.CreateAsync(user, dto.Password);
+            if (!result.Succeeded)
+                return BadRequest(result.Errors);
+
+            //   doctor profile creation
+            var application = new DoctorApplication
+            {
+                FullName = dto.FullName,
+                Email = dto.Email,
+                Specialization = dto.Specialization,
+                PhoneNumber = dto.PhoneNumber,
+                CVFilePath = dto.CVFilePath,
+                Status = Status.Pending,
+                AppliedAt = DateTime.Now,
+                UserId = user.Id
+            };
+
+            _context.DoctorApplications.Add(application);
+            await _context.SaveChangesAsync();
+
+            //  token creation
+            var tokens = await _AuthService.CreateTokenWithRefresh(user);
+
+            // Response
+            var response = new
+            {
+                Application = new DoctorApplicationResponseDto
+                {
+                    Id = application.Id,
+                    FullName = application.FullName,
+                    Specialization = application.Specialization,
+                    Status = application.Status.ToString(),
+                    AppliedAt = application.AppliedAt
+                },
+                AccessToken = tokens.AccessToken,
+                RefreshToken = tokens.RefreshToken
+            };
+
+            return Ok(response);
+        }
+
+        // pass checker for password strength by => T1-Z3
+        private bool IsValidPassword(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password)) return false;
+
+            bool hasUpper = password.Any(char.IsUpper);
+            bool hasLower = password.Any(char.IsLower);
+            bool hasDigit = password.Any(char.IsDigit);
+            bool hasSpecial = password.Any(ch => !char.IsLetterOrDigit(ch));
+
+            return password.Length >= 8 && hasUpper && hasLower && hasDigit && hasSpecial;
+        }
+
     }
 }
