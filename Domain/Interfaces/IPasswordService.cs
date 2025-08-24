@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Interfaces
 {
-    public interface IEmailService
+    public interface IPasswordService
     {
-        Task SendOtpAsync(string toEmail, string subject, string body);
-        bool IsValidEmail(string email);
+        bool IsValidPassword(string password);
     }
 }

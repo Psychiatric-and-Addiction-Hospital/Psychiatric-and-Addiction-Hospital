@@ -1,14 +1,18 @@
 using Application.Services;
 using Application.Validator_DTO;
+using Domain.Entites;
 using Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Identity;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Psychiatric_and_Addiction_Hospital.Extesion;
 using Psychiatric_and_Addiction_Hospital.mapping;
+using System.Numerics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -59,6 +63,16 @@ builder.Services.AppServices();
 builder.Services.AddDbContext<AddIdentityDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("IdntityConnection")
 ));
+
+// doctor applicaion services
+builder.Services.AddScoped<INameService, NameService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPhoneService, PhoneService>();
+builder.Services.AddScoped<ISpecializationService, SpecializationService>();
+builder.Services.AddScoped<ICVFilePathValidationService, CVFilePathValidationService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
