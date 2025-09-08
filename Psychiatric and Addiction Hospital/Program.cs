@@ -1,3 +1,4 @@
+using Application.Interfaces;
 using Application.Services;
 using Application.Validator_DTO;
 using Domain.Entites;
@@ -64,20 +65,23 @@ builder.Services.AddDbContext<AddIdentityDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("IdntityConnection")
 ));
 
-// doctor applicaion services
-builder.Services.AddScoped<INameService, NameService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<IPhoneService, PhoneService>();
-builder.Services.AddScoped<ISpecializationService, SpecializationService>();
-builder.Services.AddScoped<ICVFilePathValidationService, CVFilePathValidationService>();
-builder.Services.AddScoped<IPasswordService, PasswordService>();
-
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterDtoValidator).Assembly);
+
+builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
+builder.Services.AddValidatorsFromAssembly(typeof(DoctorApplicationCreateDtoValidator).Assembly);
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IDoctorApplicationService, DoctorApplicationService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
