@@ -1,6 +1,7 @@
 ﻿using Application.DTO;
 using AutoMapper;
 using Domain.Entites;
+using System.Numerics;
 
 namespace Psychiatric_and_Addiction_Hospital.mapping
 {
@@ -14,6 +15,10 @@ namespace Psychiatric_and_Addiction_Hospital.mapping
                     dest.UserName = src.Email?.Split('@')[0];
                 });
             CreateMap<AppUser, UserDto>();
+
+            CreateMap<DoctorApplicationCreateDto, DoctorApplication>();
+            CreateMap<DoctorApplication, DoctorApplicationResponseDto>();
+
         }
     }
 }
