@@ -1,4 +1,5 @@
-﻿using Domain.Enums;
+﻿using Domain.Entites.BlogModule;
+using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Domain.Entites
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public RoleType RoleType { get; set; }
-        public DateTime CreateAt { get; set; } = DateTime.Now;
+        public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public bool IsActive { get; set; }
         public string Addres { get; set; }
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
@@ -29,6 +30,8 @@ namespace Domain.Entites
         public PatientProfile PatientProfile { get; set; }
         public DoctorApplication DoctorApplication { get; set; }
         public DoctorProfile DoctorProfile { get; set; }
+        public ICollection<BlogPost> BlogPosts { get; set; }= new List<BlogPost>();
+        public ICollection<Comments> Comments { get; set; }=new List<Comments>();
 
 
     }

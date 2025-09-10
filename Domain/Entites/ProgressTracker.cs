@@ -12,7 +12,7 @@ namespace Domain.Entites
         public string Comment { get; set; }
         public DateTime SessionDate { get; set; } = DateTime.Now;
         public int Rating { get; set; }//1:5
-        public int SessionId { get; set; }
+        public Guid SessionId { get; set; }
         public Session Session { get; set; }
         public string PatientId { get; set; }
         public AppUser Patient { get; set; }
