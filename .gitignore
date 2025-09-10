@@ -110,6 +110,12 @@ Generated\ Files/
 .vs/
 bin/
 obj/
+*.dll
+*.pdb
+*.exe
+*.user
+*.db
+*.mdf
 
 # Publish profiles
 *.pubxml
