@@ -237,5 +237,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
             return Ok(new ApiResponse(200, "OTP sent to your email"));
         }
 
+
+
     }
 }

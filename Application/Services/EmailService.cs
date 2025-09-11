@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Net.WebRequestMethods;
 
@@ -40,6 +41,16 @@ namespace Application.Services
             mailMessage.To.Add(toEmail);
 
             await smtpClient.SendMailAsync(mailMessage);
+        }
+        public bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            // Regex بسيط للتحقق من صيغة الايميل
+            var regex = new Regex(@"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+
+            return regex.IsMatch(email);
         }
     }
 }

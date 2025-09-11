@@ -1,14 +1,19 @@
+using Application.Interfaces;
 using Application.Services;
 using Application.Validator_DTO;
+using Domain.Entites;
 using Domain.Interfaces;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Infrastructure.Identity;
+using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Psychiatric_and_Addiction_Hospital.Extesion;
 using Psychiatric_and_Addiction_Hospital.mapping;
+using System.Numerics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -60,10 +65,23 @@ builder.Services.AddDbContext<AddIdentityDbContext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("IdntityConnection")
 ));
 
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
 builder.Services.AddValidatorsFromAssembly(typeof(RegisterDtoValidator).Assembly);
+
+builder.Services.AddControllers();
+
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
+builder.Services.AddValidatorsFromAssembly(typeof(DoctorApplicationCreateDtoValidator).Assembly);
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IDoctorApplicationService, DoctorApplicationService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
