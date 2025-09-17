@@ -40,6 +40,19 @@ public class DoctorApplicationsController : ControllerBase
         {
             return BadRequest(ex.Message);
         }
-    }  
-        
+    }
+    [HttpGet("All")]
+    public async Task<IActionResult> GetAllDoctors()
+    {
+        var doctors = await _doctorApplicationService.GetAllAsync();
+        return Ok(doctors); 
+    }
+    [HttpGet("{id:int}")]
+    public async Task<IActionResult> GetDoctorById(int id)
+    {
+        var doctor = await _doctorApplicationService.GetByIdAsync(id);
+        if (doctor == null) return NotFound($"Doctor application with ID {id} not found.");
+        return Ok(doctor);
+    }
+
 }

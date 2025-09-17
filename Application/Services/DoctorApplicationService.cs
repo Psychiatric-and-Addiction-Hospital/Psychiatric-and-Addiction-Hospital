@@ -53,5 +53,31 @@ namespace Application.Services
                 AppliedAt = application.AppliedAt
             };
         }
+        public async Task<IEnumerable<DoctorApplicationResponseDto>> GetAllAsync()
+        {
+            var applications = await _doctorRepo.GetAllAsync();
+
+            return applications.Select(app => new DoctorApplicationResponseDto
+            {
+                FullName = app.FullName,
+                Specialization = app.Specialization,
+                Status = app.Status.ToString(),
+                AppliedAt = app.AppliedAt
+            }).ToList();
+        }
+
+        public async Task<DoctorApplicationResponseDto> GetByIdAsync(int id)
+        {
+            var app = await _doctorRepo.GetByIdAsync(id);
+            if (app == null) 
+                return null;
+            return new DoctorApplicationResponseDto
+            {
+                FullName = app.FullName,
+                Specialization = app.Specialization,
+                Status = app.Status.ToString(),
+                AppliedAt = app.AppliedAt
+            };
+        }
     }
 }
