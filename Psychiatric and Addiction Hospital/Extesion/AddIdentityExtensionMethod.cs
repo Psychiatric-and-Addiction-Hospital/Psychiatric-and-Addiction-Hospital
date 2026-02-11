@@ -1,5 +1,5 @@
 ﻿using Domain.Entites;
-using Infrastructure.Identity;
+using Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
@@ -9,7 +9,7 @@ namespace Psychiatric_and_Addiction_Hospital.Extesion
 {
     public static class AddIdentityExtensionMethod
     {
-        public static IServiceCollection AddIdentityServices(this IServiceCollection services,IConfiguration config)
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
         {
 
             services.AddIdentity<AppUser, IdentityRole>(options =>
@@ -26,7 +26,7 @@ namespace Psychiatric_and_Addiction_Hospital.Extesion
             opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-               opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
               .AddJwtBearer(opt =>
               {
@@ -41,7 +41,7 @@ namespace Psychiatric_and_Addiction_Hospital.Extesion
                             Encoding.UTF8.GetBytes(config["JWT:Key"])),
                       ValidateLifetime = true,
                   };
-    });
+              });
 
             return services;
         }
