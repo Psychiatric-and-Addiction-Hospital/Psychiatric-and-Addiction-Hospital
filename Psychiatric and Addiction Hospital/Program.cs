@@ -1,19 +1,8 @@
-using Application.Interfaces;
-using Application.Services;
-using Application.Validator_DTO;
-using Domain.Entites;
-using Domain.Interfaces;
-using FluentValidation;
 using FluentValidation.AspNetCore;
-using Infrastructure.Identity;
-using Infrastructure.Repositories;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Psychiatric_and_Addiction_Hospital.Extesion;
-using Psychiatric_and_Addiction_Hospital.mapping;
-using System.Numerics;
+using Infrastructure.Dependency;
+using Application.Dependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-
+// ---------- CORS ----------
 
 builder.Services.AddCors(options =>
 {
@@ -56,32 +45,18 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Add services to the container.
-
-builder.Services.AddControllers();
+// ---------- Add services to the container ----------
+builder.Services.AddApplication();
 builder.Services.AddIdentityServices(builder.Configuration);
-builder.Services.AppServices();
-builder.Services.AddDbContext<AddIdentityDbContext>(option =>
-option.UseSqlServer(builder.Configuration.GetConnectionString("IdntityConnection")
-));
+builder.Services.AddInfrastructureDBContext(builder.Configuration);
+builder.Services.AddInfrastructureServices();
 
-builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-builder.Services.AddFluentValidationAutoValidation()
-                .AddFluentValidationClientsideAdapters();
-
-builder.Services.AddValidatorsFromAssembly(typeof(RegisterDtoValidator).Assembly);
-
+// ---------- Controllers ----------
 builder.Services.AddControllers();
 
+// ---------- Validation ----------
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
-
-builder.Services.AddValidatorsFromAssembly(typeof(DoctorApplicationCreateDtoValidator).Assembly);
-
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped<IDoctorApplicationService, DoctorApplicationService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -97,10 +72,10 @@ if (app.Environment.IsDevelopment())
 
     //app.MapOpenApi();
 }
-app.UseCors("AllowAngularDev");
 app.UseHttpsRedirection();
-//app.UseStaticFiles();
 app.UseRouting();
+app.UseCors("AllowAngularDev");
+//app.UseStaticFiles();
 
 app.UseAuthentication();
 app.UseAuthorization();

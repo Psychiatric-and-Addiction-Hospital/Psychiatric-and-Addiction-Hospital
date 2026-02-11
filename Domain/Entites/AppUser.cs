@@ -1,4 +1,5 @@
-﻿using Domain.Entites.BlogModule;
+﻿using Domain.Entites.Authentication;
+using Domain.Entites.BlogModule;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
