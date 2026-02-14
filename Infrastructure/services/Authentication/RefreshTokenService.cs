@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces.Authentication;
 using Application.DTOS.Responses;
 using Domain.Entites;
 using Domain.Entites.Authentication;

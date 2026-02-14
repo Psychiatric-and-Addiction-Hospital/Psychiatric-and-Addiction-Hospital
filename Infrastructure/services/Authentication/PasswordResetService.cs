@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces;
+﻿using Application.Common.Interfaces.Authentication;
 using Domain.Entites;
 using Domain.Entites.Authentication;
 using FluentResults;

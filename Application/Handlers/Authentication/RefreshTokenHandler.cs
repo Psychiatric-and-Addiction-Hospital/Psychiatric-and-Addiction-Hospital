@@ -1,5 +1,5 @@
 ﻿using Application.Commands.Authentication;
-using Application.Common.Interfaces;
+using Application.Common.Interfaces.Authentication;
 using Application.DTOS.Responses;
 using FluentResults;
 using MediatR;

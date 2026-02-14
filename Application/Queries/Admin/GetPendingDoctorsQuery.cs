@@ -1,14 +1,13 @@
 ﻿using Domain.Entites;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Common.Interfaces
+namespace Application.Queries.Admin
 {
-    public interface IJwtGenerator
-    {
-        Task<string> GenerateTokenAsync(AppUser user);
-    }
+    public record GetPendingDoctorsQuery():IRequest<List<DoctorApplication>>;
+
 }

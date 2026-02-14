@@ -1,6 +1,7 @@
 ﻿using Application.Commands.Authentication;
-using Application.Common.Interfaces;
+using Application.Common.Interfaces.Authentication;
 using Domain.Entites;
+using Domain.Enums;
 using FluentResults;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -42,6 +43,7 @@ namespace Application.Handlers.Authentication
                 UserName = request.Email,
                 Email = request.Email,
                 FirstName = request.FirstName,
+                RoleType = RoleType.Patient,
                 LastName = request.LastName,
                 PhoneNumber=request.PhoneNumber,
                 Addres=request.Addres,

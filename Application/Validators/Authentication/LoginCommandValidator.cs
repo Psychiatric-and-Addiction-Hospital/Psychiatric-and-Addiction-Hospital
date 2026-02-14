@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace Application.Validators.Authentication
 {
-    public class LoginValidator : AbstractValidator<LoginCommand>
+    public class LoginCommandValidator: AbstractValidator<LoginCommand>
     {
-        public LoginValidator()
+
+        public LoginCommandValidator()
         {
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Email is required")
@@ -19,6 +20,6 @@ namespace Application.Validators.Authentication
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage("Password is required")
                 .MinimumLength(6).WithMessage("Password must be at least 6 characters long");
-        } 
+        }
     }
 }

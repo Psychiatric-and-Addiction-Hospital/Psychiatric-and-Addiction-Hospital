@@ -2,9 +2,7 @@
 using Domain.Enums;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Domain.Entites
 {
@@ -14,8 +12,7 @@ namespace Domain.Entites
         public int DurationMinutes { get; set; }
         public SessionType SessionType { get; set; }
         public DateTime CreatedAt { get; set; } 
-        public bool IsCompleted { get; set; }
-        public bool IsCancelled { get; set; }
+        public SessionStatus status { get; set; }
         public string? CancellationReason { get; set; }
         public string DoctorId { get; set; }
         public AppUser Doctor { get; set; }

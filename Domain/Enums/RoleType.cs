@@ -13,6 +13,6 @@ namespace Domain.Enums
         Nurse,
         Receptionist,
         AdminStaff,
-        SystemAdmin
+        Admin
     }
 }

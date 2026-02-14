@@ -1,7 +1,7 @@
 ﻿
 
 using Application.Commands.Authentication;
-using Application.Common.Interfaces;
+using Application.Common.Interfaces.Authentication;
 using Application.DTOS.Responses;
 using Domain.Entites;
 using FluentResults;
@@ -40,7 +40,7 @@ namespace Application.Handlers.Authentication
             if (user == null)
             {
                 _logger.LogWarning("Login failed: user not found");
-                return Result.Fail("Invalid credentials.");
+                return Result.Fail("User Not Found");
             }
 
             var checkPassword = await _userManager.CheckPasswordAsync(user, request.Password);
@@ -48,7 +48,7 @@ namespace Application.Handlers.Authentication
             if (!checkPassword)
             {
                 _logger.LogWarning("Login failed: wrong password");
-                return Result.Fail("Invalid credentials.");
+                return Result.Fail("Invalid PassWord or Email.");
             }
 
             var accessToken = await _jwtGenerator.GenerateTokenAsync(user);
@@ -57,8 +57,10 @@ namespace Application.Handlers.Authentication
             return Result.Ok(new AuthResult
             {
                 AccessToken = accessToken,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
+                Role=user.RoleType.ToString(),
             });
+            
         }
 
     }
