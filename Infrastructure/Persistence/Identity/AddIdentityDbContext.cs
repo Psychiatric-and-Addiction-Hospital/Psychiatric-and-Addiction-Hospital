@@ -49,6 +49,8 @@ namespace Infrastructure.Persistence.Identity
             base.OnModelCreating(builder);
 
             builder.ApplyConfigurationsFromAssembly(typeof(AddIdentityDbContext).Assembly);
+
+
         }
     }
 }

@@ -33,7 +33,7 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// ---------- CORS ----------
+#region ---------- CORS ----------
 
 builder.Services.AddCors(options =>
 {
@@ -45,23 +45,34 @@ builder.Services.AddCors(options =>
     });
 });
 
-// ---------- Add services to the container ----------
+#endregion
+
+#region ---------- Add services to the container ----------
+
 builder.Services.AddApplication();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddInfrastructureDBContext(builder.Configuration);
 builder.Services.AddInfrastructureServices();
+builder.Services.AddCustomAuthorization();
 
-// ---------- Controllers ----------
+#endregion
+
+#region ---------- Controllers ----------
 builder.Services.AddControllers();
 
-// ---------- Validation ----------
+#endregion
+
+#region ---------- Validation ----------
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
+
+#endregion
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+await app.Seed();
 
 // Configure the HTTP request pipeline.
 
@@ -77,8 +88,11 @@ app.UseRouting();
 app.UseCors("AllowAngularDev");
 //app.UseStaticFiles();
 
+#region ---------- Authentication & Authorization ----------
 app.UseAuthentication();
 app.UseAuthorization();
+
+#endregion
 
 app.UseSwagger();
 app.UseSwaggerUI(options =>

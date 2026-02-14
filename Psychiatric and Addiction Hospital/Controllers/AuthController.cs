@@ -1,7 +1,5 @@
 ﻿using Application.Commands.Authentication;
-using Domain.Enums;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers

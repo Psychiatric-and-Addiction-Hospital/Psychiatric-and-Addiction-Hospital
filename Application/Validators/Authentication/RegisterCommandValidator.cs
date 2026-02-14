@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.Validators.Authentication
 {
-    public class RegisterValidator: AbstractValidator<RegisterCommand>
+    public class RegisterCommandValidator: AbstractValidator<RegisterCommand>
     {
-        public RegisterValidator()
+        public RegisterCommandValidator() 
         {
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("FirstName is required")
@@ -25,7 +25,7 @@ namespace Application.Validators.Authentication
                 .EmailAddress().WithMessage("Email is not a valid email address");
             RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage("PhoneNumber is required")
-                .Matches(@"^\+?[1-9]\d{1,14}$").WithMessage("PhoneNumber is not a valid phone number");
+                .Matches(@"^\+?[0-9]\d{1,14}$").WithMessage("PhoneNumber is not a valid phone number");
             RuleFor(x => x.Addres)
                 .NotEmpty().WithMessage("Addres is required")
                 .MaximumLength(200).WithMessage("Addres must not exceed 200 characters");

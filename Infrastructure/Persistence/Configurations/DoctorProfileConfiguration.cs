@@ -17,6 +17,7 @@ namespace Infrastructure.Persistence.Configurations
                  .WithOne(A => A.DoctorProfile)
                  .HasForeignKey<DoctorProfile>(P => P.UserId)
                  .OnDelete(DeleteBehavior.Cascade);
+            builder.Property(A => A.Gender).HasConversion<string>();
         }
     }
 }
