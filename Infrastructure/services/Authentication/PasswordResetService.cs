@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Responses;
 using Domain.Entites;
 using Domain.Entites.Authentication;
 using FluentResults;
@@ -31,14 +32,13 @@ namespace Infrastructure.services.Authentication
             _email = email;
             _logger = logger;
         }
-        public async Task<Result<string>> SendForgetPasswordOtpAsync(string email)
+        public async Task<BaseResponse<string>> SendForgetPasswordOtpAsync(string email,CancellationToken ct)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null)
-                return Result.Fail("Email not found.");
+                return ResponseFactory.Fail<string>("Email not found.");
 
-            // Generate OTP
             var otp = new Random().Next(100000, 999999).ToString();
 
             var code = new PasswordResetCode
@@ -49,16 +49,15 @@ namespace Infrastructure.services.Authentication
             };
 
             _context.PasswordResetCodes.Add(code);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(ct);
 
-            // Send Email
+
             await _email.SendAsync(user.Email, "Reset Password OTP", $"Your OTP is: {otp}");
 
             _logger.LogInformation("OTP sent to {email}", user.Email);
-
-            return Result.Ok("OTP sent to email.");
+            return ResponseFactory.Success("OTP sent to email.", "OTP generated successfully");
         }
     }
 }
-    
+
 

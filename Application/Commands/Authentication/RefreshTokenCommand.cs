@@ -1,4 +1,5 @@
-﻿using Application.DTOS.Responses;
+﻿using Application.Common.Responses;
+using Application.DTOS.Responses;
 using FluentResults;
 using MediatR;
 using System;
@@ -10,6 +11,6 @@ using System.Threading.Tasks;
 namespace Application.Commands.Authentication
 {
     public record RefreshTokenCommand(string RefreshToken)
-        : IRequest<Result<AuthResult>>;
+        : IRequest<BaseResponse<AuthResult>>;
    
 }

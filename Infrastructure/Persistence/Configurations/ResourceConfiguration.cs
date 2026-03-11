@@ -14,7 +14,7 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<Resource> builder)
         {
             builder.HasOne(R => R.UploadedBy)
-                .WithMany(A => A.Resource)
+                .WithMany(A => A.Resources)
                 .HasForeignKey(R => R.UploadedById)
                 .OnDelete(DeleteBehavior.SetNull);
 

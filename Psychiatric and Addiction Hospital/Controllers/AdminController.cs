@@ -16,27 +16,21 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         }
 
         [Authorize(Policy = "AdminOnly")]
-        [HttpPost("approve/{id}")]
-        public async Task<IActionResult> ApproveDoctor(Guid id)
+        [HttpPost("approve/{DoctorId}/dept{DepartmentId}")]
+        public async Task<IActionResult> ApproveDoctor(Guid DoctorId, Guid DepartmentId)
         {
-            var result = await _sender.Send(new ApproveDoctorCommand(id));
+            var result = await _sender.Send(new ApproveDoctorCommand(DoctorId, DepartmentId));
 
-            if (result.IsFailed)
-                return BadRequest(result.Errors);
-
-            return Ok(result.Value);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [Authorize(Policy = "AdminOnly")]
-        [HttpPost("reject/{id}")]
-        public async Task<IActionResult> RejectDoctor(Guid id,[FromBody]string Reason)
+        [HttpPost("reject/{DoctorId}")]
+        public async Task<IActionResult> RejectDoctor(Guid DoctorId,[FromBody]string Reason)
         {
-            var result = await _sender.Send(new RejectDoctorCommand(id,Reason));
+            var result = await _sender.Send(new RejectDoctorCommand(DoctorId,Reason));
 
-            if (result.IsFailed)
-                return BadRequest(result.Errors);
-
-            return Ok(result.Value);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
         [Authorize(Policy = "AdminOnly")]
         [HttpGet("pending")]

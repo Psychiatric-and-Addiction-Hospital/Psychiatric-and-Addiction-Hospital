@@ -1,15 +1,13 @@
 ﻿using Domain.Entites;
 using Domain.Entites.Authentication;
 using Domain.Entites.BlogModule;
+using Domain.Entites.DoctorsModule;
+using Domain.Entites.Features;
+using Domain.Entites.HR;
 using Domain.Entites.ServicesModule;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Persistence.Identity
 {
@@ -19,7 +17,9 @@ namespace Infrastructure.Persistence.Identity
         { }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
-        public DbSet<PasswordResetCode> PasswordResetCodes { get; set; }= default!;
+        public DbSet<PasswordResetCode> PasswordResetCodes { get; set; } = default!;
+        public DbSet<Report> Reports { get; set; } = default!;
+
         public DbSet<DoctorApplication> DoctorApplications { get; set; } = default!;
         public DbSet<DoctorProfile> DoctorProfiles { get; set; } = default!;
         public DbSet<PatientProfile> PatientProfiles { get; set; } = default!;
@@ -29,6 +29,10 @@ namespace Infrastructure.Persistence.Identity
         public DbSet<Resource> Resources { get; set; } = default!;
         public DbSet<Notification> Notifications { get; set; } = default!;
         public DbSet<ChatMessage> ChatMessages { get; set; } = default!;
+        public DbSet<DoctorSchedule> DoctorSchedules { get; set; } = default!;
+        public DbSet<Department> Departments { get; set; } = default!;
+        public DbSet<PublicBooking> PublicBookings { get; set; } = default!;
+
         #region Blog
         public DbSet<BlogPost> BlogPosts { get; set; } = default!;
         public DbSet<Tages> Tages { get; set; } = default!;
@@ -40,17 +44,10 @@ namespace Infrastructure.Persistence.Identity
 
         #region Services Module
         public DbSet<Service> Services { get; set; } = default!;
-        public DbSet<ServiceCategory> ServiceCategory { get; set; } = default!;
         #endregion
 
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            builder.ApplyConfigurationsFromAssembly(typeof(AddIdentityDbContext).Assembly);
-
-
+      
         }
     }
-}
+

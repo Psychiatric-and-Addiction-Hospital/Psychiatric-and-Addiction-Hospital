@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Responses;
 using Domain.Entites;
 using FluentResults;
 using Infrastructure.Persistence.Identity;
@@ -22,11 +23,11 @@ namespace Infrastructure.services.Authentication
             _context = context;
         }
 
-        public async Task<Result<string>> VerifyOtpAsync(string email, string code, CancellationToken cancellationToken)
+        public async Task<BaseResponse<string>> VerifyOtpAsync(string email, string code, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
-                return Result.Fail("Invalid Email.");
+                return ResponseFactory.Fail<string>("Invalid Email.");
 
             var resetCode = await _context.PasswordResetCodes
                 .Where(x => x.UserId == user.Id && !x.IsUsed)
@@ -34,18 +35,20 @@ namespace Infrastructure.services.Authentication
                 .FirstOrDefaultAsync(cancellationToken);
 
             if (resetCode == null)
-                return Result.Fail("No OTP found.");
+                return ResponseFactory.Fail<string>("No OTP found.");
 
             if (resetCode.Code != code)
-                return Result.Fail("Invalid OTP.");
+                return ResponseFactory.Fail<string>("Invalid OTP.");
 
             if (resetCode.ExpiresAt < DateTime.UtcNow)
-                return Result.Fail("OTP expired.");
+                return ResponseFactory.Fail<string>("OTP Expired.");
+            
 
             resetCode.IsUsed = true;
             await _context.SaveChangesAsync(cancellationToken);
 
-            return Result.Ok("OTP verified.");
+            return ResponseFactory.Success("OTP verified..");
+
         }
     }
 }

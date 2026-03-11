@@ -11,7 +11,7 @@ namespace Infrastructure.Persistence.Seed
             if (!await roleManager.RoleExistsAsync("Admin"))
                 await roleManager.CreateAsync(new IdentityRole("Admin"));
 
-            var adminEmail = "ziadsultan733@gmail.com";
+            var adminEmail = "HRZiadSultan@gmail.com";
             var existingAdmin = await userManager.FindByEmailAsync(adminEmail);
 
             if (existingAdmin is null)

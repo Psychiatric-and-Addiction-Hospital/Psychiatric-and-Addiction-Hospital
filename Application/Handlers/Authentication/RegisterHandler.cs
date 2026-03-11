@@ -1,5 +1,7 @@
 ﻿using Application.Commands.Authentication;
 using Application.Common.Interfaces.Authentication;
+using Application.Common.Responses;
+using Application.DTOS.Responses;
 using Domain.Entites;
 using Domain.Enums;
 using FluentResults;
@@ -15,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers.Authentication
 {
-    public class RegisterHandler : IRequestHandler<RegisterCommand, Result<string>>
+    public class RegisterHandler : IRequestHandler<RegisterCommand, BaseResponse<RegisterResponse>>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtGenerator _jwtGenerator;
@@ -30,23 +32,27 @@ namespace Application.Handlers.Authentication
             _jwtGenerator = jwtGenerator;
             _logger = logger;
         }
-        public async Task<Result<string>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<RegisterResponse>> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Register process started for {Email}", request.Email);
             if (request.Password != request.ConfirmPassword)
             {
-                return Result.Fail("Password and ConfirmPassword do not match");
+                return ResponseFactory.Fail<RegisterResponse>("Password and ConfirmPassword do not matchPassword and ConfirmPassword do not match");
+                
             }
 
             var user = new AppUser
             {
+                FirstName = request.FirstName,
+                LastName = request.LastName,
                 UserName = request.Email,
                 Email = request.Email,
-                FirstName = request.FirstName,
+                Gender = request.gender,
+                PhoneNumber = request.PhoneNumber,
+                Addres = request.Addres,
                 RoleType = RoleType.Patient,
-                LastName = request.LastName,
-                PhoneNumber=request.PhoneNumber,
-                Addres=request.Addres,
+                
+             
 
             };
 
@@ -54,14 +60,22 @@ namespace Application.Handlers.Authentication
 
             if (!result.Succeeded)
             {
-                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                _logger.LogWarning("Register failed: {Errors}", errors);
-                return Result.Fail(errors);
+                var errors = result.Errors.Select(e => e.Description).ToList();
+                return ResponseFactory.Fail<RegisterResponse>("Registration failed", errors);
             }
 
             var token = await _jwtGenerator.GenerateTokenAsync(user);
 
-            return Result.Ok(token);
+            
+
+            var dto = new RegisterResponse
+            {
+                Message = "Registration successful",
+                AccessToken = token
+            };
+
+            return ResponseFactory.Success(dto);
+
         }
 
     }

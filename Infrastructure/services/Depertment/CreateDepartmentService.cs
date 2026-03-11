@@ -1,0 +1,43 @@
+﻿using Application.Common.Interfaces.Depertment;
+using Application.Common.Responses;
+using Application.DTOS.Responses;
+using Domain.Entites.HR;
+using Domain.Entites.ServicesModule;
+using Infrastructure.Persistence.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Infrastructure.services.Depertment
+{
+    public class CreateDepartmentService : ICreateDepartment
+    {
+        private readonly AddIdentityDbContext _context;
+
+        public CreateDepartmentService(AddIdentityDbContext context)
+        {
+            _context = context;
+        }
+        public async Task<BaseResponse<DepertmentResponse>> CreateAsync(string name, string description, CancellationToken ct)
+        {
+            var dept = new Department
+            {
+                Name = name,
+                Description = description
+            };
+
+            await _context.Departments.AddAsync(dept, ct);
+            await _context.SaveChangesAsync(ct);
+
+            return ResponseFactory.Success(new DepertmentResponse
+            {
+                Id=dept.Id,
+                Name = dept.Name,
+                Description = dept.Description
+            }, "Department created successfully");
+
+        }
+    }
+}

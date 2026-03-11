@@ -1,4 +1,5 @@
-﻿using Application.DTOS.Responses;
+﻿using Application.Common.Responses;
+using Application.DTOS.Responses;
 using Domain.Entites;
 using FluentResults;
 
@@ -9,6 +10,6 @@ namespace Application.Common.Interfaces.Authentication
     public interface IRefreshTokenService
     {
         Task<string> GenerateRefreshTokenAsync(AppUser user);
-        Task<Result<AuthResult>> RefreshAsync(string refreshToken);
+        Task<BaseResponse<AuthResult>> RefreshAsync(string refreshToken);
     }
 }
