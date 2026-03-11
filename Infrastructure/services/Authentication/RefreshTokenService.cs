@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Domain.Entites;
 using Domain.Entites.Authentication;
@@ -48,14 +49,14 @@ namespace Infrastructure.services.Authentication
             return token;
         }
 
-        public async Task<Result<AuthResult>> RefreshAsync(string refreshToken)
+        public async Task<BaseResponse<AuthResult>> RefreshAsync(string refreshToken)
         {
             var stored = await _context.Set<RefreshToken>()
            .Include(x => x.User)
            .FirstOrDefaultAsync(x => x.Token == refreshToken);
 
             if (stored is null || stored.IsRevoked || stored.IsUsed || stored.ExpiresAt < DateTime.UtcNow)
-                return Result.Fail("Invalid refresh token.");
+            return ResponseFactory.Fail<AuthResult>("Invalid refresh token.");
 
             stored.IsUsed = true;
             await _context.SaveChangesAsync();
@@ -63,11 +64,12 @@ namespace Infrastructure.services.Authentication
             var accessToken = await _jwtGenerator.GenerateTokenAsync(stored.User);
             var newRefreshToken = await GenerateRefreshTokenAsync(stored.User);
 
-            return Result.Ok(new AuthResult
+            var authResult = new AuthResult
             {
-                AccessToken = accessToken,
-                RefreshToken = newRefreshToken
-            });
+                RefreshToken = newRefreshToken,    
+            };
+
+            return ResponseFactory.Success(authResult, "Token refreshed successfully");
         }
     }
 }

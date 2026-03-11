@@ -22,9 +22,6 @@ namespace Infrastructure.Persistence.Configurations.Services
             builder.Property(s => s.Description)
                    .HasMaxLength(1000);
 
-            builder.HasOne(s => s.ServiceCategory)
-                   .WithMany(c => c.Services)
-                   .HasForeignKey(s => s.ServiceCategoryId);
         }
     }
 

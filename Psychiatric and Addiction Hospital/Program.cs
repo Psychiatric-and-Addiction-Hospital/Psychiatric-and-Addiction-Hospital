@@ -3,6 +3,7 @@ using Microsoft.OpenApi.Models;
 using Psychiatric_and_Addiction_Hospital.Extesion;
 using Infrastructure.Dependency;
 using Application.Dependency;
+using Psychiatric_and_Addiction_Hospital.Dependency;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,11 +55,14 @@ builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddInfrastructureDBContext(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddCustomAuthorization();
+builder.Services.AddDependencyWebServices();
 
 #endregion
 
 #region ---------- Controllers ----------
-builder.Services.AddControllers();
+
+builder.Services.AddCustomJsonSerializer();
+
 
 #endregion
 
@@ -72,6 +76,7 @@ builder.Services.AddFluentValidationAutoValidation()
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+  app.UseGlobalExceptionExtension();
 await app.Seed();
 
 // Configure the HTTP request pipeline.
@@ -83,10 +88,11 @@ if (app.Environment.IsDevelopment())
 
     //app.MapOpenApi();
 }
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseCors("AllowAngularDev");
-//app.UseStaticFiles();
+
 
 #region ---------- Authentication & Authorization ----------
 app.UseAuthentication();

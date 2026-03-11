@@ -13,44 +13,38 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(RegisterCommand command)
+        public async Task<IActionResult> Register([FromBody]RegisterCommand command)
         {
             var result = await _sender.Send(command);
 
-            if (result.IsFailed)
-                return BadRequest(result.Errors);
-
-            return Ok(result.Value);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(LoginCommand command)
+        public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
             var result = await _sender.Send(command);
 
-            if (result.IsFailed)
-                return BadRequest(result.Errors);
-
-            return Ok(result.Value);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(SendForgetPasswordOtpCommand command)
         {
             var result = await _sender.Send(command);
-            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Errors);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("verify-otp")]
         public async Task<IActionResult> VerifyOtp(VerifyOtpCommand command)
         {
             var result = await _sender.Send(command);
-            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Errors);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [HttpPost("reset-password")]
         public async Task<IActionResult> ResetPassword(ResetPasswordCommand command)
         {
             var result = await _sender.Send(command);
-            return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Errors);
+            return result.Success ? Ok(result) : BadRequest(result.Errors);
         }
 
 
@@ -58,11 +52,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         public async Task<IActionResult> Refresh(RefreshTokenCommand command)
         {
             var result = await _sender.Send(command);
-
-            if (result.IsFailed)
-                return BadRequest(result.Errors);
-
-            return Ok(result.Value);
+            return result.Success ? Ok(result) : BadRequest(result);
         }
     }
 }

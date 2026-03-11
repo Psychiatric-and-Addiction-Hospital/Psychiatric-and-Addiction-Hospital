@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using Application.Common.Responses;
+using FluentResults;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,6 @@ namespace Application.Commands.Authentication
         string Email,
         string NewPassword
         )
-         : IRequest<Result<string>>;
+         : IRequest<BaseResponse<string>>;
     
 }

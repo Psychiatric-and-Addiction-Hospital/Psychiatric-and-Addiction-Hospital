@@ -1,17 +1,13 @@
 ﻿using Application.Commands.Authentication;
 using Application.Common.Interfaces.Authentication;
-using FluentResults;
+using Application.Common.Responses;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Handlers.Authentication
 {
-    public class VerifyOtpHandler:IRequestHandler<VerifyOtpCommand, Result<string>>
+    public class VerifyOtpHandler:IRequestHandler<VerifyOtpCommand, BaseResponse<string>>
     {
         private readonly IVerifyOtp _VerifyOtp;
 
@@ -20,9 +16,9 @@ namespace Application.Handlers.Authentication
             _VerifyOtp = VerifyOtp;
         }
 
-        public async Task<Result<string>> Handle(VerifyOtpCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<string>> Handle(VerifyOtpCommand request, CancellationToken ct)
         {
-            return await _VerifyOtp.VerifyOtpAsync(request.Email, request.Code, cancellationToken);
+            return await _VerifyOtp.VerifyOtpAsync(request.Email, request.Code, ct);
         }
     }
 }

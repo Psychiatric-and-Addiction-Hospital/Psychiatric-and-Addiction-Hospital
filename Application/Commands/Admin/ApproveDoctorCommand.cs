@@ -1,9 +1,10 @@
-﻿using FluentResults;
+﻿using Application.Common.Responses;
+using FluentResults;
 using MediatR;
 using System;
 
 namespace Application.Commands.Admin
 {
     public record ApproveDoctorCommand
-   (Guid ApplicationId):IRequest<Result<string>>;
+   (Guid ApplicationId, Guid DepartmentId) : IRequest<BaseResponse<string>>;
 }

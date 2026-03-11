@@ -1,10 +1,8 @@
-﻿using Domain.Entites;
+﻿using Application.Common.Responses;
+using Application.DTOS.Responses;
 using Domain.Enums;
-using FluentResults;
+using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,18 +10,20 @@ namespace Application.Common.Interfaces.Doctores
 {
     public interface IDoctoreApplication
     {
-        Task<Result<string>> ApplyForDoctorAsync(
+        Task<BaseResponse<DoctorApplicationResponse>> ApplyForDoctorAsync(
             string FullName,
-            string Email,
-            string PhoneNumber,
-            Gender Gender,
-            string Specialization,
-            string Qualifications,
-            string LicenseNumber,
-            string ClinicAddress,
-            string NationalId,
-            string Address,
-            string Degree,
+        string Email,
+        string PhoneNumber,
+        Gender Gender,
+         IFormFile? ProfileImage,
+        string Specialization,
+        string Qualifications,
+        string LicenseNumber,
+        string Experience,
+    string NationalId,
+    string Address,
+    string Degree,
             CancellationToken CT);
+
     }
 }

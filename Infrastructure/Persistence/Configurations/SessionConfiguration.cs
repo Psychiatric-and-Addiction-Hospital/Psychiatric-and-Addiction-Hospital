@@ -27,7 +27,7 @@ namespace Infrastructure.Persistence.Configurations
             builder.Property(x => x.CreatedAt)
               .HasDefaultValueSql("GETDATE()");
 
-           builder.Property(x => x.status)
+           builder.Property(x => x.Status)
                 .HasConversion<string>();
             builder.Property(x => x.SessionType)
                .HasConversion<string>();
