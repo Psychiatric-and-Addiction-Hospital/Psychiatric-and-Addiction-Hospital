@@ -1,8 +1,4 @@
-﻿using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Application.Common.Responses;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,6 +6,6 @@ namespace Application.Common.Interfaces.Authentication
 {
     public interface IVerifyOtp
     {
-        Task<Result<string>> VerifyOtpAsync(string email, string code, CancellationToken cancellationToken);
+        Task<BaseResponse<string>> VerifyOtpAsync(string email, string code, CancellationToken cancellationToken);
     }
 }

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Common;
+using System;
+
 
 namespace Domain.Entites.ServicesModule
 {
-    public class Service
+    public class Service: BaseEntity
     {
-        public Guid Id { get; set; }= Guid.NewGuid();
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public Guid ServiceCategoryId { get; set; }
-        public ServiceCategory ServiceCategory { get; set; }
+        public Guid DepartmentId { get; set; }
+        public Department Department { get; set; }
     }
 }

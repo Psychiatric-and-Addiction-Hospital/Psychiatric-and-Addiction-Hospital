@@ -1,4 +1,4 @@
-﻿using Domain.Entites;
+﻿using Domain.Entites.DoctorsModule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;

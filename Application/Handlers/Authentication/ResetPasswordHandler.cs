@@ -1,4 +1,5 @@
 ﻿using Application.Commands.Authentication;
+using Application.Common.Responses;
 using Domain.Entites;
 using FluentResults;
 using MediatR;
@@ -9,10 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Application.Handlers.Authentication
 {
-    internal class ResetPasswordHandler:IRequestHandler<ResetPasswordCommand, Result<string>>
+    internal class ResetPasswordHandler : IRequestHandler<ResetPasswordCommand, BaseResponse<string>>
     {
         private readonly UserManager<AppUser> _userManager;
 
@@ -21,21 +23,22 @@ namespace Application.Handlers.Authentication
             _userManager = userManager;
         }
 
-        public async Task<Result<string>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<string>> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
 
             if (user == null)
-                return Result.Fail("User not found.");
+                return ResponseFactory.Fail<string>("User not found.");
 
             var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
             var result = await _userManager.ResetPasswordAsync(user, resetToken, request.NewPassword);
 
             if (!result.Succeeded)
-                return Result.Fail("Password reset failed.");
+                return ResponseFactory.Fail<string>("Password reset failed.");
 
-            return Result.Ok("Password reset successfully.");
+            return ResponseFactory.Success("Password reset successfully.");
+            
         }
     }
 }

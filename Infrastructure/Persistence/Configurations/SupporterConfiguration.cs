@@ -13,9 +13,9 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Supporter> builder)
         {
-            builder.HasOne(S => S.patient)
+            builder.HasOne(S => S.Patient)
                 .WithMany(A => A.Supporter)
-                .HasForeignKey(S => S.patientId)
+                .HasForeignKey(S => S.PatientId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(s => s.Relationship)

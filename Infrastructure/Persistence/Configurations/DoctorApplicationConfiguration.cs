@@ -1,4 +1,4 @@
-﻿using Domain.Entites;
+﻿using Domain.Entites.DoctorsModule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -13,10 +13,7 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<DoctorApplication> builder)
         {
-            builder.HasOne(D => D.User)
-                 .WithOne(A => A.DoctorApplication)
-                 .HasForeignKey<DoctorApplication>(P => P.UserId)
-                 .OnDelete(DeleteBehavior.Cascade);
+           
             builder.Property(A => A.Status).HasConversion<string>();
             builder.Property(A => A.Gender).HasConversion<string>();
         }

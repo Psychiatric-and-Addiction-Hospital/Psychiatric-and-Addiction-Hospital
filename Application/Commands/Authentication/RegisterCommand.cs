@@ -1,4 +1,6 @@
-﻿using FluentResults;
+﻿using Application.Common.Responses;
+using Application.DTOS.Responses;
+using Domain.Enums;
 using MediatR;
 
 namespace Application.Commands.Authentication
@@ -8,9 +10,10 @@ namespace Application.Commands.Authentication
         string LastName,
         string Email,
         string PhoneNumber,
+        Gender gender,
         string Addres,
         string Password,
         string ConfirmPassword
-    ) : IRequest<Result<string>>;
+    ) : IRequest<BaseResponse<RegisterResponse>>;
 
 }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Application.Validators.Authentication
 {
-    public class RegisterCommandValidator: AbstractValidator<RegisterCommand>
+    public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
     {
-        public RegisterCommandValidator() 
+        public RegisterCommandValidator()
         {
             RuleFor(x => x.FirstName)
                 .NotEmpty().WithMessage("FirstName is required")
@@ -23,6 +23,8 @@ namespace Application.Validators.Authentication
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("Email is required")
                 .EmailAddress().WithMessage("Email is not a valid email address");
+            RuleFor(x => x.gender)
+               .IsInEnum().WithMessage("Invalid gender value.");
             RuleFor(x => x.PhoneNumber)
                 .NotEmpty().WithMessage("PhoneNumber is required")
                 .Matches(@"^\+?[0-9]\d{1,14}$").WithMessage("PhoneNumber is not a valid phone number");
@@ -30,8 +32,10 @@ namespace Application.Validators.Authentication
                 .NotEmpty().WithMessage("Addres is required")
                 .MaximumLength(200).WithMessage("Addres must not exceed 200 characters");
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Password is required")
-                .MinimumLength(6).WithMessage("Password must be at least 6 characters long");
+    .NotEmpty().WithMessage("Password is required")
+    .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$")
+    .WithMessage("Password must contain: lowercase, uppercase, number, special character and be at least 8 characters long");
+
             RuleFor(x => x.ConfirmPassword)
                 .Equal(x => x.Password).WithMessage("ConfirmPassword must match Password");
         }

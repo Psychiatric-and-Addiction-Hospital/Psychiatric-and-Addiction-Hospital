@@ -18,8 +18,10 @@ namespace Application.Validators.Authentication
                 .EmailAddress().WithMessage("Email is not a valid email address");
 
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Password is required")
-                .MinimumLength(6).WithMessage("Password must be at least 6 characters long");
+    .NotEmpty().WithMessage("Password is required")
+    .Matches(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$")
+    .WithMessage("Password must contain: lowercase, uppercase, number, special character and be at least 8 characters long");
+
         }
     }
 }

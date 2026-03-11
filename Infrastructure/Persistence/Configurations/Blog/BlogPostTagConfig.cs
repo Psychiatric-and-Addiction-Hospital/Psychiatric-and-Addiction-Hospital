@@ -20,7 +20,7 @@ namespace Infrastructure.Persistence.Configurations.Blog
                    .HasForeignKey(bt => bt.BlogPostId);
 
             builder.HasOne(bt => bt.BlogTag)
-                   .WithMany(t => t.Plogposttags)
+                   .WithMany(t => t.BlogPostTags)
                    .HasForeignKey(bt => bt.BlogTagId);
         }
     }
