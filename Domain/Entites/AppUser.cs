@@ -11,12 +11,15 @@ using System.Text.Json.Serialization;
 namespace Domain.Entites
 {
     public class AppUser : IdentityUser
-    {
+    {    
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+
+       
         public RoleType RoleType { get; set; }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+      
+
         public Gender Gender { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public bool IsActive { get; set; }

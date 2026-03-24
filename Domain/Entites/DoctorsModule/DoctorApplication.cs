@@ -9,7 +9,7 @@ namespace Domain.Entites.DoctorsModule
     public class DoctorApplication: BaseDoctore
     {
 
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+
         public Status Status{ get; set; }
         public DateTime SubmittedAt { get; set; } = DateTime.Now;
        
