@@ -12,8 +12,11 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers.Depertment
 {
+
     public class DeleteDepartmentHandler
         :IRequestHandler<DeleteDepartmentCommand, BaseResponse<DepertmentResponse>>
+
+
     {
         private readonly IDeleteDepartment _deleteDepartment;
 

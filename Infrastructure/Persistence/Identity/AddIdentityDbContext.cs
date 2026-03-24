@@ -3,7 +3,9 @@ using Domain.Entites.Authentication;
 using Domain.Entites.BlogModule;
 using Domain.Entites.DoctorsModule;
 using Domain.Entites.Features;
+
 using Domain.Entites.HR;
+
 using Domain.Entites.ServicesModule;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +49,20 @@ namespace Infrastructure.Persistence.Identity
         #endregion
 
 
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+           
+
+       
       
+      
+
+            builder.ApplyConfigurationsFromAssembly(typeof(AddIdentityDbContext).Assembly);
+
+
+
         }
     }
 

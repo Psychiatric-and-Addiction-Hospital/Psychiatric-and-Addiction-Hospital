@@ -521,6 +521,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("ProgressTrackers");
                 });
 
+
             modelBuilder.Entity("Domain.Entites.HR.Department", b =>
                 {
                     b.Property<Guid>("Id")
@@ -538,38 +539,9 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("11111111-1111-1111-1111-111111111111"),
-                            Description = "",
-                            IsActive = false,
-                            Name = "Psychiatry"
-                        },
-                        new
-                        {
-                            Id = new Guid("22222222-2222-2222-2222-222222222222"),
-                            Description = "",
-                            IsActive = false,
-                            Name = "Addiction Treatment"
-                        },
-                        new
-                        {
-                            Id = new Guid("33333333-3333-3333-3333-333333333333"),
-                            Description = "",
-                            IsActive = false,
-                            Name = "Family Counseling"
-                        },
-                        new
-                        {
-                            Id = new Guid("44444444-4444-4444-4444-444444444444"),
-                            Description = "",
-                            IsActive = false,
-                            Name = "Child Psychiatry"
-                        });
+                    b.ToTable("Departments");                      
                 });
+
 
             modelBuilder.Entity("Domain.Entites.PatientProfile", b =>
                 {
@@ -732,6 +704,39 @@ namespace Infrastructure.Migrations
                     b.ToTable("Resources");
                 });
 
+            modelBuilder.Entity("Domain.Entites.ServicesModule.Department", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DepartmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Services");
+
+
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Departments");
+
+                  
+
             modelBuilder.Entity("Domain.Entites.ServicesModule.Service", b =>
                 {
                     b.Property<Guid>("Id")
@@ -756,35 +761,6 @@ namespace Infrastructure.Migrations
 
                     b.ToTable("Services");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
-                            DepartmentId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            Description = "Treatment for depression",
-                            Name = "Depression Therapy"
-                        },
-                        new
-                        {
-                            Id = new Guid("bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"),
-                            DepartmentId = new Guid("11111111-1111-1111-1111-111111111111"),
-                            Description = "Treatment for anxiety",
-                            Name = "Anxiety Treatment"
-                        },
-                        new
-                        {
-                            Id = new Guid("cccccccc-cccc-cccc-cccc-cccccccccccc"),
-                            DepartmentId = new Guid("22222222-2222-2222-2222-222222222222"),
-                            Description = "Detoxification for addiction",
-                            Name = "Detox Program"
-                        },
-                        new
-                        {
-                            Id = new Guid("dddddddd-dddd-dddd-dddd-dddddddddddd"),
-                            DepartmentId = new Guid("22222222-2222-2222-2222-222222222222"),
-                            Description = "Recovery program",
-                            Name = "Rehabilitation"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entites.Session", b =>
@@ -1067,7 +1043,9 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.DoctorsModule.DoctorProfile", b =>
                 {
+
                     b.HasOne("Domain.Entites.HR.Department", "Department")
+
                         .WithMany("Doctors")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1157,6 +1135,7 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Entites.PublicBooking", b =>
+
                 {
                     b.HasOne("Domain.Entites.DoctorsModule.DoctorProfile", "Doctor")
                         .WithMany("PublicBookings")
@@ -1169,6 +1148,20 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.Report", b =>
                 {
+
+                {
+                    b.HasOne("Domain.Entites.DoctorsModule.DoctorProfile", "Doctor")
+                        .WithMany("PublicBookings")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Domain.Entites.Report", b =>
+                {
+
                     b.HasOne("Domain.Entites.AppUser", "Doctor")
                         .WithMany("DoctorReports")
                         .HasForeignKey("DoctorId")
@@ -1204,7 +1197,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.ServicesModule.Service", b =>
                 {
+
                     b.HasOne("Domain.Entites.HR.Department", "Department")
+
+
                         .WithMany("Services")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1349,6 +1345,7 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Department", b =>
+
                 {
                     b.Navigation("Doctors");
 

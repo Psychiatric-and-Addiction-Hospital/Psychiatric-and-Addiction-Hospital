@@ -1,7 +1,9 @@
 ﻿using Application.Common.Interfaces.Depertment;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
+
 using Domain.Entites.HR;
+
 using Domain.Entites.ServicesModule;
 using Infrastructure.Persistence.Identity;
 using System;
