@@ -15,9 +15,11 @@ namespace Domain.Entites
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
        
         public RoleType RoleType { get; set; }
       
+
         public Gender Gender { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public bool IsActive { get; set; }

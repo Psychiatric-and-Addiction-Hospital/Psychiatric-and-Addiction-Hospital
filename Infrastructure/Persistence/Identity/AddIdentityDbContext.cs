@@ -3,8 +3,13 @@ using Domain.Entites.Authentication;
 using Domain.Entites.BlogModule;
 using Domain.Entites.DoctorsModule;
 using Domain.Entites.Features;
+
 using Domain.Entites.HR;
+<<<<<<< HEAD
 using Domain.Entites.HR.Applications;
+=======
+
+>>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d
 using Domain.Entites.ServicesModule;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +54,7 @@ namespace Infrastructure.Persistence.Identity
         public DbSet<Service> Services { get; set; } = default!;
         #endregion
 
+<<<<<<< HEAD
         #region
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<Recruitment> Recruitments { get; set; }
@@ -72,4 +78,23 @@ namespace Infrastructure.Persistence.Identity
 
     }
 }
+=======
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+           
+
+       
+      
+      
+
+            builder.ApplyConfigurationsFromAssembly(typeof(AddIdentityDbContext).Assembly);
+
+
+
+        }
+    }
+>>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d
 
