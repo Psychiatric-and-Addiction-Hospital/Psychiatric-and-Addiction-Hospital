@@ -11,9 +11,10 @@ namespace Domain.Entites.HR
     {
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public string Terms { get; set; }
+        public string Terms { get; set; }// الشروط  
         public decimal BaseSalary { get; set; }
-
+        public Guid EmployeeId { get; set; }
+        public Employee Employee { get; set; }  
 
     }
 }

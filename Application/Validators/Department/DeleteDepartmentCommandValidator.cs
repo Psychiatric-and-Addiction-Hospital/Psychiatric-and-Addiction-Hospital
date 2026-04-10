@@ -1,4 +1,4 @@
-﻿using Application.Commands.Department;
+﻿using Application.Commands.HR.Department;
 using FluentValidation;
 
 namespace Application.Validators.Department

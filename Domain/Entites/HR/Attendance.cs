@@ -10,11 +10,21 @@ namespace Domain.Entites.HR
     public  class Attendance:BaseEntity
     {
         public Guid EmployeeId { get; set; }
-        public DateTime Date { get; set; }
-        public TimeSpan CheckIn { get; set; }
-        public TimeSpan CheckOut { get; set; }
-        public bool WasPresent => CheckIn != TimeSpan.Zero;
+        public Employee Employee { get; set; }
 
+        public DateTime Date { get; set; }
+        public DateTime ? CheckIn { get; set; }
+        public DateTime? CheckOut { get; set; }
+      
+
+        private static int CalculateLateMinutes(DateTime checkIn)
+        {
+            var officialStartTime = checkIn.Date.AddHours(8);
+
+            if (checkIn <= officialStartTime)
+                return 0;
+            return (int)(checkIn - officialStartTime).TotalMinutes;
+        }
 
     }
 }

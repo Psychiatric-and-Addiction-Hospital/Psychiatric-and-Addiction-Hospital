@@ -8,10 +8,11 @@ namespace Domain.Entites.HR
     {
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public bool IsActive { get; set; }
-        public ICollection<DoctorProfile> Doctors { get; set; } = new List<DoctorProfile>();
+        public List<Recruitment> Recruitments { get; set; } = new();
         public ICollection<Service> Services { get; set; } = new List<Service>();
         public ICollection<Employee> Employees { get; set; }= new List<Employee>(); 
 
+   
     }
 }
+ 

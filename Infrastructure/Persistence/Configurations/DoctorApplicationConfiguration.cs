@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Configurations
 {
-    public class DoctorApplicationConfiguration : IEntityTypeConfiguration<DoctorApplication>
-    {
-        public void Configure(EntityTypeBuilder<DoctorApplication> builder)
-        {
+    //public class DoctorApplicationConfiguration : IEntityTypeConfiguration<DoctorApplication>
+    //{
+    //    public void Configure(EntityTypeBuilder<DoctorApplication> builder)
+    //    {
            
-            builder.Property(A => A.Status).HasConversion<string>();
-            builder.Property(A => A.Gender).HasConversion<string>();
-        }
-    }
+    //        builder.Property(A => A.Status).HasConversion<string>();
+    //        builder.Property(A => A.Gender).HasConversion<string>();
+    //    }
+    //}
 }

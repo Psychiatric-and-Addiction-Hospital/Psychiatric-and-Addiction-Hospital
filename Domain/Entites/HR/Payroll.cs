@@ -12,14 +12,13 @@ namespace Domain.Entites.HR
     {
         public Employee Employee { get; set; }  
         public Guid EmployeeId { get; set; }
-        public int Month { get; set; }
-        public int Year { get; set; }
+     
+        public DateTime PaymentDate { get; set; }
+        public decimal OverSefit { get; set; } 
+        public decimal OvertimeSefite { get; set; } 
         public decimal GrossPay { get; set; }
         public decimal Deductions { get; set; }
-        public decimal NetPay => GrossPay - Deductions;
-        public bool IsProcessed { get; set; }
-
-
-   
+        public decimal NetPay =>( GrossPay + (OverSefit  * OvertimeSefite) ) - Deductions;
+  
     }
 }
