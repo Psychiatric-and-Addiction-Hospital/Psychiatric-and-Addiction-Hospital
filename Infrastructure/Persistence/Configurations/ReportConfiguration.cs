@@ -14,7 +14,7 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<Report> builder)
         {
-            // Doctor → Report
+            //   Doctor → Report
             builder
                 .HasOne(r => r.Doctor)
                 .WithMany(u => u.DoctorReports)
@@ -27,6 +27,7 @@ namespace Infrastructure.Persistence.Configurations
                 .WithMany(u => u.PatientReports)
                 .HasForeignKey(r => r.PatientId)
                 .OnDelete(DeleteBehavior.Restrict);
+       
         }
     }
 }

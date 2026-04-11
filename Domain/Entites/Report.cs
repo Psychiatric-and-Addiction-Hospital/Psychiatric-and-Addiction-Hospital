@@ -7,7 +7,7 @@ namespace Domain.Entites
     public class Report: BaseEntity
     {
         public string DoctorId { get; set; }
-        public AppUser Doctor { get; set; }
+     public AppUser Doctor { get; set; }
 
         public string PatientId { get; set; }
         public AppUser Patient { get; set; }

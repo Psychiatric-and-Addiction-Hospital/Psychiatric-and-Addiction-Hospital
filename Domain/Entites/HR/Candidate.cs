@@ -9,8 +9,9 @@ namespace Domain.Entites.HR
 {
     public  class Candidate: BaseEntity
     {
-// frist_ last   public string FullName { get; set; }
+        public string FullName { get; set; }
         public string Email { get; set; }
+        public string Phone { get; set; }
         public string ResumeUrl { get; set; }
 
 

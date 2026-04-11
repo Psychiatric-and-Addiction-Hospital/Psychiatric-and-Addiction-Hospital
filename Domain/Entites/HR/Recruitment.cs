@@ -24,11 +24,11 @@ namespace Domain.Entites.HR
 
         public Guid DepartmentId { get; set; }
        
-        public virtual Department Department { get; set; }
+        public  Department Department { get; set; }
 
         public Guid HiringManagerId { get; set; }
       
-        public virtual Employee HiringManager { get; set; }
+        public  Employee HiringManager { get; set; }
 
     }
 }
