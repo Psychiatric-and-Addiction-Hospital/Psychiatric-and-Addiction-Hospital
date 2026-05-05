@@ -6,7 +6,6 @@ using System;
 
 namespace Application.Queries.Depertments
 {
-    public record GetDepertmentByIdQuery(Guid Id
-        ) : IRequest<BaseResponse<DepertmentResponse>>;
+    public record GetDepertmentByIdQuery(Guid Id) : IRequest<BaseResponse<DepertmentResponse>>;
     
 }

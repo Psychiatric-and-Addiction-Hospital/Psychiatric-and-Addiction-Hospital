@@ -339,8 +339,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
                     b.HasIndex("UserId")
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
@@ -469,7 +467,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("ProgressTrackers");
                 });
 
-<<<<<<< HEAD
             modelBuilder.Entity("Domain.Entites.HR.Applications.ApplicationInterview", b =>
                 {
                     b.Property<Guid>("Id")
@@ -670,8 +667,6 @@ namespace Infrastructure.Migrations
                             t.HasCheckConstraint("CK_Contract_Dates", "[EndDate] IS NULL OR [EndDate] >= [StartDate]");
                         });
                 });
-=======
->>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d
 
             modelBuilder.Entity("Domain.Entites.HR.Department", b =>
                 {
@@ -690,7 +685,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-<<<<<<< HEAD
                     b.HasIndex("Name")
                         .IsUnique();
 
@@ -841,11 +835,6 @@ namespace Infrastructure.Migrations
 
                     b.ToTable("Recruitments", (string)null);
                 });
-=======
-                    b.ToTable("Departments");                      
-                });
-
->>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d
 
             modelBuilder.Entity("Domain.Entites.PatientProfile", b =>
                 {
@@ -1008,39 +997,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Resources");
                 });
 
-            modelBuilder.Entity("Domain.Entites.ServicesModule.Department", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
-
-                    b.ToTable("Services");
-
-
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Departments");
-
-                  
-
             modelBuilder.Entity("Domain.Entites.ServicesModule.Service", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1068,10 +1024,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("DepartmentId1");
 
-<<<<<<< HEAD
                     b.ToTable("Services");
-=======
->>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d
                 });
 
             modelBuilder.Entity("Domain.Entites.Session", b =>
@@ -1354,24 +1307,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.DoctorsModule.DoctorProfile", b =>
                 {
-
-                    b.HasOne("Domain.Entites.HR.Department", "Department")
-<<<<<<< HEAD
-                        .WithMany()
-=======
-
-                        .WithMany("Doctors")
->>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entites.AppUser", "User")
                         .WithOne("DoctorProfile")
                         .HasForeignKey("Domain.Entites.DoctorsModule.DoctorProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Department");
 
                     b.Navigation("User");
                 });
@@ -1577,7 +1516,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Entites.PublicBooking", b =>
-
                 {
                     b.HasOne("Domain.Entites.DoctorsModule.DoctorProfile", "Doctor")
                         .WithMany("PublicBookings")
@@ -1590,20 +1528,6 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.Report", b =>
                 {
-
-                {
-                    b.HasOne("Domain.Entites.DoctorsModule.DoctorProfile", "Doctor")
-                        .WithMany("PublicBookings")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Doctor");
-                });
-
-            modelBuilder.Entity("Domain.Entites.Report", b =>
-                {
-
                     b.HasOne("Domain.Entites.AppUser", "Doctor")
                         .WithMany("DoctorReports")
                         .HasForeignKey("DoctorId")
@@ -1639,14 +1563,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.ServicesModule.Service", b =>
                 {
-<<<<<<< HEAD
                     b.HasOne("Domain.Entites.HR.Department", null)
-=======
-
-                    b.HasOne("Domain.Entites.HR.Department", "Department")
-
-
->>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d
                         .WithMany("Services")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -1795,7 +1712,6 @@ namespace Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Department", b =>
-
                 {
                     b.Navigation("Employees");
 

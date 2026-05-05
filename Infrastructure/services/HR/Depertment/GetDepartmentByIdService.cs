@@ -18,18 +18,16 @@ namespace Infrastructure.services.HR.Depertment
         public async Task<BaseResponse<DepertmentResponse>> GetDepertmentById(Guid id, CancellationToken ct)
         {
             var Department = await _context.Departments
-                .Where(d => d.Id == id)
-                .Select(d => new DepertmentResponse
+                .Where(d => d.Id == id).Select(d => new DepertmentResponse
                 {
                     Id = d.Id,
                     Name = d.Name,
                     Description = d.Description
                 }).FirstOrDefaultAsync(ct);
-            if (Department == null)
-            {
-                return ResponseFactory.Fail<DepertmentResponse>
-                    ("Department not found.", new List<string> { "No department with the specified ID." });
-            }
+
+            if (Department is null)
+                return ResponseFactory.Fail<DepertmentResponse>("Department not found.");
+
             return ResponseFactory.Success(Department, "Department retrieved successfully.");
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Application.Common.Interfaces.Doctores.ManagementDoctor;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
+using Domain.Entites.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,7 +22,7 @@ namespace Infrastructure.services.Doctores.ManagementDoctor
 
         public async Task<BaseResponse<List<DoctorProfileResponse>>> GetAllDoctorsAsync(CancellationToken ct)
         {
-            var Profile = await _Context.DoctorProfiles.Include(p => p.Department)
+            var Profile = await _Context.DoctorProfiles
                 .Select(p => new DoctorProfileResponse
                 {
                     Id = p.Id,
@@ -33,14 +34,8 @@ namespace Infrastructure.services.Doctores.ManagementDoctor
                     Experience = p.Experience,
                     ImagePath= p.ImagePath,
                     Gender=p.Gender,       
-                    DepartmentName = p.Department.Name
                 }).ToListAsync(ct);
-            if(Profile == null || Profile.Count == 0)
-            {
-                return ResponseFactory.Fail<List<DoctorProfileResponse>>("No doctors found.");
-               
-            }
-            return ResponseFactory.Success(Profile, "Doctors retrieved successfully.");
+            return ResponseFactory.Success(Profile, Profile.Any() ? "All Doctors retrieved successfully" : "No All Doctors found");
         }
 
     }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AddIdentityDbContext))]
-    [Migration("20260324203456_HR_System")]
-    partial class HR_System
+    [Migration("20260427151410_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -341,8 +341,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DepartmentId");
 
                     b.HasIndex("UserId")
                         .IsUnique()
@@ -1312,18 +1310,10 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.DoctorsModule.DoctorProfile", b =>
                 {
-                    b.HasOne("Domain.Entites.HR.Department", "Department")
-                        .WithMany()
-                        .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entites.AppUser", "User")
                         .WithOne("DoctorProfile")
                         .HasForeignKey("Domain.Entites.DoctorsModule.DoctorProfile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Department");
 
                     b.Navigation("User");
                 });

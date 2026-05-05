@@ -21,7 +21,7 @@ namespace Infrastructure.services.Doctores.ManagementDoctor
 
         public async Task<BaseResponse<DoctorProfileResponse>> GetDoctorByIdAsync(Guid Id, CancellationToken ct)
         {
-            var Profile = await _Context.DoctorProfiles.Include(p => p.Department)   
+            var Profile = await _Context.DoctorProfiles
                .FirstOrDefaultAsync(p => p.Id == Id, ct);
             if (Profile == null)
             {
@@ -38,7 +38,7 @@ namespace Infrastructure.services.Doctores.ManagementDoctor
                 Degree = Profile.Degree,
                 Experience = Profile.Experience,
                 ImagePath = Profile.ImagePath,
-                DepartmentName=Profile.Department.Name
+                
 
             },"Doctor Profile Retrieved Successfully");
         }

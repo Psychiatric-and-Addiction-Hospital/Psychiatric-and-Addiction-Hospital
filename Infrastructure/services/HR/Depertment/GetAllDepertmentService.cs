@@ -1,6 +1,8 @@
 ﻿using Application.Common.Interfaces.HR.Depertment;
 using Application.Common.Responses;
+using Application.DTOS.Responses;
 using Application.DTOS.Responses.HR;
+using Domain.Entites.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +19,7 @@ namespace Infrastructure.services.HR.Depertment
 
         public async Task<BaseResponse<List<DepertmentResponse>>> GetAllDepertment(CancellationToken ct)
         {
-            var Department= await _Context.Departments.Select(d => new DepertmentResponse
+            var Department = await _Context.Departments.Select(d => new DepertmentResponse
             {
                 Id = d.Id,
                 Name = d.Name,
@@ -25,13 +27,11 @@ namespace Infrastructure.services.HR.Depertment
             }).ToListAsync(ct);
             if (Department == null || Department.Count == 0)
             {
-                return ResponseFactory.Fail<List<DepertmentResponse>>
-                   ("No departments found.",
-                   new List<string> { "No departments available." });
+                return ResponseFactory.Fail<List<DepertmentResponse>>("No departments found.");
             }
 
-            return ResponseFactory.Success<List<DepertmentResponse>>
-                (Department, "All departments have been fetched successfully");
+            return ResponseFactory.Success(Department, "All departments have been fetched successfully.");
+
         }
     }
 }
