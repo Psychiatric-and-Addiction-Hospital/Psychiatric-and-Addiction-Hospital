@@ -20,7 +20,6 @@ namespace Infrastructure.services.HR.Employees
             _Context = context;
         }
 
-   
   
         public async Task<BaseResponse<List<EmployeeResponse>>> GetAllEmployee(CancellationToken ct)
         {

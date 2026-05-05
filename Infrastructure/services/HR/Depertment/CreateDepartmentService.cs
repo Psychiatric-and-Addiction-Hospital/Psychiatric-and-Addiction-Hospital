@@ -1,20 +1,9 @@
 ﻿using Application.Common.Interfaces.HR.Depertment;
 using Application.Common.Responses;
-<<<<<<< HEAD:Infrastructure/services/HR/Depertment/CreateDepartmentService.cs
 using Application.DTOS.Responses.HR;
-=======
-using Application.DTOS.Responses;
-
->>>>>>> c64fe1ca6f5215cfb1d78b61617c42a22b944b0d:Infrastructure/services/Depertment/CreateDepartmentService.cs
 using Domain.Entites.HR;
-
-using Domain.Entites.ServicesModule;
 using Infrastructure.Persistence.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.services.HR.Depertment
 {
