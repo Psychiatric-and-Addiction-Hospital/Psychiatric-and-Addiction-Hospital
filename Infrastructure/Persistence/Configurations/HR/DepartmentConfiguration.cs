@@ -1,11 +1,6 @@
 ﻿using Domain.Entites.HR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Configurations.HR
 {
@@ -15,12 +10,9 @@ namespace Infrastructure.Persistence.Configurations.HR
         {
             builder.ToTable("Departments");
 
-            
-
             builder.Property(d => d.Name)
                 .IsRequired()
                 .HasMaxLength(150);
-
 
             builder.HasIndex(d => d.Name)
                 .IsUnique();
@@ -29,21 +21,19 @@ namespace Infrastructure.Persistence.Configurations.HR
                 .HasMaxLength(1000)
                 .IsRequired(false);
 
-            
             builder.HasMany(d => d.Employees)
-                .WithOne(e => e.Department)
+                .WithOne()
                 .HasForeignKey(e => e.DepartmentId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
 
-      
+
             builder.HasMany(d => d.Recruitments)
                 .WithOne(r => r.Department)
                 .HasForeignKey(r => r.DepartmentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
             builder.HasMany(d => d.Services)
-                .WithOne() 
+                .WithOne()
                 .HasForeignKey("DepartmentId")
                 .OnDelete(DeleteBehavior.Restrict);
         }

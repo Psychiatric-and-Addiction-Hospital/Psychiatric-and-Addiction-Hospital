@@ -1,17 +1,9 @@
-﻿using Application.Common.Interfaces.Doctores.Schedule;
-using Application.Common.Interfaces.HR.Depertment;
-using Application.Common.Interfaces.HR.Employee;
+﻿using Application.Common.Interfaces.HR.Employee;
 using Application.Common.Responses;
-using Application.DTOS.Responses;
 using Application.DTOS.Responses.HR;
 using Domain.Entites.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.HR.Employees
 {
@@ -36,7 +28,7 @@ namespace Infrastructure.services.HR.Employees
                     new List<string> { "The provided departmentId does not match any existing department in the system." });
             }
 
-       
+
             var emailExists = await _context.Employees
                 .AnyAsync(e => e.Email == email, ct);
 
@@ -46,7 +38,7 @@ namespace Infrastructure.services.HR.Employees
                     new List<string> { "An employee with this email already exists." });
             }
 
-        
+
             var codeExists = await _context.Employees
                 .AnyAsync(e => e.EmployeeCode == employeeCode, ct);
 
@@ -56,7 +48,7 @@ namespace Infrastructure.services.HR.Employees
                     new List<string> { "The provided employee code is already assigned to another employee." });
             }
 
-         
+
             var employee = new Employee
             {
                 UserId = userId,
@@ -65,10 +57,10 @@ namespace Infrastructure.services.HR.Employees
                 LastName = lastName,
                 Email = email,
                 DepartmentId = departmentId,
-                IsActive = true 
+                IsActive = true
             };
 
-      
+
             await _context.Employees.AddAsync(employee, ct);
             await _context.SaveChangesAsync(ct);
 

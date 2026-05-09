@@ -16,6 +16,8 @@ namespace Domain.Enums
         FeedbackRequest = 5,
         ResourceShared = 6,
         ApplicationStatus = 7,
-        ProgressUpdate = 8
+        ProgressUpdate = 8,
+        BookingRejected = 9,
+        BookingApproved = 10
     }
 }

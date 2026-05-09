@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers.HR.Depertment
 {
-    public class CreateDepartmentHandler 
+    public class CreateDepartmentHandler
         : IRequestHandler<CreateDepartmentCommand, BaseResponse<DepertmentResponse>>
     {
         private readonly ICreateDepartment _createService;
@@ -20,7 +20,7 @@ namespace Application.Handlers.HR.Depertment
 
         public async Task<BaseResponse<DepertmentResponse>> Handle(CreateDepartmentCommand request, CancellationToken ct)
         {
-            return await _createService.CreateAsync(request.Name, request.Description, ct);
+            return await _createService.CreateAsync(request.MangerId, request.Name, request.Description, ct);
         }
     }
 

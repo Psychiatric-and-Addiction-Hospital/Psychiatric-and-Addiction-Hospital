@@ -9,6 +9,6 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.HR.Department
 {
-    public record CreateDepartmentCommand(string Name, string Description) 
+    public record CreateDepartmentCommand(Guid MangerId, string Name, string Description)
         : IRequest<BaseResponse<DepertmentResponse>>;
 }

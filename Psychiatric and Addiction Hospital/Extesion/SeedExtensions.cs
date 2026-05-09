@@ -15,8 +15,8 @@ namespace Psychiatric_and_Addiction_Hospital.Extesion
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-                await DefaultUsersSeeder.SeedAdminsAsync(userManager, roleManager);
-                await DefaultRolesSeeder.SeedRolesAsync(roleManager);
+               // await DefaultUsersSeeder.SeedAdminsAsync(userManager, roleManager);
+               // await DefaultRolesSeeder.SeedRolesAsync(roleManager);
             }
         }
     }

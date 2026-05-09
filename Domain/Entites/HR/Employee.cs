@@ -19,6 +19,8 @@ namespace Domain.Entites.HR
         public List<Payroll> Payrolls { get; set; } = new();
         public Contract Contract { get; set; }
 
+        public Guid? ManagerId { get; set; }
+        public Employee Manager { get; set; }
         public List<Recruitment> ManagedRecruitments { get; set; } = new();
 
     }

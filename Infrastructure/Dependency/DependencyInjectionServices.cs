@@ -1,5 +1,6 @@
 ﻿using Application.Common.Interfaces.Admin;
 using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.Doctores.Booking;
 using Application.Common.Interfaces.Doctores.ManagementDoctor;
 using Application.Common.Interfaces.Doctores.Schedule;
 using Application.Common.Interfaces.HR.ApplicationInterview;
@@ -16,6 +17,8 @@ using Application.Common.Interfaces.Patient;
 using Application.Common.Interfaces.Services;
 using Infrastructure.services.Admin.DoctorManagement;
 using Infrastructure.services.Authentication;
+using Infrastructure.services.Depertment;
+using Infrastructure.services.Doctores.Booking;
 using Infrastructure.services.Doctores.ManagementDoctor;
 using Infrastructure.services.Doctores.Schedule;
 using Infrastructure.services.HR.ApplicationInterview;
@@ -115,7 +118,9 @@ namespace Infrastructure.Dependency
             services.AddScoped<IGetDoctorById, GetDoctorByIdService>();
             services.AddScoped<IGetDoctorAvailableAppointments, GetDoctorAvailableAppointmentsService>();
             services.AddScoped<IGetDoctorPublicBookings, GetDoctorPublicBookingsService>();
-
+          //  services.AddScoped<IGetDoctorPublicBookingById, GetDoctorPublicBookingByIdService>();   
+                        services.AddScoped<IRejectBooking, RejectBookingService>();  
+            services.AddScoped<IApproveBooking, ApproveBookingService>(); 
 
             services.AddScoped<IAdminDoctorManagement, AdminDoctorManagementService>();
             #endregion

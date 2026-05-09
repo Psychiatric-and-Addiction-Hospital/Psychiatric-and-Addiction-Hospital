@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.DTOS.Responses
+namespace Application.DTOS.Responses.booking
 {
     public class PublicBookingResponse
     {
@@ -20,7 +20,7 @@ namespace Application.DTOS.Responses
         public DateTime PreferredDate { get; set; }
         public string PreferredTime { get; set; }
 
+        public string? RejectionReason { get; set; }
         public Status Status { get; set; }
-        public object RejectionReason { get; set; }
     }
 }

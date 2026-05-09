@@ -1,9 +1,10 @@
-using FluentValidation.AspNetCore;
-using Microsoft.OpenApi.Models;
-using Psychiatric_and_Addiction_Hospital.Extesion;
-using Infrastructure.Dependency;
 using Application.Dependency;
+using FluentValidation.AspNetCore;
+using Infrastructure.Dependency;
+using Microsoft.OpenApi;
+using Microsoft.OpenApi.Models;
 using Psychiatric_and_Addiction_Hospital.Dependency;
+using Psychiatric_and_Addiction_Hospital.Extesion;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,7 +77,7 @@ builder.Services.AddFluentValidationAutoValidation()
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-  app.UseGlobalExceptionExtension();
+app.UseGlobalExceptionExtension();
 await app.Seed();
 
 // Configure the HTTP request pipeline.

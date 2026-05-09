@@ -1,11 +1,18 @@
 ﻿using Application.Common.Interfaces.HR.Depertment;
 using Application.Common.Responses;
+using Application.DTOS.Responses;
 using Application.DTOS.Responses.HR;
 using Domain.Entites.HR;
+
+using Domain.Entites.ServicesModule;
 using Infrastructure.Persistence.Identity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-
-namespace Infrastructure.services.HR.Depertment
+namespace Infrastructure.services.Depertment
 {
     public class CreateDepartmentService : ICreateDepartment
     {
@@ -15,12 +22,14 @@ namespace Infrastructure.services.HR.Depertment
         {
             _context = context;
         }
-        public async Task<BaseResponse<DepertmentResponse>> CreateAsync(string name, string description, CancellationToken ct)
+        public async Task<BaseResponse<DepertmentResponse>> CreateAsync(Guid managerid, string name, string description, CancellationToken ct)
         {
             var dept = new Department
             {
                 Name = name,
                 Description = description
+                ,
+                ManagerId = managerid
             };
 
             await _context.Departments.AddAsync(dept, ct);
@@ -28,7 +37,7 @@ namespace Infrastructure.services.HR.Depertment
 
             return ResponseFactory.Success(new DepertmentResponse
             {
-                Id=dept.Id,
+                Id = dept.Id,
                 Name = dept.Name,
                 Description = dept.Description
             }, "Department created successfully");
