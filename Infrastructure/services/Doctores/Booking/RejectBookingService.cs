@@ -1,3 +1,4 @@
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Doctores.Booking;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
@@ -16,13 +17,15 @@ namespace Infrastructure.services.Doctores.Booking
     public class RejectBookingService : IRejectBooking
     {
         private readonly AddIdentityDbContext _context;
+        private readonly INotificationService _notificationService;
 
-        public RejectBookingService(AddIdentityDbContext context)
+        public RejectBookingService(AddIdentityDbContext context,INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
-        public async Task<BaseResponse<Application.DTOS.Responses.PublicBookingResponse>> RejectBookingAsync(
+        public async Task<BaseResponse<RejectBookingResponse>> RejectBookingAsync(
             Guid bookingId, string? rejectionReason, CancellationToken ct)
         {
            
@@ -34,15 +37,15 @@ namespace Infrastructure.services.Doctores.Booking
 
             if (booking == null)
             {
-                return ResponseFactory.Fail<Application.DTOS.Responses.PublicBookingResponse>("Booking not found",
-                    new System.Collections.Generic.List<string> { "The provided bookingId does not match any existing booking." });
+                return ResponseFactory.Fail<RejectBookingResponse>("Booking not found",
+                    new List<string> { "The provided bookingId does not match any existing booking." });
             }
 
             if (booking.Status != Status.Pending)
             {
-                return ResponseFactory.Fail<PublicBookingResponse>(
+                return ResponseFactory.Fail<RejectBookingResponse>(
                     $"Booking has already been {booking.Status}",
-                    new System.Collections.Generic.List<string> { "Only pending bookings can be rejected." });
+                    new List<string> { "Only pending bookings can be rejected." });
             }
 
             // 2. Change booking status → Rejected
@@ -61,50 +64,33 @@ namespace Infrastructure.services.Doctores.Booking
 
             if (patientUser != null)
             {
-                var message = $"Your booking with Dr. {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
-                              $"on {booking.PreferredDate:yyyy-MM-dd} at {booking.PreferredTime} has been rejected.";
+                string title = "Booking Declined"; // تعريف المتغير الذي كان ينقصك
+                string message = $"Your booking request with Dr. {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
+                                 $"on {booking.PreferredDate:yyyy-MM-dd} has been rejected.";
 
                 if (!string.IsNullOrWhiteSpace(rejectionReason))
                 {
                     message += $" Reason: {rejectionReason}";
                 }
 
-                var notification = new Notification
-                {
-                    Title = "Booking Rejected ",
-                    Message = message,
-                    SentAt = DateTime.UtcNow,
-                    IsRead = false,
-                    NotificationType = NotificationType.BookingRejected,
-                    RecipientId = patientUser.Id
-                };
-
-                await _context.Notifications.AddAsync(notification, ct);
+                await _notificationService.SendNotificationAsync(
+                    recipientId: patientUser.Id,
+                    title: title,
+                    message: message,
+                    type: NotificationType.BookingRejected,
+                    relatedId: null // لا توجد جلسة مرتبطة هنا لأن الحجز رُفض
+                );
             }
 
             await _context.SaveChangesAsync(ct);
 
             // 5. Return response
-            return ResponseFactory.Success(new PublicBookingResponse
+            return ResponseFactory.Success(new RejectBookingResponse
             {
                 Id = booking.Id,
-                FullName = booking.FullName,
-                PhoneNumber = booking.PhoneNumber,
-                Email = booking.Email,
-                DoctorId = booking.DoctorId,
-                DoctorName = $"{booking.Doctor.User.FirstName} {booking.Doctor.User.LastName}",
-                PreferredDate = booking.PreferredDate,
-                PreferredTime = booking.PreferredTime,
                 Status = booking.Status,
-                RejectionReason = booking.RejectionReason
+                RejectionReason = booking.RejectionReason = "Booking rejected successfully and patient has been notified."
             }, "Booking rejected successfully");
-        }
-
-       
-
-        Task<BaseResponse<RejectBookingResponse>> IRejectBooking.RejectBookingAsync(Guid bookingId, string rejectionReason, CancellationToken ct)
-        {
-            throw new NotImplementedException();
         }
     }
 }

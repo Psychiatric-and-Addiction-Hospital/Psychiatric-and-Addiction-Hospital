@@ -16,6 +16,7 @@ namespace Domain.Entites
         public DateTime CreatedAt { get; set; }
         public SessionStatus Status { get; set; }
         public string? CancellationReason { get; set; }
+        public string? Notes { get; set; }
         public string DoctorId { get; set; }
         public AppUser Doctor { get; set; }
         public string PatientId { get; set; }
