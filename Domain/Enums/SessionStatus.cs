@@ -8,8 +8,10 @@ namespace Domain.Enums
 {
     public enum SessionStatus
     {
-        Scheduled,
-        Completed,
-        Canceled
+        Scheduled = 1,
+        InProgress = 2,
+        Completed = 3,
+        Cancelled = 4,
+        Missed = 5 // للمريض الذي لم يحضر
     }
 }

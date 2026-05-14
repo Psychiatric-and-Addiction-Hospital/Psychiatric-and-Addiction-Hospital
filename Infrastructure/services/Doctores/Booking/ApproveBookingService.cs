@@ -1,13 +1,11 @@
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Doctores.Booking;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Application.DTOS.Responses.booking;
 using Domain.Entites;
 using Domain.Entites.Features;
-
 using Domain.Enums;
-
-
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,10 +17,12 @@ namespace Infrastructure.services.Doctores.Booking
     public class ApproveBookingService : IApproveBooking
     {
         private readonly AddIdentityDbContext _context;
+        private readonly INotificationService _notificationService;
 
-        public ApproveBookingService(AddIdentityDbContext context)
+        public ApproveBookingService(AddIdentityDbContext context,INotificationService notificationService)
         {
             _context = context;
+            _notificationService = notificationService;
         }
 
         public async Task<BaseResponse<ApproveBookingResponse>> ApproveBookingAsync(Guid bookingId, CancellationToken ct)
@@ -37,14 +37,14 @@ namespace Infrastructure.services.Doctores.Booking
             if (booking == null)
             {
                 return ResponseFactory.Fail<ApproveBookingResponse>("Booking not found",
-                    new System.Collections.Generic.List<string> { "The provided bookingId does not match any existing booking." });
+                    new List<string> { "The provided bookingId does not match any existing booking." });
             }
 
             if (booking.Status != Status.Pending)
             {
                 return ResponseFactory.Fail<ApproveBookingResponse>(
                     $"Booking has already been {booking.Status}",
-                    new System.Collections.Generic.List<string> { "Only pending bookings can be approved." });
+                    new List<string> { "Only pending bookings can be approved." });
             }
 
           
@@ -78,23 +78,20 @@ namespace Infrastructure.services.Doctores.Booking
 
             await _context.Sessions.AddAsync(session, ct);
 
-         
+            // Notification services 
             if (patientUser != null)
             {
-                var notification = new Notification
-                {
-                    Title = "Booking Approved ",
-                    Message = $"Your booking with Dr. {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
-                              $"on {booking.PreferredDate:yyyy-MM-dd} at {booking.PreferredTime} has been approved. " +
-                              $"A session has been scheduled for you.",
-                    SentAt = DateTime.UtcNow,
-                    IsRead = false,
-                    NotificationType = NotificationType.BookingApproved,
-                    RelatedSessionId = session.Id,
-                    RecipientId = patientUser.Id
-                };
+                string title = "Booking Approved";
+                string message = $"Your booking with Dr. {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
+                                 $"on {booking.PreferredDate:yyyy-MM-dd} at {booking.PreferredTime} has been approved.";
 
-                await _context.Notifications.AddAsync(notification, ct);
+                await _notificationService.SendNotificationAsync(
+                    patientUser.Id,
+                    title,
+                    message,
+                    NotificationType.BookingApproved,
+                    session.Id
+                );
             }
 
             await _context.SaveChangesAsync(ct);
