@@ -4,6 +4,7 @@ using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AddIdentityDbContext))]
-    partial class AddIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260520200359_FixCascadeDeleteIssue")]
+    partial class FixCascadeDeleteIssue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -681,8 +684,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManagerId");
-
                     b.HasIndex("Name")
                         .IsUnique();
 
@@ -724,6 +725,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
@@ -732,6 +736,10 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.HasIndex("ManagerId");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Employees", (string)null);
                 });
@@ -797,6 +805,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("HiringManagerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("MaxSalary")
@@ -1429,14 +1440,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Domain.Entites.HR.Department", b =>
-                {
-                    b.HasOne("Domain.Entites.HR.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Domain.Entites.HR.Employee", b =>
                 {
                     b.HasOne("Domain.Entites.HR.Department", "Department")
@@ -1447,11 +1450,19 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entites.HR.Employee", "Manager")
                         .WithMany()
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entites.AppUser", "user")
+                        .WithOne()
+                        .HasForeignKey("Domain.Entites.HR.Employee", "UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Department");
 
                     b.Navigation("Manager");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Payroll", b =>

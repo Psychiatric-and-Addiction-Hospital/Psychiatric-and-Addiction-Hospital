@@ -16,7 +16,7 @@ namespace Application.Common.Interfaces.HR.Employee
     {
      
         
-        Task<BaseResponse<EmployeeResponse>> CreateAsync(string UserId, string EmployeeCode, string FirstName, string LastName, string Email, Guid DepartmentId, CancellationToken ct)
+        Task<BaseResponse<EmployeeResponse>> CreateAsync( string EmployeeCode, string FirstName, string LastName, string Email, Guid DepartmentId, CancellationToken ct)
         {
 throw new NotImplementedException();
     }

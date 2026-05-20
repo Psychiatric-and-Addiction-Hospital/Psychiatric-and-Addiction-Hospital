@@ -1,16 +1,12 @@
 ﻿using Application.Common.Interfaces.HR.Depertment;
 using Application.Common.Responses;
-using Application.DTOS.Responses;
+
 using Application.DTOS.Responses.HR;
 using Domain.Entites.HR;
 
-using Domain.Entites.ServicesModule;
 using Infrastructure.Persistence.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Infrastructure.services.Depertment
 {
@@ -24,6 +20,7 @@ namespace Infrastructure.services.Depertment
         }
         public async Task<BaseResponse<DepertmentResponse>> CreateAsync(Guid managerid, string name, string description, CancellationToken ct)
         {
+           
             var dept = new Department
             {
                 Name = name,

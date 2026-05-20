@@ -33,7 +33,7 @@ namespace Infrastructure.services.HR.Employees
                 return ResponseFactory.Fail<EmployeeResponse>("Email already in use", new System.Collections.Generic.List<string> { "Another employee with this email already exists." });
 
             // Update fields
-            employee.UserId = UserId;
+          
             employee.FirstName = FirstName;
             employee.LastName = LastName;
             employee.Email = Email;

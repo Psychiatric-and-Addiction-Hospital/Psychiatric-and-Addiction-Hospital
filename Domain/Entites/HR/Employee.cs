@@ -6,8 +6,7 @@ namespace Domain.Entites.HR
 {
     public class Employee : BaseEntity
     {
-        public AppUser user{ get; set; }
-        public string UserId { get; set; }
+      
         public string EmployeeCode { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,7 +17,7 @@ namespace Domain.Entites.HR
         public List<Attendance> AttendanceLogs { get; set; }
         public List<Payroll> Payrolls { get; set; } = new();
         public Contract Contract { get; set; }
-
+     
         public Guid? ManagerId { get; set; }
         public Employee Manager { get; set; }
         public List<Recruitment> ManagedRecruitments { get; set; } = new();

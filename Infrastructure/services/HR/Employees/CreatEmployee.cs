@@ -17,7 +17,7 @@ namespace Infrastructure.services.HR.Employees
         }
 
         public async Task<BaseResponse<EmployeeResponse>> CreateAsync(
-         string userId, string employeeCode, string firstName, string lastName, string email, Guid departmentId, CancellationToken ct)
+         string employeeCode, string firstName, string lastName, string email, Guid departmentId, CancellationToken ct)
         {
             var departmentExists = await _context.Departments
                 .AnyAsync(d => d.Id == departmentId, ct);
@@ -51,7 +51,7 @@ namespace Infrastructure.services.HR.Employees
 
             var employee = new Employee
             {
-                UserId = userId,
+               
                 EmployeeCode = employeeCode,
                 FirstName = firstName,
                 LastName = lastName,
