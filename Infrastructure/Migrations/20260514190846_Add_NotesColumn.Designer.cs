@@ -4,6 +4,7 @@ using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AddIdentityDbContext))]
-    partial class AddIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260514190846_Add_NotesColumn")]
+    partial class Add_NotesColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -681,8 +684,6 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ManagerId");
-
                     b.HasIndex("Name")
                         .IsUnique();
 
@@ -724,7 +725,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -737,11 +737,9 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("ManagerId");
 
-
                     b.HasIndex("UserId")
                         .IsUnique()
                         .HasFilter("[UserId] IS NOT NULL");
-
 
                     b.ToTable("Employees", (string)null);
                 });
@@ -807,6 +805,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid>("HiringManagerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("MaxSalary")
@@ -1009,6 +1010,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("DepartmentId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -1021,6 +1025,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("DepartmentId1");
 
                     b.ToTable("Services");
                 });
@@ -1442,14 +1448,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Domain.Entites.HR.Department", b =>
-                {
-                    b.HasOne("Domain.Entites.HR.Employee", null)
-                        .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
             modelBuilder.Entity("Domain.Entites.HR.Employee", b =>
                 {
                     b.HasOne("Domain.Entites.HR.Department", "Department")
@@ -1460,9 +1458,6 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entites.HR.Employee", "Manager")
                         .WithMany()
-
-                        .HasForeignKey("ManagerId");
-
                         .HasForeignKey("ManagerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -1471,15 +1466,11 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("Domain.Entites.HR.Employee", "UserId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-
                     b.Navigation("Department");
 
                     b.Navigation("Manager");
 
-
-
                     b.Navigation("user");
-
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Payroll", b =>
@@ -1531,13 +1522,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entites.DoctorsModule.DoctorProfile", "Doctor")
                         .WithMany("PublicBookings")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entites.DoctorsModule.DoctorSchedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("ScheduleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entites.DoctorsModule.DoctorSchedule", "Schedule")
@@ -1588,11 +1573,15 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.ServicesModule.Service", b =>
                 {
-                    b.HasOne("Domain.Entites.HR.Department", "Department")
+                    b.HasOne("Domain.Entites.HR.Department", null)
                         .WithMany("Services")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Department", "Department")
+                        .WithMany()
+                        .HasForeignKey("DepartmentId1");
 
                     b.Navigation("Department");
                 });
