@@ -16,7 +16,12 @@ namespace Infrastructure.Persistence.Configurations
             builder
                 .HasOne(x => x.Doctor)
                 .WithMany(d => d.PublicBookings)
-                .HasForeignKey(x => x.DoctorId);
+                .HasForeignKey(x => x.DoctorId)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder
+    .HasOne(x => x.Schedule)
+    .WithMany()
+    .HasForeignKey(x => x.ScheduleId).OnDelete(DeleteBehavior.Restrict);
             builder.Property(A => A.Status).HasConversion<string>();
         }
 

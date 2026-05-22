@@ -19,7 +19,7 @@ namespace Application.Handlers.HR.Employee
 
         public async Task<BaseResponse<EmployeeResponse>> Handle(CreateEmployeeCommand request, CancellationToken ct)
         {
-            return await _createService.CreateAsync(request.UserId, request.EmployeeCode, request.FirstName, request.LastName, request.Email, request.DepartmentId, ct);
+            return await _createService.CreateAsync( request.EmployeeCode, request.FirstName, request.LastName, request.Email, request.DepartmentId, ct);
         }
     }
 }

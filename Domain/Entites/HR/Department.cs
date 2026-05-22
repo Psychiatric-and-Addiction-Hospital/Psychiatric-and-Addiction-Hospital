@@ -15,8 +15,8 @@ namespace Domain.Entites.HR
 
         public Guid? ManagerId { get; set; }
         public List<Recruitment> Recruitments { get; set; } = new();
-        public ICollection<Service> Services { get; set; } = new List<Service>();
-        public ICollection<Employee> Employees { get; set; }= new List<Employee>(); 
+        public List<Service> Services { get; set; } = new List<Service>();
+        public List<Employee> Employees { get; set; }= new List<Employee>(); 
 
    
     }

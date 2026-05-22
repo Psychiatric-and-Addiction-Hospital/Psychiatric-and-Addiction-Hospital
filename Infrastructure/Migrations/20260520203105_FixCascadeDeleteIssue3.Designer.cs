@@ -4,6 +4,7 @@ using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AddIdentityDbContext))]
-    partial class AddIdentityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260520203105_FixCascadeDeleteIssue3")]
+    partial class FixCascadeDeleteIssue3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -724,10 +727,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
@@ -736,12 +735,6 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.HasIndex("ManagerId");
-
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
-
 
                     b.ToTable("Employees", (string)null);
                 });
@@ -1044,9 +1037,6 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("int");
-
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatientId")
                         .HasColumnType("nvarchar(450)");
@@ -1460,26 +1450,11 @@ namespace Infrastructure.Migrations
 
                     b.HasOne("Domain.Entites.HR.Employee", "Manager")
                         .WithMany()
-
                         .HasForeignKey("ManagerId");
-
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Domain.Entites.AppUser", "user")
-                        .WithOne()
-                        .HasForeignKey("Domain.Entites.HR.Employee", "UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
 
                     b.Navigation("Department");
 
                     b.Navigation("Manager");
-
-
-
-                    b.Navigation("user");
-
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Payroll", b =>
@@ -1538,12 +1513,6 @@ namespace Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("ScheduleId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entites.DoctorsModule.DoctorSchedule", "Schedule")
-                        .WithMany()
-                        .HasForeignKey("ScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Doctor");
