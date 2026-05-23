@@ -85,19 +85,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Departments",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Departments", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Tages",
                 columns: table => new
                 {
@@ -220,9 +207,12 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Message = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     SentAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsRead = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    MediaUrl = table.Column<string>(type: "nvarchar(400)", maxLength: 400, nullable: true),
+                    IsRead = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -378,6 +368,7 @@ namespace Infrastructure.Migrations
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CancellationReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DoctorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     PatientId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -450,68 +441,6 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Employees",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    EmployeeCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    DepartmentId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Employees_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                    table.ForeignKey(
-                        name: "FK_Employees_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Employees_Departments_DepartmentId1",
-                        column: x => x.DepartmentId1,
-                        principalTable: "Departments",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Services",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DepartmentId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Services", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Services_Departments_DepartmentId",
-                        column: x => x.DepartmentId,
-                        principalTable: "Departments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Services_Departments_DepartmentId1",
-                        column: x => x.DepartmentId1,
-                        principalTable: "Departments",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DoctorSchedules",
                 columns: table => new
                 {
@@ -527,31 +456,6 @@ namespace Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_DoctorSchedules_DoctorProfiles_DoctorProfileId",
                         column: x => x.DoctorProfileId,
-                        principalTable: "DoctorProfiles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PublicBookings",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PreferredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PreferredTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PublicBookings", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_PublicBookings_DoctorProfiles_DoctorId",
-                        column: x => x.DoctorId,
                         principalTable: "DoctorProfiles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -704,12 +608,98 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PublicBookings",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PreferredDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PreferredTime = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScheduleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RejectionReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PublicBookings", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PublicBookings_DoctorProfiles_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "DoctorProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PublicBookings_DoctorSchedules_ScheduleId",
+                        column: x => x.ScheduleId,
+                        principalTable: "DoctorSchedules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationInterview",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ApplicationProcessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ScheduledTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    InterviewerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Feedback = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
+                    Score = table.Column<int>(type: "int", maxLength: 100, nullable: false),
+                    interviewType = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationInterview", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationOffers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ApplicationProcessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IsAccepted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
+                    OfferedSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    statues = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationOffers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplicationProcesses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CandidateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RecruitmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    States = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplicationProcesses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ApplicationProcesses_Candidates_CandidateId",
+                        column: x => x.CandidateId,
+                        principalTable: "Candidates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Attendances",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmployeeId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Date = table.Column<DateTime>(type: "date", nullable: false),
                     CheckIn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CheckOut = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -717,17 +707,6 @@ namespace Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Attendances", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Attendances_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Attendances_Employees_EmployeeId1",
-                        column: x => x.EmployeeId1,
-                        principalTable: "Employees",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -739,25 +718,77 @@ namespace Infrastructure.Migrations
                     EndDate = table.Column<DateTime>(type: "date", nullable: true),
                     Terms = table.Column<string>(type: "nvarchar(4000)", maxLength: 4000, nullable: true),
                     BaseSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EmployeeId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    EmployeeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contracts", x => x.Id);
                     table.CheckConstraint("CK_Contract_BaseSalary", "[BaseSalary] >= 0");
                     table.CheckConstraint("CK_Contract_Dates", "[EndDate] IS NULL OR [EndDate] >= [StartDate]");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Departments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Departments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EmployeeCode = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    ManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contracts_Employees_EmployeeId",
-                        column: x => x.EmployeeId,
-                        principalTable: "Employees",
+                        name: "FK_Employees_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Contracts_Employees_EmployeeId1",
-                        column: x => x.EmployeeId1,
+                        name: "FK_Employees_Employees_ManagerId",
+                        column: x => x.ManagerId,
                         principalTable: "Employees",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Services",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
+                    DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Services", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Services_Departments_DepartmentId",
+                        column: x => x.DepartmentId,
+                        principalTable: "Departments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -798,8 +829,7 @@ namespace Infrastructure.Migrations
                     ExperienceLevel = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DepartmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     HiringManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DepartmentId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ManagerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    DepartmentId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -821,78 +851,6 @@ namespace Infrastructure.Migrations
                         principalTable: "Employees",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ApplicationProcesses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CandidateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RecruitmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    States = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationProcesses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ApplicationProcesses_Candidates_CandidateId",
-                        column: x => x.CandidateId,
-                        principalTable: "Candidates",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ApplicationProcesses_Recruitments_RecruitmentId",
-                        column: x => x.RecruitmentId,
-                        principalTable: "Recruitments",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ApplicationInterview",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationProcessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ScheduledTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    InterviewerName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Feedback = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
-                    Score = table.Column<int>(type: "int", maxLength: 100, nullable: false),
-                    interviewType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationInterview", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ApplicationInterview_ApplicationProcesses_ApplicationProcessId",
-                        column: x => x.ApplicationProcessId,
-                        principalTable: "ApplicationProcesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ApplicationOffers",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ApplicationProcessId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IsAccepted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    OfferedSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    statues = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ApplicationOffers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ApplicationOffers_ApplicationProcesses_ApplicationProcessId",
-                        column: x => x.ApplicationProcessId,
-                        principalTable: "ApplicationProcesses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -961,11 +919,6 @@ namespace Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Attendances_EmployeeId1",
-                table: "Attendances",
-                column: "EmployeeId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_BlogPosts_AuthorId",
                 table: "BlogPosts",
                 column: "AuthorId");
@@ -992,9 +945,9 @@ namespace Infrastructure.Migrations
                 column: "ReceiverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ChatMessages_SenderId",
+                name: "IX_ChatMessages_SenderId_ReceiverId",
                 table: "ChatMessages",
-                column: "SenderId");
+                columns: new[] { "SenderId", "ReceiverId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Comments_AuthorId",
@@ -1013,9 +966,9 @@ namespace Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contracts_EmployeeId1",
-                table: "Contracts",
-                column: "EmployeeId1");
+                name: "IX_Departments_ManagerId",
+                table: "Departments",
+                column: "ManagerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_Name",
@@ -1041,26 +994,15 @@ namespace Infrastructure.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_DepartmentId1",
-                table: "Employees",
-                column: "DepartmentId1");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Employees_Email",
-                table: "Employees",
-                column: "Email",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Employees_EmployeeCode",
                 table: "Employees",
                 column: "EmployeeCode",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employees_UserId",
+                name: "IX_Employees_ManagerId",
                 table: "Employees",
-                column: "UserId");
+                column: "ManagerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notifications_RecipientId",
@@ -1103,6 +1045,11 @@ namespace Infrastructure.Migrations
                 name: "IX_PublicBookings_DoctorId",
                 table: "PublicBookings",
                 column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PublicBookings_ScheduleId",
+                table: "PublicBookings",
+                column: "ScheduleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Recruitments_DepartmentId",
@@ -1150,11 +1097,6 @@ namespace Infrastructure.Migrations
                 column: "DepartmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_DepartmentId1",
-                table: "Services",
-                column: "DepartmentId1");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Sessions_DoctorId",
                 table: "Sessions",
                 column: "DoctorId");
@@ -1168,11 +1110,63 @@ namespace Infrastructure.Migrations
                 name: "IX_Supporters_PatientId",
                 table: "Supporters",
                 column: "PatientId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ApplicationInterview_ApplicationProcesses_ApplicationProcessId",
+                table: "ApplicationInterview",
+                column: "ApplicationProcessId",
+                principalTable: "ApplicationProcesses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ApplicationOffers_ApplicationProcesses_ApplicationProcessId",
+                table: "ApplicationOffers",
+                column: "ApplicationProcessId",
+                principalTable: "ApplicationProcesses",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_ApplicationProcesses_Recruitments_RecruitmentId",
+                table: "ApplicationProcesses",
+                column: "RecruitmentId",
+                principalTable: "Recruitments",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Attendances_Employees_EmployeeId",
+                table: "Attendances",
+                column: "EmployeeId",
+                principalTable: "Employees",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Contracts_Employees_EmployeeId",
+                table: "Contracts",
+                column: "EmployeeId",
+                principalTable: "Employees",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Departments_Employees_ManagerId",
+                table: "Departments",
+                column: "ManagerId",
+                principalTable: "Employees",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Departments_Employees_ManagerId",
+                table: "Departments");
+
             migrationBuilder.DropTable(
                 name: "ApplicationInterview");
 
@@ -1208,9 +1202,6 @@ namespace Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Contracts");
-
-            migrationBuilder.DropTable(
-                name: "DoctorSchedules");
 
             migrationBuilder.DropTable(
                 name: "Notifications");
@@ -1258,7 +1249,7 @@ namespace Infrastructure.Migrations
                 name: "BlogPosts");
 
             migrationBuilder.DropTable(
-                name: "DoctorProfiles");
+                name: "DoctorSchedules");
 
             migrationBuilder.DropTable(
                 name: "Sessions");
@@ -1273,10 +1264,13 @@ namespace Infrastructure.Migrations
                 name: "BlogCategorys");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "DoctorProfiles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "Departments");

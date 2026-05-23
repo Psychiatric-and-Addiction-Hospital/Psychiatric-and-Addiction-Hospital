@@ -1,15 +1,12 @@
 using Application.Commands.Doctores.Booking;
 using Application.DTOS.Responses.booking;
-using Infrastructure.services.Doctores.Booking;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.Doctor
 {
-    [Authorize(Roles = "Doctor,Admin")]
+    [Authorize(Policy = "DoctorOrAdmin")]
     public class BookingApprovalController : BaseController
     {
         private readonly ISender _sender;

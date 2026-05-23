@@ -1,5 +1,7 @@
-﻿using Application.Common.Interfaces.Admin;
+﻿using Application.Common.Interfaces;
+using Application.Common.Interfaces.Admin;
 using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.ChatMessage;
 using Application.Common.Interfaces.Doctores.Booking;
 using Application.Common.Interfaces.Doctores.ManagementDoctor;
 using Application.Common.Interfaces.Doctores.Schedule;
@@ -15,8 +17,12 @@ using Application.Common.Interfaces.HR.Payroll;
 using Application.Common.Interfaces.HR.Recruitment;
 using Application.Common.Interfaces.Patient;
 using Application.Common.Interfaces.Services;
+using Application.Common.Interfaces.Session;
+using Domain.Entites.Features;
+using Infrastructure.services;
 using Infrastructure.services.Admin.DoctorManagement;
 using Infrastructure.services.Authentication;
+using Infrastructure.services.ChatMessage;
 using Infrastructure.services.Depertment;
 using Infrastructure.services.Doctores.Booking;
 using Infrastructure.services.Doctores.ManagementDoctor;
@@ -33,6 +39,7 @@ using Infrastructure.services.HR.Payroll;
 using Infrastructure.services.HR.Recruitment;
 using Infrastructure.services.Patient;
 using Infrastructure.services.Service;
+using Infrastructure.services.Sessions;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -140,6 +147,18 @@ namespace Infrastructure.Dependency
 
             #endregion
 
+            #region Session
+            services.AddScoped<ISessionService, SessionService>();
+            #endregion
+
+            #region Notification
+            services.AddScoped<INotificationService, NotificationService>();
+            #endregion
+
+            #region Message
+            services.AddScoped<IChatMessage, ChatMessageService>();
+            services.AddScoped<IGetConversation, GetConversationServic>();
+            #endregion
 
         }
     }
