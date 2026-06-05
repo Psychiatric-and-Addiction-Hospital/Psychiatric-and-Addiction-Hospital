@@ -18,6 +18,8 @@ namespace Domain.Enums
         ApplicationStatus = 7,
         ProgressUpdate = 8,
         BookingRejected = 9,
-        BookingApproved = 10
+        BookingApproved = 10,
+        NewBookingRequest = 11, 
+        SessionNoteUpdated = 12
     }
 }

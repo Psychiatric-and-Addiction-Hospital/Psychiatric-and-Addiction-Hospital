@@ -75,6 +75,7 @@ builder.Services.AddFluentValidationAutoValidation()
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddHostedService<SessionReminderJob>();
 
 var app = builder.Build();
 app.UseGlobalExceptionExtension();
