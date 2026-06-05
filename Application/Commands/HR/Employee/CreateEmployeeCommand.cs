@@ -11,7 +11,7 @@ namespace Application.Commands.HR.Employee
 {
     public record CreateEmployeeCommand 
     (
-       string UserId ,
+      
        string EmployeeCode ,
        string FirstName ,
        string LastName ,

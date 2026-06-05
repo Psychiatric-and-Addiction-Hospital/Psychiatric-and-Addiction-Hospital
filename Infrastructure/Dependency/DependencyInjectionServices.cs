@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces.Admin;
+using Application.Common.Interfaces.Admin;
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.Doctores.Booking;
 using Application.Common.Interfaces.Doctores.ManagementDoctor;
@@ -127,6 +127,17 @@ namespace Infrastructure.Dependency
 
             #region --------Patient------
             services.AddScoped<ICreatePublicBooking, CreatePublicBookingService>();
+
+            // Patient Profile
+            services.AddScoped<IGetPatientProfile, GetPatientProfileService>();
+            services.AddScoped<IUpdatePatientProfile, UpdatePatientProfileService>();
+            services.AddScoped<IUploadPatientImage, UploadPatientImageService>();
+
+            // Patient Management
+            services.AddScoped<IGetPatientSessions, GetPatientSessionsService>();
+            services.AddScoped<IGetSessionDetails, GetSessionDetailsService>();
+            services.AddScoped<IAddSessionNote, AddSessionNoteService>();
+            services.AddScoped<IGetPatientDashboard, GetPatientDashboardService>();
             #endregion
 
 

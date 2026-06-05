@@ -20,7 +20,9 @@ namespace Infrastructure.services.Depertment
         }
         public async Task<BaseResponse<DepertmentResponse>> CreateAsync(Guid managerid, string name, string description, CancellationToken ct)
         {
-           
+            var manger = await _context.Employees.FirstOrDefaultAsync(em => em.Id == managerid);
+            if (manger is null)
+                return ResponseFactory.Fail<DepertmentResponse>("ManagerId not found.");
             var dept = new Department
             {
                 Name = name,
