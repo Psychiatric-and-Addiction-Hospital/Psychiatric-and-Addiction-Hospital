@@ -1,6 +1,7 @@
 using Application.Dependency;
 using FluentValidation.AspNetCore;
 using Infrastructure.Dependency;
+using Infrastructure.Hubs;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using Psychiatric_and_Addiction_Hospital.Dependency;
@@ -51,6 +52,7 @@ builder.Services.AddCors(options =>
 
 #region ---------- Add services to the container ----------
 
+builder.Services.AddSignalR();
 builder.Services.AddApplication();
 builder.Services.AddIdentityServices(builder.Configuration);
 builder.Services.AddInfrastructureDBContext(builder.Configuration);
@@ -109,5 +111,6 @@ app.UseSwaggerUI(options =>
     options.RoutePrefix = "";
 });
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();

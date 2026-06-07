@@ -1,4 +1,8 @@
+
 using Application.Common.Responses;
+
+﻿using Application.Common.Responses;
+
 using Application.DTOS.Responses.HR;
 using System;
 using System.Threading;
@@ -8,6 +12,7 @@ namespace Application.Common.Interfaces.HR.Employee
 {
     public interface ICreateEmployee
     {
+
         Task<BaseResponse<EmployeeResponse>> CreateAsync(
             string EmployeeCode,
             string FirstName,
@@ -15,5 +20,10 @@ namespace Application.Common.Interfaces.HR.Employee
             string Email,
             Guid DepartmentId,
             CancellationToken ct);
+
+        Task<BaseResponse<EmployeeResponse>> CreateAsync
+            (string EmployeeCode, string FirstName, string LastName,string Email, Guid DepartmentId, CancellationToken ct);
+
+
     }
 }

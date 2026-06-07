@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AddIdentityDbContext))]
-    [Migration("20260520202500_FixCascadeDeleteIssue2")]
-    partial class FixCascadeDeleteIssue2
+    [Migration("20260523181622_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -381,10 +381,17 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsRead")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("MediaUrl")
+                        .HasMaxLength(400)
+                        .HasColumnType("nvarchar(400)");
 
                     b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<string>("ReceiverId")
                         .HasColumnType("nvarchar(450)");
@@ -395,13 +402,20 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("SentAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ReceiverId");
 
-                    b.HasIndex("SenderId");
+                    b.HasIndex("SenderId", "ReceiverId");
 
-                    b.ToTable("ChatMessages");
+                    b.ToTable("ChatMessages", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entites.Features.Notification", b =>
@@ -727,9 +741,6 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("ManagerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("DepartmentId");
@@ -738,10 +749,6 @@ namespace Infrastructure.Migrations
                         .IsUnique();
 
                     b.HasIndex("ManagerId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("Employees", (string)null);
                 });
@@ -1044,6 +1051,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PatientId")
                         .HasColumnType("nvarchar(450)");
@@ -1459,16 +1469,9 @@ namespace Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("ManagerId");
 
-                    b.HasOne("Domain.Entites.AppUser", "user")
-                        .WithOne()
-                        .HasForeignKey("Domain.Entites.HR.Employee", "UserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("Department");
 
                     b.Navigation("Manager");
-
-                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Payroll", b =>
