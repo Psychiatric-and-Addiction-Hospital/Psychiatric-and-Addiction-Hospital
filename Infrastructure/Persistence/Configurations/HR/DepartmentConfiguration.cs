@@ -1,4 +1,4 @@
-﻿using Domain.Entites.HR;
+using Domain.Entites.HR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -27,10 +27,7 @@ namespace Infrastructure.Persistence.Configurations.HR
                 .HasForeignKey(e => e.DepartmentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-             builder.HasOne<Employee>()
-                .WithMany() 
-                .HasForeignKey(d => d.ManagerId).IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+
 
            
             builder.HasMany(d => d.Recruitments)

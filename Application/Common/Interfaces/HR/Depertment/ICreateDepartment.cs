@@ -1,4 +1,4 @@
-﻿using Application.Common.Responses;
+using Application.Common.Responses;
 using Application.DTOS.Responses.HR;
 using System;
 using System.Threading;
@@ -8,7 +8,7 @@ namespace Application.Common.Interfaces.HR.Depertment
 {
     public interface ICreateDepartment
     {
-        Task<BaseResponse<DepertmentResponse>> CreateAsync(Guid MangerId, string name, string description, CancellationToken ct);
+        Task<BaseResponse<DepertmentResponse>> CreateAsync(string name, string description, CancellationToken ct);
 
     }
 }
