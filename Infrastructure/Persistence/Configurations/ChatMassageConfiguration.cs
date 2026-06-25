@@ -13,6 +13,32 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<ChatMessage> builder)
         {
+            builder.ToTable("ChatMessages");
+            
+            builder.HasKey(x => x.Id);
+
+            builder.Property(x => x.Message)
+                   .HasMaxLength(2000)
+                   .IsRequired(false);
+
+            builder.Property(x => x.SentAt)
+                   .IsRequired();
+
+            builder.Property(x => x.Status)
+                   .HasConversion<string>()
+                   .IsRequired();
+
+            builder.Property(x => x.Type)
+                  .HasConversion<int>()
+                  .IsRequired();
+
+            builder.Property(x => x.MediaUrl)
+                   .HasMaxLength(400)
+                   .IsRequired(false);
+
+            builder.Property(x => x.IsRead)
+                   .HasDefaultValue(false);
+
             builder.HasOne(C => C.Sender)
                 .WithMany(A => A.SentMessages)
                 .HasForeignKey(m => m.SenderId)
@@ -22,6 +48,10 @@ namespace Infrastructure.Persistence.Configurations
             .WithMany(A => A.ReceivedMessages)
             .HasForeignKey(m => m.ReceiverId)
             .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Ignore(x => x.ConversationId);
+
+            builder.HasIndex(x => new { x.SenderId, x.ReceiverId });
         }
     }
 }
