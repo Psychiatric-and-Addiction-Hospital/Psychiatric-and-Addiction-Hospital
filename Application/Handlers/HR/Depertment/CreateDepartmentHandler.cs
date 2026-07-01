@@ -1,4 +1,4 @@
-﻿using Application.Commands.HR.Department;
+using Application.Commands.HR.Department;
 using Application.Common.Interfaces.HR.Depertment;
 using Application.Common.Responses;
 using Application.DTOS.Responses.HR;
@@ -20,7 +20,7 @@ namespace Application.Handlers.HR.Depertment
 
         public async Task<BaseResponse<DepertmentResponse>> Handle(CreateDepartmentCommand request, CancellationToken ct)
         {
-            return await _createService.CreateAsync(request.MangerId, request.Name, request.Description, ct);
+            return await _createService.CreateAsync(request.Name, request.Description, ct);
         }
     }
 
