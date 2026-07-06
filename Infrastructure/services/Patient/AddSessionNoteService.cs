@@ -5,10 +5,6 @@ using Application.DTOS.Responses;
 using Domain.Entites;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.Patient
 {

@@ -21,8 +21,7 @@ namespace Application.Common.Interfaces.HR.Employee
             Guid DepartmentId,
             CancellationToken ct);
 
-        Task<BaseResponse<EmployeeResponse>> CreateAsync
-            (string EmployeeCode, string FirstName, string LastName,string Email, Guid DepartmentId, CancellationToken ct);
+        
 
 
     }
