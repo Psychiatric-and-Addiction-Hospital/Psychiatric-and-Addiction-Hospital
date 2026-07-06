@@ -1,4 +1,4 @@
-﻿using Domain.Common;
+using Domain.Common;
 using Domain.Entites.DoctorsModule;
 using Domain.Entites.ServicesModule;
 using System;
@@ -13,7 +13,7 @@ namespace Domain.Entites.HR
         public bool IsActive { get; set; }
 
 
-        public Guid? ManagerId { get; set; }
+
         public List<Recruitment> Recruitments { get; set; } = new();
         public List<Service> Services { get; set; } = new List<Service>();
         public List<Employee> Employees { get; set; }= new List<Employee>(); 
