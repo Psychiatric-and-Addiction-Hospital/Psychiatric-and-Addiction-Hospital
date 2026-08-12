@@ -17,20 +17,20 @@ namespace Infrastructure.services.HR.Depertment
             _Context = context;
         }
 
-        public async Task<BaseResponse<List<DepertmentResponse>>> GetAllDepertment(CancellationToken ct)
+        public async Task<BaseResponse<List<DepartmentResponse>>> GetAllDepertment(CancellationToken ct)
         {
-            var Department = await _Context.Departments.Select(d => new DepertmentResponse
-            {
-                Id = d.Id,
-                Name = d.Name,
-                Description = d.Description
-            }).ToListAsync(ct);
-            if (Department == null || Department.Count == 0)
-            {
-                return ResponseFactory.Fail<List<DepertmentResponse>>("No departments found.");
-            }
+            var departments = await _Context.Departments
+          .AsNoTracking()
+          .OrderBy(d => d.Name)
+          .Select(d => new DepartmentResponse
+          {
+              Id = d.Id,
+              Name = d.Name,
+              Description = d.Description!
+          })
+          .ToListAsync(ct);
 
-            return ResponseFactory.Success(Department, "All departments have been fetched successfully.");
+            return ResponseFactory.Success(departments,"Departments retrieved successfully.");
 
         }
     }

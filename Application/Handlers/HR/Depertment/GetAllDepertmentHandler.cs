@@ -1,5 +1,4 @@
-﻿using Application.Common.Interfaces.Admin;
-using Application.Common.Interfaces.HR.Depertment;
+﻿using Application.Common.Interfaces.HR.Depertment;
 using Application.Common.Responses;
 using Application.DTOS.Responses.HR;
 using Application.Queries.Depertment;
@@ -15,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers.HR.Depertment
 {
-    public class GetAllDepertmentHandler : IRequestHandler<GetDepertmentQuery, BaseResponse<List<DepertmentResponse>>>
+    public class GetAllDepertmentHandler : IRequestHandler<GetDepertmentQuery, BaseResponse<List<DepartmentResponse>>>
     {
 
         private readonly IGetDepertments _GetDepertment;
@@ -24,7 +23,7 @@ namespace Application.Handlers.HR.Depertment
             _GetDepertment = getDepertment;
         }
 
-        public async Task<BaseResponse<List<DepertmentResponse>>> Handle(GetDepertmentQuery request, CancellationToken ct)
+        public async Task<BaseResponse<List<DepartmentResponse>>> Handle(GetDepertmentQuery request, CancellationToken ct)
         {
             return await _GetDepertment.GetAllDepertment(ct);
         }

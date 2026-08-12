@@ -7,6 +7,6 @@ using System;
 namespace Application.Commands.HR.Department
 {
     public record UpdateDepartmentCommand(Guid Id, string Name, string Description)
-        : IRequest<BaseResponse<DepertmentResponse>>;
+        : IRequest<BaseResponse<DepartmentResponse>>;
 
 }

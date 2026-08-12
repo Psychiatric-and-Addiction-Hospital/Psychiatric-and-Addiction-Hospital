@@ -30,14 +30,14 @@ namespace Infrastructure.services.Doctores.ManagementDoctor
             }
             return ResponseFactory.Success(new DoctorProfileResponse
             {
-                Id = Profile.Id,
-                FullName = Profile.FullName,
-                Email = Profile.Email,
-                PhoneNumber = Profile.PhoneNumber,
-                Specialization = Profile.Specialization,
-                Degree = Profile.Degree,
-                Experience = Profile.Experience,
-                ImagePath = Profile.ImagePath,
+                //Id = Profile.Id,
+                //FullName = Profile.FullName,
+                //Email = Profile.Email,
+                //PhoneNumber = Profile.PhoneNumber,
+                //Specialization = Profile.Specialization,
+                //Degree = Profile.Degree,
+                //Experience = Profile.Experience,
+                //ImagePath = Profile.ImagePath,
                 
 
             },"Doctor Profile Retrieved Successfully");

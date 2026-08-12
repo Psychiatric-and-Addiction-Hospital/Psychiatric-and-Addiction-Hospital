@@ -30,7 +30,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<string>("Addres")
+                    b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -39,6 +39,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DoctorProfileId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -52,6 +55,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Gender")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -83,10 +89,6 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RoleType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -98,6 +100,8 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DoctorProfileId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -128,6 +132,9 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("IsUsed")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -144,6 +151,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("ExpiresAt")
                         .HasColumnType("datetime2");
 
@@ -155,6 +165,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Token")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -172,10 +185,16 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -198,6 +217,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
 
@@ -210,6 +232,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -257,6 +282,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("GETUTCDATE()");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AuthorId");
@@ -272,10 +300,16 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -288,44 +322,16 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Degree")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Experience")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LicenseNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NationalId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Qualifications")
@@ -334,14 +340,16 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Specialization")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("YearsOfExperience")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                    b.HasIndex("EmployeeId")
+                        .IsUnique();
 
                     b.ToTable("DoctorProfiles");
                 });
@@ -351,6 +359,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -364,6 +375,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Time")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorProfileId");
@@ -376,6 +390,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRead")
                         .ValueGeneratedOnAdd()
@@ -406,6 +423,9 @@ namespace Infrastructure.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ReceiverId");
@@ -420,6 +440,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsRead")
                         .HasColumnType("bit");
@@ -442,6 +465,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RecipientId");
@@ -460,6 +486,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("PatientId")
                         .HasColumnType("nvarchar(450)");
 
@@ -472,6 +501,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("SessionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("PatientId");
@@ -481,160 +513,91 @@ namespace Infrastructure.Migrations
                     b.ToTable("ProgressTrackers");
                 });
 
-            modelBuilder.Entity("Domain.Entites.HR.Applications.ApplicationInterview", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ApplicationProcessId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Feedback")
-                        .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
-
-                    b.Property<string>("InterviewerName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Location")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("ScheduledTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Score")
-                        .HasMaxLength(100)
-                        .HasColumnType("int");
-
-                    b.Property<string>("interviewType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationProcessId");
-
-                    b.ToTable("ApplicationInterview", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entites.HR.Applications.ApplicationOffer", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ApplicationProcessId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ExpiryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsAccepted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<decimal>("OfferedSalary")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("statues")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationProcessId");
-
-                    b.ToTable("ApplicationOffers", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entites.HR.Applications.ApplicationProcess", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CandidateId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RecruitmentId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("States")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CandidateId");
-
-                    b.HasIndex("RecruitmentId");
-
-                    b.ToTable("ApplicationProcesses", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entites.HR.Attendance", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("CheckIn")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan>("ActualWorkedTime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("time")
+                        .HasDefaultValue(new TimeSpan(0, 0, 0, 0, 0));
 
-                    b.Property<DateTime?>("CheckOut")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
+                    b.Property<DateOnly>("AttendanceDate")
                         .HasColumnType("date");
+
+                    b.Property<string>("AttendanceStatus")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("CheckInTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("CheckOutTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EarlyLeaveMinutes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("EmployeeId", "Date")
-                        .IsUnique();
-
-                    b.ToTable("Attendances", (string)null);
-                });
-
-            modelBuilder.Entity("Domain.Entites.HR.Candidate", b =>
-                {
-                    b.Property<Guid>("Id")
+                    b.Property<bool>("IsLocked")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("LateMinutes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("ModificationReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan>("Overtime")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("time")
+                        .HasDefaultValue(new TimeSpan(0, 0, 0, 0, 0));
+
+                    b.Property<string>("Remarks")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("ShiftId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.Property<int>("Source")
+                        .HasColumnType("int");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Phone")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<string>("ResumeUrl")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
+                    b.HasIndex("AttendanceStatus");
+
+                    b.HasIndex("ShiftId");
+
+                    b.HasIndex("EmployeeId", "AttendanceDate")
                         .IsUnique();
 
-                    b.ToTable("Candidates", (string)null);
+                    b.ToTable("Attendances", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Attendance_LateMinutes", "[LateMinutes] >= 0");
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Contract", b =>
@@ -646,29 +609,59 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("BaseSalary")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("ContractType")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("OfferId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ProbationEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("SignedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("date");
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("Terms")
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("EmployeeId")
+                    b.HasIndex("OfferId")
                         .IsUnique();
+
+                    b.HasIndex("StartDate");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("Contracts", null, t =>
                         {
                             t.HasCheckConstraint("CK_Contract_BaseSalary", "[BaseSalary] >= 0");
 
                             t.HasCheckConstraint("CK_Contract_Dates", "[EndDate] IS NULL OR [EndDate] >= [StartDate]");
+
+                            t.HasCheckConstraint("CK_Contract_Probation", "[ProbationEndDate] IS NULL OR [ProbationEndDate] >= [StartDate]");
+
+                            t.HasCheckConstraint("CK_Contract_SignedDate", "[SignedDate] IS NULL OR [SignedDate] <= [StartDate]");
                         });
                 });
 
@@ -678,24 +671,40 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<Guid?>("ManagerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Department_Name_NotEmpty", "LEN(LTRIM(RTRIM([Name]))) > 0");
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Employee", b =>
@@ -704,15 +713,37 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateOnly?>("DateOfBirth")
+                        .HasColumnType("date");
+
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("EmergencyContactName")
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<string>("EmergencyContactPhone")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("EmployeeCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EmploymentStatus")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -722,22 +753,234 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("HireDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<Guid?>("ManagerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("NationalId")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<Guid>("PositionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ShiftId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("TerminationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TerminationReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
+
                     b.HasIndex("DepartmentId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.HasIndex("EmployeeCode")
                         .IsUnique();
 
-                    b.ToTable("Employees", (string)null);
+                    b.HasIndex("ManagerId");
+
+                    b.HasIndex("NationalId")
+                        .IsUnique();
+
+                    b.HasIndex("PositionId");
+
+                    b.HasIndex("ShiftId");
+
+                    b.ToTable("Employees", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Employee_FirstName_NotEmpty", "LEN(LTRIM(RTRIM([FirstName]))) > 0");
+
+                            t.HasCheckConstraint("CK_Employee_LastName_NotEmpty", "LEN(LTRIM(RTRIM([LastName]))) > 0");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Leave.EmployeeLeaveBalance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("LeaveTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("RemainingDays")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalDays")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UsedDays")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeaveTypeId");
+
+                    b.HasIndex("EmployeeId", "LeaveTypeId")
+                        .IsUnique();
+
+                    b.ToTable("EmployeeLeaveBalances");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Leave.LeaveRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ApprovedByEmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DecisionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateOnly>("EndDate")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("LeaveTypeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ManagerComment")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("NumberOfDays")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateOnly>("StartDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovedByEmployeeId");
+
+                    b.HasIndex("EndDate");
+
+                    b.HasIndex("LeaveTypeId");
+
+                    b.HasIndex("EmployeeId", "StartDate");
+
+                    b.HasIndex("EmployeeId", "Status");
+
+                    b.ToTable("LeaveRequests", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_LeaveRequest_Dates", "[EndDate] >= [StartDate]");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Leave.LeaveType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("AllowHalfDay")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsPaid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("MaxDaysPerYear")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool>("RequiresApproval")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IsActive");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("LeaveTypes", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_LeaveType_MaxDaysPerYear", "[MaxDaysPerYear] >= 0");
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Payroll", b =>
@@ -746,62 +989,576 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("Deductions")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateOnly>("EffectiveDate")
+                        .HasColumnType("date");
 
                     b.Property<Guid>("EmployeeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("GrossPay")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("PayrollType")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.Property<decimal>("OverSefit")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("ReferenceNumber")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("OvertimeSefite")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
-                    b.Property<DateTime>("PaymentDate")
-                        .HasColumnType("date");
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EffectiveDate");
+
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("PayrollType");
+
+                    b.HasIndex("ReferenceNumber")
+                        .IsUnique()
+                        .HasFilter("[ReferenceNumber] IS NOT NULL");
+
+                    b.HasIndex("Status");
 
                     b.ToTable("Payrolls", null, t =>
                         {
-                            t.HasCheckConstraint("CK_Payroll_Deductions", "[Deductions] >= 0");
-
-                            t.HasCheckConstraint("CK_Payroll_GrossPay", "[GrossPay] >= 0");
-
-                            t.HasCheckConstraint("CK_Payroll_OvertimeRate", "[OvertimeSefite] >= 0");
+                            t.HasCheckConstraint("CK_Payroll_Amount", "[Amount] >= 0");
                         });
                 });
 
-            modelBuilder.Entity("Domain.Entites.HR.Recruitment", b =>
+            modelBuilder.Entity("Domain.Entites.HR.Performance.PerformanceCriteria", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<int>("MaxScore")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(100);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("PerformanceCriteria", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_PerformanceCriteria_MaxScore", "[MaxScore] > 0");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Performance.PerformanceReview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("EmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("GeneralComment")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<decimal>("OverallScore")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<DateOnly>("ReviewDate")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("ReviewerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("ReviewDate");
+
+                    b.HasIndex("ReviewerId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("EmployeeId", "ReviewDate");
+
+                    b.ToTable("PerformanceReviews", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_PerformanceReview_OverallScore", "[OverallScore] >= 0 AND [OverallScore] <= 100");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Performance.PerformanceReviewItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Comment")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("PerformanceCriteriaId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PerformanceReviewId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("Score")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PerformanceCriteriaId");
+
+                    b.HasIndex("PerformanceReviewId");
+
+                    b.HasIndex("PerformanceReviewId", "PerformanceCriteriaId")
+                        .IsUnique();
+
+                    b.ToTable("PerformanceReviewItems", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_PerformanceReviewItem_Score", "[Score] >= 0 AND [Score] <= 100");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Position", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("BasicSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DepartmentId1")
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("EmployeeCodePrefix")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId", "Name")
+                        .IsUnique();
+
+                    b.ToTable("Positions", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Position_BasicSalary", "[BasicSalary] >= 0");
+
+                            t.HasCheckConstraint("CK_Position_EmployeeCodePrefix", "LEN(LTRIM(RTRIM([EmployeeCodePrefix]))) > 0");
+
+                            t.HasCheckConstraint("CK_Position_Name_NotEmpty", "LEN(LTRIM(RTRIM([Name]))) > 0");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.Application", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AppliedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CandidateId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CoverLetter")
+                        .HasMaxLength(3000)
+                        .HasColumnType("nvarchar(3000)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("JobPostingId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("ResumeSnapshotUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasDefaultValue("Pending");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppliedDate");
+
+                    b.HasIndex("JobPostingId");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("CandidateId", "JobPostingId")
+                        .IsUnique();
+
+                    b.ToTable("Applications", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Application_AppliedDate", "[AppliedDate] <= GETDATE()");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationInterview", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DurationInMinutes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(60);
+
+                    b.Property<string>("Feedback")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("InterviewType")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<Guid>("InterviewerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Location")
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("MeetingLink")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Result")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("ScheduledAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Score")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.HasIndex("InterviewerId");
+
+                    b.HasIndex("ScheduledAt");
+
+                    b.ToTable("ApplicationInterviews", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_ApplicationInterview_Score", "[Score] >= 0 AND [Score] <= 100");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationOffer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ApprovedByEmployeeId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<DateTime>("OfferDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OfferDocumentUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<decimal>("OfferedSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("RejectionReason")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime?>("ResponseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId")
+                        .IsUnique();
+
+                    b.HasIndex("ApprovedByEmployeeId");
+
+                    b.HasIndex("Status");
+
+                    b.ToTable("ApplicationOffers", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_ApplicationOffer_Dates", "[ExpiryDate] >= [OfferDate]");
+
+                            t.HasCheckConstraint("CK_ApplicationOffer_OfferedSalary", "[OfferedSalary] >= 0");
+
+                            t.HasCheckConstraint("CK_ApplicationOffer_ResponseDate", "[ResponseDate] IS NULL OR [ResponseDate] >= [OfferDate]");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.Candidate", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CurrentCompany")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CurrentPosition")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<decimal?>("CurrentSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateOnly?>("DateOfBirth")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<decimal?>("ExpectedSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LinkedInUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("NationalId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("ResumeUrl")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("YearsOfExperience")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId")
+                        .IsUnique()
+                        .HasFilter("[AppUserId] IS NOT NULL");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("PhoneNumber");
+
+                    b.ToTable("Candidates", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Candidate_FirstName", "LEN(LTRIM(RTRIM([FirstName]))) > 0");
+
+                            t.HasCheckConstraint("CK_Candidate_LastName", "LEN(LTRIM(RTRIM([LastName]))) > 0");
+
+                            t.HasCheckConstraint("CK_Candidate_YearsOfExperience", "[YearsOfExperience] >= 0");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.JobPosting", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ClosingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<string>("EmploymentType")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("ExperienceLevel")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<Guid>("HiringManagerId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.Property<decimal>("MaxSalary")
                         .HasColumnType("decimal(18,2)");
@@ -809,20 +1566,125 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("MinSalary")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid>("PositionId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("PublishedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)")
+                        .HasDefaultValue("Draft");
+
                     b.Property<string>("Title")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Vacancies")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
+                    b.Property<string>("WorkMode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DepartmentId");
-
-                    b.HasIndex("DepartmentId1");
-
                     b.HasIndex("HiringManagerId");
 
-                    b.ToTable("Recruitments", (string)null);
+                    b.HasIndex("PositionId");
+
+                    b.HasIndex("PublishedDate");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("Title");
+
+                    b.HasIndex("DepartmentId", "PositionId");
+
+                    b.ToTable("JobPostings", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_JobPosting_ClosingDate", "[ClosingDate] >= [PublishedDate]");
+
+                            t.HasCheckConstraint("CK_JobPosting_MaxSalary", "[MaxSalary] >= 0");
+
+                            t.HasCheckConstraint("CK_JobPosting_MinSalary", "[MinSalary] >= 0");
+
+                            t.HasCheckConstraint("CK_JobPosting_Salary", "[MaxSalary] >= [MinSalary]");
+
+                            t.HasCheckConstraint("CK_JobPosting_Title_NotEmpty", "LEN(LTRIM(RTRIM([Title]))) > 0");
+
+                            t.HasCheckConstraint("CK_JobPosting_Vacancies", "[Vacancies] > 0");
+                        });
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Shift", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("BreakMinutes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(60);
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<TimeSpan>("EndTime")
+                        .HasColumnType("time");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsNightShift")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<TimeSpan>("StartTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("ToleranceMinutes")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(15);
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Shifts", null, t =>
+                        {
+                            t.HasCheckConstraint("CK_Shift_BreakMinutes", "[BreakMinutes] >= 0");
+
+                            t.HasCheckConstraint("CK_Shift_Name_NotEmpty", "LEN(LTRIM(RTRIM([Name]))) > 0");
+
+                            t.HasCheckConstraint("CK_Shift_Start_End", "[StartTime] <> [EndTime]");
+
+                            t.HasCheckConstraint("CK_Shift_ToleranceMinutes", "[ToleranceMinutes] >= 0");
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entites.PatientProfile", b =>
@@ -833,6 +1695,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -855,6 +1720,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -872,6 +1740,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("uniqueidentifier");
@@ -907,6 +1778,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -950,6 +1824,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("TreatmentPlan")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
@@ -967,6 +1844,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -981,6 +1861,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UploadedAt")
                         .ValueGeneratedOnAdd()
@@ -1003,6 +1886,9 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid>("DepartmentId")
                         .HasColumnType("uniqueidentifier");
 
@@ -1014,6 +1900,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1059,6 +1948,9 @@ namespace Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("DoctorId");
@@ -1073,6 +1965,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -1089,6 +1984,9 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Relationship")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -1230,6 +2128,15 @@ namespace Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entites.AppUser", b =>
+                {
+                    b.HasOne("Domain.Entites.DoctorsModule.DoctorProfile", "DoctorProfile")
+                        .WithMany()
+                        .HasForeignKey("DoctorProfileId");
+
+                    b.Navigation("DoctorProfile");
+                });
+
             modelBuilder.Entity("Domain.Entites.Authentication.PasswordResetCode", b =>
                 {
                     b.HasOne("Domain.Entites.AppUser", "User")
@@ -1305,12 +2212,13 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entites.DoctorsModule.DoctorProfile", b =>
                 {
-                    b.HasOne("Domain.Entites.AppUser", "User")
+                    b.HasOne("Domain.Entites.HR.Employee", "Employee")
                         .WithOne("DoctorProfile")
-                        .HasForeignKey("Domain.Entites.DoctorsModule.DoctorProfile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("Domain.Entites.DoctorsModule.DoctorProfile", "EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("Domain.Entites.DoctorsModule.DoctorSchedule", b =>
@@ -1376,78 +2284,130 @@ namespace Infrastructure.Migrations
                     b.Navigation("Session");
                 });
 
-            modelBuilder.Entity("Domain.Entites.HR.Applications.ApplicationInterview", b =>
-                {
-                    b.HasOne("Domain.Entites.HR.Applications.ApplicationProcess", "ApplicationProcess")
-                        .WithMany()
-                        .HasForeignKey("ApplicationProcessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationProcess");
-                });
-
-            modelBuilder.Entity("Domain.Entites.HR.Applications.ApplicationOffer", b =>
-                {
-                    b.HasOne("Domain.Entites.HR.Applications.ApplicationProcess", "ApplicationProcess")
-                        .WithMany()
-                        .HasForeignKey("ApplicationProcessId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationProcess");
-                });
-
-            modelBuilder.Entity("Domain.Entites.HR.Applications.ApplicationProcess", b =>
-                {
-                    b.HasOne("Domain.Entites.HR.Candidate", "Candidate")
-                        .WithMany()
-                        .HasForeignKey("CandidateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entites.HR.Recruitment", "Recruitment")
-                        .WithMany()
-                        .HasForeignKey("RecruitmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Candidate");
-
-                    b.Navigation("Recruitment");
-                });
-
             modelBuilder.Entity("Domain.Entites.HR.Attendance", b =>
                 {
                     b.HasOne("Domain.Entites.HR.Employee", "Employee")
-                        .WithMany("AttendanceLogs")
+                        .WithMany("Attendances")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entites.HR.Shift", "Shift")
+                        .WithMany("Attendances")
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.Navigation("Employee");
+
+                    b.Navigation("Shift");
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Contract", b =>
                 {
-                    b.HasOne("Domain.Entites.HR.Employee", "Employee")
+                    b.HasOne("Domain.Entites.HR.Recruitment.ApplicationOffer", "Offer")
                         .WithOne("Contract")
-                        .HasForeignKey("Domain.Entites.HR.Contract", "EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("Domain.Entites.HR.Contract", "OfferId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Employee");
+                    b.Navigation("Offer");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Department", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Employee", "Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Manager");
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Employee", b =>
                 {
+                    b.HasOne("Domain.Entites.AppUser", "AppUser")
+                        .WithOne()
+                        .HasForeignKey("Domain.Entites.HR.Employee", "AppUserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Domain.Entites.HR.Department", "Department")
                         .WithMany("Employees")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entites.HR.Employee", "Manager")
+                        .WithMany("Subordinates")
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entites.HR.Position", "Position")
+                        .WithMany("Employees")
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Shift", "Shift")
+                        .WithMany("Employees")
+                        .HasForeignKey("ShiftId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
                     b.Navigation("Department");
+
+                    b.Navigation("Manager");
+
+                    b.Navigation("Position");
+
+                    b.Navigation("Shift");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Leave.EmployeeLeaveBalance", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Employee", "Employee")
+                        .WithMany("LeaveBalances")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Leave.LeaveType", "LeaveType")
+                        .WithMany("EmployeeLeaveBalances")
+                        .HasForeignKey("LeaveTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("LeaveType");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Leave.LeaveRequest", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Employee", "ApprovedByEmployee")
+                        .WithMany("ApprovedLeaveRequests")
+                        .HasForeignKey("ApprovedByEmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Domain.Entites.HR.Employee", "Employee")
+                        .WithMany("LeaveRequests")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Leave.LeaveType", "LeaveType")
+                        .WithMany("LeaveRequests")
+                        .HasForeignKey("LeaveTypeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ApprovedByEmployee");
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("LeaveType");
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Payroll", b =>
@@ -1455,33 +2415,152 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entites.HR.Employee", "Employee")
                         .WithMany("Payrolls")
                         .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Employee");
                 });
 
-            modelBuilder.Entity("Domain.Entites.HR.Recruitment", b =>
+            modelBuilder.Entity("Domain.Entites.HR.Performance.PerformanceReview", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Employee", "Employee")
+                        .WithMany("PerformanceReviews")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Employee", "Reviewer")
+                        .WithMany("ReviewsGiven")
+                        .HasForeignKey("ReviewerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("Reviewer");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Performance.PerformanceReviewItem", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Performance.PerformanceCriteria", "PerformanceCriteria")
+                        .WithMany("ReviewItems")
+                        .HasForeignKey("PerformanceCriteriaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Performance.PerformanceReview", "PerformanceReview")
+                        .WithMany("Items")
+                        .HasForeignKey("PerformanceReviewId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("PerformanceCriteria");
+
+                    b.Navigation("PerformanceReview");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Position", b =>
                 {
                     b.HasOne("Domain.Entites.HR.Department", "Department")
-                        .WithMany()
+                        .WithMany("Positions")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Domain.Entites.HR.Department", null)
-                        .WithMany("Recruitments")
-                        .HasForeignKey("DepartmentId1");
+                    b.Navigation("Department");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.Application", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Recruitment.Candidate", "Candidate")
+                        .WithMany("Applications")
+                        .HasForeignKey("CandidateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Recruitment.JobPosting", "JobPosting")
+                        .WithMany("Applications")
+                        .HasForeignKey("JobPostingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Candidate");
+
+                    b.Navigation("JobPosting");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationInterview", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Recruitment.Application", "Application")
+                        .WithMany("Interviews")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Employee", "Interviewer")
+                        .WithMany("InterviewsConducted")
+                        .HasForeignKey("InterviewerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+
+                    b.Navigation("Interviewer");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationOffer", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Recruitment.Application", "Application")
+                        .WithOne("Offer")
+                        .HasForeignKey("Domain.Entites.HR.Recruitment.ApplicationOffer", "ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Employee", "ApprovedByEmployee")
+                        .WithMany()
+                        .HasForeignKey("ApprovedByEmployeeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Application");
+
+                    b.Navigation("ApprovedByEmployee");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.Candidate", b =>
+                {
+                    b.HasOne("Domain.Entites.AppUser", "AppUser")
+                        .WithOne("Candidate")
+                        .HasForeignKey("Domain.Entites.HR.Recruitment.Candidate", "AppUserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("AppUser");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.JobPosting", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Department", "Department")
+                        .WithMany("JobPostings")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Domain.Entites.HR.Employee", "HiringManager")
-                        .WithMany("ManagedRecruitments")
+                        .WithMany("ManagedJobPostings")
                         .HasForeignKey("HiringManagerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Entites.HR.Position", "Position")
+                        .WithMany("JobPostings")
+                        .HasForeignKey("PositionId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Department");
 
                     b.Navigation("HiringManager");
+
+                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("Domain.Entites.PatientProfile", b =>
@@ -1641,9 +2720,9 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("BlogPosts");
 
-                    b.Navigation("Comments");
+                    b.Navigation("Candidate");
 
-                    b.Navigation("DoctorProfile");
+                    b.Navigation("Comments");
 
                     b.Navigation("DoctorReports");
 
@@ -1698,20 +2777,89 @@ namespace Infrastructure.Migrations
                 {
                     b.Navigation("Employees");
 
-                    b.Navigation("Recruitments");
+                    b.Navigation("JobPostings");
+
+                    b.Navigation("Positions");
 
                     b.Navigation("Services");
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Employee", b =>
                 {
-                    b.Navigation("AttendanceLogs");
+                    b.Navigation("ApprovedLeaveRequests");
 
-                    b.Navigation("Contract");
+                    b.Navigation("Attendances");
 
-                    b.Navigation("ManagedRecruitments");
+                    b.Navigation("DoctorProfile");
+
+                    b.Navigation("InterviewsConducted");
+
+                    b.Navigation("LeaveBalances");
+
+                    b.Navigation("LeaveRequests");
+
+                    b.Navigation("ManagedJobPostings");
 
                     b.Navigation("Payrolls");
+
+                    b.Navigation("PerformanceReviews");
+
+                    b.Navigation("ReviewsGiven");
+
+                    b.Navigation("Subordinates");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Leave.LeaveType", b =>
+                {
+                    b.Navigation("EmployeeLeaveBalances");
+
+                    b.Navigation("LeaveRequests");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Performance.PerformanceCriteria", b =>
+                {
+                    b.Navigation("ReviewItems");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Performance.PerformanceReview", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Position", b =>
+                {
+                    b.Navigation("Employees");
+
+                    b.Navigation("JobPostings");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.Application", b =>
+                {
+                    b.Navigation("Interviews");
+
+                    b.Navigation("Offer");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationOffer", b =>
+                {
+                    b.Navigation("Contract");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.Candidate", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.JobPosting", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
+            modelBuilder.Entity("Domain.Entites.HR.Shift", b =>
+                {
+                    b.Navigation("Attendances");
+
+                    b.Navigation("Employees");
                 });
 
             modelBuilder.Entity("Domain.Entites.Session", b =>

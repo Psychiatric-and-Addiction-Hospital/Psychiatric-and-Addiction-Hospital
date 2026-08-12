@@ -1,34 +1,38 @@
 ﻿using Application.Common.Interfaces.Authentication;
 using Domain.Entites;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.services.Authentication
 {
     public class JwtGenerator : IJwtGenerator
     {
         private readonly IConfiguration _config;
-        public JwtGenerator(IConfiguration config)
+        private readonly UserManager<AppUser> _userManager;
+        public JwtGenerator(IConfiguration config, UserManager<AppUser> userManager)
         {
             _config = config;
+            _userManager = userManager;
         }
-        public Task<string> GenerateTokenAsync(AppUser user)
+        public async Task<string> GenerateTokenAsync(AppUser user)
         {
+            var roles = await _userManager.GetRolesAsync(user);
 
-            var claims = new[]
+            var claims = new List<Claim>
             {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email),
             new Claim("FirstName", user.FirstName),
-             new Claim(ClaimTypes.Role, user.RoleType.ToString())
-        };
+            };
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:Key"]));
 
@@ -42,7 +46,7 @@ namespace Infrastructure.services.Authentication
                 signingCredentials: creds
             );
 
-            return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Application.DTOS.Request.HR.Employee;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,6 +7,6 @@ namespace Application.Common.Interfaces.HR.Employee
 {
     public interface IDeleteEmployee
     {
-        Task<BaseResponse<EmployeeResponse>> DeleteEmployee(Guid Id, CancellationToken ct);
+        Task<BaseResponse<bool>> DeleteAsync(DeleteEmployeeRequest request, CancellationToken ct);
     }
 }

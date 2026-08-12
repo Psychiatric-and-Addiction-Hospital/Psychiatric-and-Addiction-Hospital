@@ -31,7 +31,7 @@ namespace Infrastructure.services.Doctores.Booking
            
             var booking = await _context.PublicBookings
                 .Include(b => b.Doctor)
-                    .ThenInclude(d => d.User)
+                    //.ThenInclude(d => d.User)
                 .Include(b => b.Schedule)
                 .FirstOrDefaultAsync(b => b.Id == bookingId, ct);
 
@@ -65,7 +65,8 @@ namespace Infrastructure.services.Doctores.Booking
             if (patientUser != null)
             {
                 string title = "Booking Declined"; // تعريف المتغير الذي كان ينقصك
-                string message = $"Your booking request with Dr. {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
+                string message = $"Your booking request with Dr." +
+                    //$" {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
                                  $"on {booking.PreferredDate:yyyy-MM-dd} has been rejected.";
 
                 if (!string.IsNullOrWhiteSpace(rejectionReason))

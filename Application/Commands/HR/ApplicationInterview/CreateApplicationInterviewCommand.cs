@@ -1,12 +1,11 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
-using Domain.Enums;
+using Application.DTOS.Request.HR.ApplicationInterview;
+using Application.DTOS.Responses.HR.ApplicationInterview;
 using MediatR;
-using System;
 
 namespace Application.Commands.HR.ApplicationInterview
 {
-    public record CreateApplicationInterviewCommand(Guid ApplicationProcessId, DateTime ScheduledTime,
-        string InterviewerName, InterviewType InterviewType, string Location) : IRequest<BaseResponse<ApplicationInterviewResponse>>;
+    public record CreateApplicationInterviewCommand
+        (CreateApplicationInterviewRequest Request) : IRequest<BaseResponse<ApplicationInterviewResponse>>;
 
 }

@@ -5,6 +5,7 @@ using Application.DTOS.Responses.HR;
 using Domain.Entites.HR;
 
 using Infrastructure.Persistence.Identity;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -18,23 +19,37 @@ namespace Infrastructure.services.Depertment
         {
             _context = context;
         }
-        public async Task<BaseResponse<DepertmentResponse>> CreateAsync(string name, string description, CancellationToken ct)
+        public async Task<BaseResponse<DepartmentResponse>> CreateAsync(string name, string description, CancellationToken ct)
         {
-            var dept = new Department
+            name = name.Trim();
+
+            bool exists = await _context.Departments
+                .AnyAsync(x => x.Name == name, ct);
+
+            if (exists)
+            {
+                return ResponseFactory.Fail<DepartmentResponse>(
+                    "Department already exists.");
+            }
+
+            var department = new Department
             {
                 Name = name,
-                Description = description
+                Description = description.Trim()
             };
 
-            await _context.Departments.AddAsync(dept, ct);
+            await _context.Departments.AddAsync(department, ct);
+
             await _context.SaveChangesAsync(ct);
 
-            return ResponseFactory.Success(new DepertmentResponse
-            {
-                Id = dept.Id,
-                Name = dept.Name,
-                Description = dept.Description
-            }, "Department created successfully");
+            return ResponseFactory.Success(
+                new DepartmentResponse
+                {
+                    Id = department.Id,
+                    Name = department.Name,
+                    Description = department.Description
+                },
+                "Department created successfully.");
 
         }
     }

@@ -30,7 +30,7 @@ namespace Infrastructure.services.Doctores.Booking
            
             var booking = await _context.PublicBookings
                 .Include(b => b.Doctor)
-                    .ThenInclude(d => d.User)
+                    //.ThenInclude(d => d.User)
                 .Include(b => b.Schedule)
                 .FirstOrDefaultAsync(b => b.Id == bookingId, ct);
 
@@ -64,8 +64,8 @@ namespace Infrastructure.services.Doctores.Booking
                 SessionType = SessionType.InPerson,
                 CreatedAt = DateTime.UtcNow,
                 Status = SessionStatus.Scheduled,
-                DoctorId = booking.Doctor.UserId,
-                PatientId = booking.Doctor.UserId
+                //DoctorId = booking.Doctor.UserId,
+                //PatientId = booking.Doctor.UserId
             };
 
             var patientUser = await _context.Users
@@ -82,7 +82,8 @@ namespace Infrastructure.services.Doctores.Booking
             if (patientUser != null)
             {
                 string title = "Booking Approved";
-                string message = $"Your booking with Dr. {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
+                string message = $"Your booking with Dr." +
+                    //$" {booking.Doctor.User.FirstName} {booking.Doctor.User.LastName} " +
                                  $"on {booking.PreferredDate:yyyy-MM-dd} at {booking.PreferredTime} has been approved.";
 
                 await _notificationService.SendNotificationAsync(
@@ -103,7 +104,7 @@ namespace Infrastructure.services.Doctores.Booking
                 SessionId = session.Id,
                 SessionDate = session.ScheduledDate,
                 SessionStatus = session.Status,
-                DoctorName = $"{booking.Doctor.User.FirstName} {booking.Doctor.User.LastName}",
+                //DoctorName = $"{booking.Doctor.User.FirstName} {booking.Doctor.User.LastName}",
                 PatientName = booking.FullName,
                 Message = "Booking approved successfully. Session created."
             }, "Booking approved successfully");

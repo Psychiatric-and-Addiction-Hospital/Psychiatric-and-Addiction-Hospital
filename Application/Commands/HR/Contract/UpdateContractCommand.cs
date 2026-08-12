@@ -1,11 +1,10 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+using Application.DTOS.Request.HR.Contract;
+using Application.DTOS.Responses.HR.Contract;
 using MediatR;
-using System;
-
 
 namespace Application.Commands.HR.Contract
 {
-    public record UpdateContractCommand(Guid Id, Guid EmployeeId, DateTime StartDate, DateTime? EndDate, string Terms, decimal BaseSalary) 
-        : IRequest<BaseResponse<ContractResponse>>;
+    public record UpdateContractCommand(UpdateContractRequest request) : IRequest<BaseResponse<ContractResponse>>;
+   
 }

@@ -1,53 +1,55 @@
 ﻿using Application.Commands.HR.Contract;
-using Application.Queries.HR.Contract;
-using Domain.Entites.HR;
+using Application.Common.Responses;
+using Application.DTOS.Request.HR.Contract;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 {
-
-    public class ContractController : ControllerBase
+    public class ContractController : BaseController
     {
-        private readonly ISender _Sender;
-
+        private readonly ISender _sender;
         public ContractController(ISender sender)
         {
-            _Sender = sender;
+            _sender = sender;
         }
 
+        [Authorize(Policy = "HRManagement")]
         [HttpPost("CreateContract")]
-        public async Task<IActionResult> CreateContract([FromBody] CreateContractCommand request)
+        public async Task<IActionResult> Create([FromBody] CreateContractRequest request)
         {
-            var result = await _Sender.Send(request);
+            var result = await _sender.Send(new CreateContractCommand(request));
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPut("UpdateContract/{Id}")]
-        public async Task<IActionResult> UpdateContract(Guid Id, Guid EmployeeId, DateTime StartDate, DateTime? EndDate, string Terms, decimal BaseSalary)
+        [Authorize(Policy = "HRManagement")]
+        [HttpPut("{id:guid}/UpdateContract")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateContractRequest request)
         {
-            var result = await _Sender.Send(
-                new UpdateContractCommand( Id,  EmployeeId,  StartDate,EndDate,  Terms,  BaseSalary));
+            if (id != request.Id)
+                return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));
+
+            var result = await _sender.Send(new UpdateContractCommand(request));
+
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpDelete("DeleteContract/{id}")]
-        public async Task<IActionResult> DeleteContract(Guid id)
+        [AllowAnonymous]
+        [HttpPut("{id:guid}/SignContract")]
+        public async Task<IActionResult> Sign(Guid id)
         {
-            var result = await _Sender.Send(new DeleteContractCommand(id));
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-        [HttpGet("GetContractById/{id}")]
-        public async Task<IActionResult> GetById(Guid id)
-        {
-            var result = await _Sender.Send(new GetContractByIdQuery(id));
+            var result = await _sender.Send(new SignContractCommand(id));
+
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetAllContracts")]
-        public async Task<IActionResult> GetAll()
+        [Authorize(Policy = "HRManagement")]
+        [HttpPut("{id:guid}/SubmitContractForSignature")]
+        public async Task<IActionResult> SubmitContractForSignature(Guid id)
         {
-            var result = await _Sender.Send(new GetAllContractsQuery());
+            var result = await _sender.Send(new SubmitContractForSignatureCommand(id));
+
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

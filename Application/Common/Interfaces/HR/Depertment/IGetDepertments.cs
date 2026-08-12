@@ -8,6 +8,6 @@ namespace Application.Common.Interfaces.HR.Depertment
 {
     public interface IGetDepertments
     {
-        Task<BaseResponse<List<DepertmentResponse>>> GetAllDepertment(CancellationToken ct);
+        Task<BaseResponse<List<DepartmentResponse>>> GetAllDepertment(CancellationToken ct);
     }
 }

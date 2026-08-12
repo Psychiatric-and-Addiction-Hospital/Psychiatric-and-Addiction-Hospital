@@ -1,30 +1,43 @@
 ﻿using Domain.Common;
+using Domain.Enums.HR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entites.HR
 {
-    public  class Attendance:BaseEntity
+    public class Attendance : BaseEntity
     {
         public Guid EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public Employee Employee { get; set; } = null!;
 
-        public DateTime Date { get; set; }
-        public DateTime ? CheckIn { get; set; }
-        public DateTime? CheckOut { get; set; }
-      
+        public Guid ShiftId { get; set; }
+        public Shift Shift { get; set; } = null!;
 
-        private static int CalculateLateMinutes(DateTime checkIn)
-        {
-            var officialStartTime = checkIn.Date.AddHours(8);
+        public DateOnly AttendanceDate { get; set; }
 
-            if (checkIn <= officialStartTime)
-                return 0;
-            return (int)(checkIn - officialStartTime).TotalMinutes;
-        }
+        public DateTime? CheckInTime { get; set; }
 
+        public DateTime? CheckOutTime { get; set; }
+
+        public int LateMinutes { get; set; }
+
+        public int EarlyLeaveMinutes { get; set; }
+
+        public TimeSpan ActualWorkedTime { get; set; }
+
+        public TimeSpan Overtime { get; set; }
+
+        public AttendanceStatus AttendanceStatus { get; set; }
+
+        public AttendanceSource Source { get; set; }
+
+        public bool IsLocked { get; set; }
+
+        public string? Remarks { get; set; }
+
+        public string? ModifiedBy { get; set; }
+
+        public DateTime? ModifiedAt { get; set; }
+
+        public string? ModificationReason { get; set; }
     }
 }

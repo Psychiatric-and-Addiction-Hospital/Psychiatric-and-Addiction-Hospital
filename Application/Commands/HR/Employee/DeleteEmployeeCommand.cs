@@ -1,5 +1,5 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+using Application.DTOS.Request.HR.Employee;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -9,6 +9,5 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.HR.Employee
 {
-    public record DeleteEmployeeCommand(Guid id) : IRequest<BaseResponse<EmployeeResponse>>;
-    
+    public record DeleteEmployeeCommand(DeleteEmployeeRequest request) : IRequest<BaseResponse<bool>>;
 }

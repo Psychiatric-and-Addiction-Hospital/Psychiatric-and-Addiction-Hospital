@@ -1,36 +1,73 @@
 ﻿using Application.Common.Interfaces.HR.Candidate;
 using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+using Application.DTOS.Responses.HR.Candidate;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.HR.Candidate
 {
     public class GetCandidateByIdService : IGetCandidateById
     {
-        private readonly AddIdentityDbContext _Context;
-        public GetCandidateByIdService(AddIdentityDbContext context)
+        private readonly AddIdentityDbContext _context;
+        public GetCandidateByIdService(
+            AddIdentityDbContext context)
         {
-            _Context = context;
+            _context = context;
         }
-        public async Task<BaseResponse<CandidateResponse>> GetCandidateByIdAsync(Guid id, CancellationToken ct)
+
+        public async Task<BaseResponse<CandidateResponse>> GetByIdAsync(
+            Guid id,
+            CancellationToken ct)
         {
-            var Candidate = await _Context.Candidates.FirstOrDefaultAsync(c => c.Id == id);
-            if (Candidate is null)
-                return ResponseFactory.Fail<CandidateResponse>("Candidate Not Found");
-            return ResponseFactory.Success(new CandidateResponse
+            var candidate = await _context.Candidates
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id == id, ct);
+
+            if (candidate == null)
             {
-                Id = id,
-                FullName = Candidate.FullName,
-                Email = Candidate.Email,
-                Phone = Candidate.Phone,
-                ResumeUrl= Candidate.ResumeUrl,
-            }, "Candidate retrieved successfully.");
+                return ResponseFactory.Fail<CandidateResponse>(
+                    "Candidate not found.");
+            }
+
+            var response = new CandidateResponse
+            {
+                Id = candidate.Id,
+
+                FullName = candidate.FullName,
+
+                FirstName = candidate.FirstName,
+
+                LastName = candidate.LastName,
+
+                Email = candidate.Email,
+
+                PhoneNumber = candidate.PhoneNumber,
+
+                DateOfBirth = candidate.DateOfBirth,
+
+                YearsOfExperience = candidate.YearsOfExperience,
+
+                CurrentCompany = candidate.CurrentCompany,
+
+                CurrentPosition = candidate.CurrentPosition,
+
+                CurrentSalary = candidate.CurrentSalary,
+
+                ExpectedSalary = candidate.ExpectedSalary,
+
+                LinkedInUrl = candidate.LinkedInUrl,
+
+                ResumeUrl = candidate.ResumeUrl,
+
+                ImageUrl = candidate.Image,
+
+                Notes = candidate.Notes,
+
+                IsActive = candidate.IsActive
+            };
+
+            return ResponseFactory.Success(response, "Candidate retrieved successfully.");
         }
     }
 }
+

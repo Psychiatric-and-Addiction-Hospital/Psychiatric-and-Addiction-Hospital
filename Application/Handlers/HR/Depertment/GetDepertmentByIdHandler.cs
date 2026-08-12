@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Handlers.HR.Depertment
 {
-    public class GetDepertmentByIdHandler : IRequestHandler<GetDepertmentByIdQuery, BaseResponse<DepertmentResponse>>
+    public class GetDepertmentByIdHandler : IRequestHandler<GetDepertmentByIdQuery, BaseResponse<DepartmentResponse>>
     {
         private readonly IGetDepartmentById _GetDepartmentById;
 
@@ -17,11 +17,11 @@ namespace Application.Handlers.HR.Depertment
             _GetDepartmentById = GetDepartmentById;
         }
 
-        public async Task<BaseResponse<DepertmentResponse>> Handle(
+        public async Task<BaseResponse<DepartmentResponse>> Handle(
             GetDepertmentByIdQuery request,
             CancellationToken ct)
         {
-            return await _GetDepartmentById.GetDepertmentById(request.Id, ct);
+            return await _GetDepartmentById.GetDepartmentById(request.Id, ct);
 
         }
     }

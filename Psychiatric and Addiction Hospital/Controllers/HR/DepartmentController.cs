@@ -1,13 +1,14 @@
 ﻿using Application.Commands.HR.Department;
+using Application.Common.Responses;
 using Application.Queries.Depertment;
 using Application.Queries.Depertments;
 using MediatR;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 {
-   
+
     public class DepartmentController : BaseController
     {
         private readonly ISender _sender;
@@ -16,7 +17,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
             _sender = sender;
         }
 
-
+        [Authorize(Policy = "HRManagement")]
         [HttpPost("CreateDepartment")]
         public async Task<IActionResult> CreateDepartment([FromBody] CreateDepartmentCommand request)
         {
@@ -24,30 +25,34 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-
-        [HttpPut("UpdateDepartment")]
-        public async Task<IActionResult> UpdateDepartment([FromBody] UpdateDepartmentCommand request)
+        [Authorize(Policy = "HRManagement")]
+        [HttpPut("{id:guid}/UpdateDepartment")]
+        public async Task<IActionResult> UpdateDepartment([FromRoute] Guid Id, [FromBody] UpdateDepartmentCommand request)
         {
+            if (Id != request.Id)
+                return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));
+
             var result = await _sender.Send(request);
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpDelete("DeleteDepartment/{DepartmentId}")]
-        public async Task<IActionResult> DeleteDepartment(Guid DepartmentId)
+        [Authorize(Policy = "AdminOnly")]
+        [HttpDelete("{Id:guid}/DeleteDepartment")]
+        public async Task<IActionResult> DeleteDepartment([FromRoute] Guid DepartmentId)
         {
             var result = await _sender.Send(new DeleteDepartmentCommand(DepartmentId));
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-
+        [AllowAnonymous]
         [HttpGet("GetAllDepertment")]
         public async Task<IActionResult> GetAllDepertment()
         {
             var result = await _sender.Send(new GetDepertmentQuery());
             return result.Success ? Ok(result) : BadRequest(result);
         }
-
-        [HttpGet("DepertmentById/{Id}")]
+        [AllowAnonymous]
+        [HttpGet("{Id}DepertmentById")]
         public async Task<IActionResult> GetDepertmentById(Guid Id)
         {
             var result = await _sender.Send(new GetDepertmentByIdQuery(Id));

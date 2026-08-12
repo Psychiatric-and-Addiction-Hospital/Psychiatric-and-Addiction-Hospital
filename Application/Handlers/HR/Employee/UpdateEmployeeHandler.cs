@@ -1,7 +1,7 @@
 ﻿using Application.Commands.HR.Employee;
 using Application.Common.Interfaces.HR.Employee;
 using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+using Application.DTOS.Responses.HR.Employee;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,16 +10,15 @@ namespace Application.Handlers.HR.Employee
 {
     public class UpdateEmployeeHandler : IRequestHandler<UpdateEmployeeCommand, BaseResponse<EmployeeResponse>>
     {
-        private readonly IUpdateEmployee _updateService;
-
-        public UpdateEmployeeHandler(IUpdateEmployee updateService)
+        private readonly IUpdateEmployee _service;
+        public UpdateEmployeeHandler(IUpdateEmployee service)
         {
-            _updateService = updateService;
+            _service = service;
         }
 
-        public async Task<BaseResponse<EmployeeResponse>> Handle(UpdateEmployeeCommand request, CancellationToken ct)
+        public async Task<BaseResponse<EmployeeResponse>> Handle(UpdateEmployeeCommand request, CancellationToken cancellationToken)
         {
-            return await _updateService.UpdateEmployee(request.UserId, request.EmployeeCode, request.FirstName, request.LastName, request.Email, request.DepartmentId, ct);
+            return await _service.UpdateAsync(request.request, cancellationToken);
         }
     }
 }

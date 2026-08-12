@@ -1,74 +1,115 @@
-﻿using Application.Common.Interfaces.Authentication;
+﻿using Application.Commands.HR.ApplicationInterview;
+using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.HR.ApplicationInterview;
 using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
-using Domain.Enums;
+using Application.DTOS.Responses.HR.ApplicationInterview;
+using Domain.Enums.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-
 
 namespace Infrastructure.services.HR.ApplicationInterview
 {
     public class CreateApplicationInterviewService : ICreateApplicationInterview
     {
-        private readonly AddIdentityDbContext _Context;
-        private readonly IEmailService _EmailService;
-        public CreateApplicationInterviewService(AddIdentityDbContext context, IEmailService EmailService)
+        private readonly AddIdentityDbContext _context;
+        private readonly IApplicationInterviewValidation _validation;
+        private readonly IInterviewInvitationEmailService _emailService;
+
+        public CreateApplicationInterviewService(
+            AddIdentityDbContext context,
+            IApplicationInterviewValidation validation,
+            IInterviewInvitationEmailService emailService)
         {
-            _Context = context;
-            _EmailService = EmailService;
+            _context = context;
+            _validation = validation;
+            _emailService = emailService;
         }
 
-        public async Task<BaseResponse<ApplicationInterviewResponse>> CreateApplicationInterviewAsync(Guid applicationProcessId, DateTime scheduledTime, string interviewerName, InterviewType interviewType, string location, CancellationToken ct)
+        public async Task<BaseResponse<ApplicationInterviewResponse>> CreateAsync(CreateApplicationInterviewCommand request, CancellationToken ct)
         {
-            var appProcess = await _Context.ApplicationProcesses
-        .Include(a => a.Candidate)
-        .FirstOrDefaultAsync(a => a.Id == applicationProcessId, ct);
 
-            if (appProcess is null)
-                return ResponseFactory.Fail<ApplicationInterviewResponse>("Application process not found.");
+            var validation = await _validation
+                .ValidateCreateAsync(request.Request, ct);
 
-            var interview = new Domain.Entites.HR.Applications.ApplicationInterview
+            if (!validation.Success)
             {
-                ApplicationProcessId = applicationProcessId,
-                ScheduledTime = scheduledTime,
-                InterviewerName = interviewerName,
-                interviewType = interviewType,
-                Location = location
+                return ResponseFactory.Fail<ApplicationInterviewResponse>(
+                    validation.Message,
+                    validation.Errors);
+            }
+
+            var interview = new Domain.Entites.HR.Recruitment.ApplicationInterview
+            {
+                ApplicationId = request.Request.ApplicationId,
+
+                InterviewerId = request.Request.InterviewerId,
+
+                ScheduledAt = request.Request.ScheduledAt,
+
+                DurationInMinutes = request.Request.DurationInMinutes,
+
+                InterviewType = request.Request.InterviewType,
+
+                Status = InterviewStatus.Scheduled,
+
+                Location = request.Request.Location?.Trim(),
+
+                MeetingLink = request.Request.MeetingLink?.Trim()
             };
 
-            await _Context.ApplicationInterviews.AddAsync(interview, ct);
-            await _Context.SaveChangesAsync(ct);
+            _context.ApplicationInterviews.Add(interview);
 
-            string interviewMode = interviewType == InterviewType.Online ? "Online" : "Onsite";
-            string locationOrLink = interviewType == InterviewType.Online
-                ? $"Online Meeting Link: {location}"
-                : $"Location: {location}";
+            await _context.SaveChangesAsync(ct);
 
-            await _EmailService.SendAsync(
-                to: appProcess.Candidate.Email,
-                subject: "Your Interview Has Been Scheduled",
-                body: $@"
-                          Hello {appProcess.Candidate.FullName},
-                          Your interview has been successfully scheduled.
-                          **Date & Time:** {scheduledTime}
-                        **Interviewer:** {interviewerName}
-                      **Interview Type:** {interviewMode}
-                 📍 **{(interviewType == InterviewType.Online ? "Online Link" : "Location")}:** {location}
-               Please make sure to be prepared and available on time.Best regards,HR Team"
-            );
+            var createdInterview = await _context.ApplicationInterviews
+                .Include(x => x.Interviewer)
+                .Include(x => x.Application)
+                     .ThenInclude(a => a.Candidate)
+                .Include(x => x.Application)
+                     .ThenInclude(a => a.JobPosting)
+                          .ThenInclude(j => j.Position)
+                .Include(x => x.Application)
+                     .ThenInclude(a => a.JobPosting)
+                          .ThenInclude(j => j.Department)
+                .FirstAsync(x => x.Id == interview.Id, ct);
 
-           
-            return ResponseFactory.Success(new ApplicationInterviewResponse
+            await _emailService.SendAsync(createdInterview.Application.Candidate, createdInterview, ct);
+
+            var response = new ApplicationInterviewResponse
             {
-                Id = interview.Id,
-                ApplicationProcessId = interview.ApplicationProcessId,
-                ScheduledTime = interview.ScheduledTime,
-                InterviewerName = interview.InterviewerName,
-                InterviewType = interview.interviewType,
-                Location = interview.Location
-            },
-            "Interview created successfully");
+                Id = createdInterview.Id,
+
+                ApplicationId = createdInterview.ApplicationId,
+
+                CandidateName = createdInterview.Application.Candidate.FullName,
+
+                JobTitle = createdInterview.Application.JobPosting.Title,
+
+                InterviewerId = createdInterview.InterviewerId,
+
+                InterviewerName = createdInterview.Interviewer.FullName,
+
+                ScheduledAt = createdInterview.ScheduledAt,
+
+                DurationInMinutes = createdInterview.DurationInMinutes,
+
+                InterviewType = createdInterview.InterviewType,
+
+                Status = createdInterview.Status,
+
+                Result = createdInterview.Result,
+
+                Score = createdInterview.Score,
+
+                Location = createdInterview.Location,
+
+                MeetingLink = createdInterview.MeetingLink,
+
+                Feedback = createdInterview.Feedback
+            };
+
+            return ResponseFactory.Success(response, "Interview scheduled successfully.");
         }
     }
 }
+

@@ -22,7 +22,7 @@ namespace Infrastructure.services.Patient
             string fullName, string phoneNumber, string email, Guid doctorId, Guid ScheduleId, string notes, CancellationToken ct)
         {
             var doctor = await _Context.DoctorProfiles
-                .Include(d => d.User)
+                //.Include(d => d.User)
                 .FirstOrDefaultAsync(d => d.Id == doctorId, ct);
             var schedule = await _Context.DoctorSchedules.FirstOrDefaultAsync(s => s.Id == ScheduleId);
 
@@ -72,7 +72,7 @@ namespace Infrastructure.services.Patient
                 PhoneNumber=Booking.PhoneNumber,
                 Email=Booking.Email,
                 DoctorId = Booking.DoctorId,
-                DoctorName = doctor.User.FirstName,
+                //DoctorName = doctor.User.FirstName,
                 PreferredDate = Booking.PreferredDate,
                 PreferredTime = Booking.PreferredTime,
                 Status = Booking.Status

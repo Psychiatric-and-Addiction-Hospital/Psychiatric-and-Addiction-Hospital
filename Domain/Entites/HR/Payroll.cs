@@ -1,24 +1,27 @@
 ﻿using Domain.Common;
+using Domain.Enums.HR;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entites.HR
 {
     public class Payroll:BaseEntity
     {
-        public Employee Employee { get; set; }  
         public Guid EmployeeId { get; set; }
-     
-        public DateTime PaymentDate { get; set; }
-        public decimal OverSefit { get; set; } 
-        public decimal OvertimeSefite { get; set; } 
-        public decimal GrossPay { get; set; }
-        public decimal Deductions { get; set; }
-        public decimal NetPay =>( GrossPay + (OverSefit  * OvertimeSefite) ) - Deductions;
-  
+
+        public Employee Employee { get; set; } = null!;
+
+        public PayrollType PayrollType { get; set; }
+
+        public PayrollStatus Status { get; set; }
+
+        public decimal Amount { get; set; }
+
+        public DateOnly EffectiveDate { get; set; }
+
+        public string? Description { get; set; }
+
+        public string? ReferenceNumber { get; set; }
+
+
     }
 }

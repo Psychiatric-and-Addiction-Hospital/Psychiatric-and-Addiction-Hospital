@@ -1,45 +1,100 @@
 ﻿using Application.Common.Interfaces.HR.Contract;
 using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+using Application.DTOS.Request.HR.Contract;
+using Application.DTOS.Responses.HR.Contract;
 using Infrastructure.Persistence.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.services.HR.Contract
 {
     public class UpdateContractService : IUpdateContract
     {
-        private readonly AddIdentityDbContext _Context;
-        public UpdateContractService(AddIdentityDbContext context)
+        private readonly AddIdentityDbContext _context;
+        private readonly IContractValidation _validation;
+
+        public UpdateContractService(AddIdentityDbContext context, IContractValidation validation)
         {
-            _Context = context;
+            _context = context;
+            _validation = validation;
         }
-
-        public async Task<BaseResponse<ContractResponse>> UpdateContractAsync(Guid Id, Guid EmployeeId, DateTime StartDate, DateTime? EndDate, string Terms, decimal BaseSalary, CancellationToken ct)
+        public async Task<BaseResponse<ContractResponse>> UpdateAsync(UpdateContractRequest request, CancellationToken ct)
         {
-            var contract = await _Context.Contracts.FindAsync(Id, ct);
-            if (contract is null)
-                return ResponseFactory.Fail<ContractResponse>("Contract not found.");
+            var validation = await _validation.ValidateUpdateAsync(request, ct);
 
-            var employee = await _Context.Employees.FindAsync(EmployeeId);
-            if (employee is null)
-                return ResponseFactory.Fail<ContractResponse>("Employee not found.");
+            if (!validation.Success)
+                return ResponseFactory.Fail<ContractResponse>(validation.Message, validation.Errors);
 
-            contract.StartDate = StartDate;
-            contract.EndDate = EndDate;
-            contract.Terms = Terms;
-            contract.BaseSalary = BaseSalary;
-            contract.EmployeeId = EmployeeId;
+            var contract = validation.Data!;
 
-            await _Context.SaveChangesAsync(ct);
-            return ResponseFactory.Success(new ContractResponse
+            contract.StartDate = request.StartDate;
+
+            contract.EndDate = request.EndDate;
+
+            contract.BaseSalary = request.BaseSalary;
+
+            contract.ProbationEndDate = request.ProbationEndDate;
+
+            contract.ContractType = request.ContractType;
+
+            contract.Terms = request.Terms?.Trim();
+
+            await _context.SaveChangesAsync(ct);
+
+            var updateContract = await _context.Contracts.AsNoTracking()
+                .Include(x => x.Offer)
+                  .ThenInclude(x => x.Application)
+                      .ThenInclude(x => x.Candidate)
+
+               .Include(x => x.Offer)
+                 .ThenInclude(x => x.Application)
+                    .ThenInclude(x => x.JobPosting)
+                       .ThenInclude(x => x.Department)
+
+               .Include(x => x.Offer)
+                  .ThenInclude(x => x.Application)
+                    .ThenInclude(x => x.JobPosting)
+                      .ThenInclude(x => x.Position)
+
+                 .FirstOrDefaultAsync(c => c.Id == request.Id, ct);
+
+            var response = new ContractResponse
             {
-                Id = contract.Id,
-                StartDate = contract.StartDate,
-                EndDate = contract.EndDate,
-                Terms = contract.Terms,
-                BaseSalary = contract.BaseSalary,
-                EmployeeId = contract.EmployeeId,
-                EmployeeName = $"{employee.FirstName}{employee.LastName}"
-            });
+                Id = updateContract.Id,
+
+                OfferId = updateContract.OfferId,
+
+                ApplicationId = updateContract.Offer.ApplicationId,
+
+                CandidateId = updateContract.Offer.Application.CandidateId,
+
+                CandidateName = updateContract.Offer.Application.Candidate.FullName,
+
+                JobPostingId = updateContract.Offer.Application.JobPostingId,
+
+                JobTitle = updateContract.Offer.Application.JobPosting.Title,
+
+                DepartmentName = updateContract.Offer.Application.JobPosting.Department.Name,
+
+                PositionName = updateContract.Offer.Application.JobPosting.Position.Name,
+
+                StartDate = updateContract.StartDate,
+
+                EndDate = updateContract.EndDate,
+
+                BaseSalary = updateContract.BaseSalary,
+
+                SignedDate = updateContract.SignedDate,
+
+                ProbationEndDate = updateContract.ProbationEndDate,
+
+                ContractType = updateContract.ContractType,
+
+                Status = updateContract.Status,
+
+                Terms = updateContract.Terms
+            };
+
+            return ResponseFactory.Success(response, "Contract Update successfully.");
         }
     }
 }

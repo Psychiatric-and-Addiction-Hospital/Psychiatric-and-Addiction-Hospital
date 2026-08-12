@@ -1,10 +1,10 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+using Application.DTOS.Request.HR.Candidate;
+using Application.DTOS.Responses.HR.Candidate;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 
 namespace Application.Commands.HR.Candidate
 {
-    public record CreateCandidateCommand(string FullName,string Email,string Phone, IFormFile ResumeUrl) : 
+    public record CreateCandidateCommand(CreateCandidateRequest Request) : 
         IRequest<BaseResponse<CandidateResponse>>;
 }

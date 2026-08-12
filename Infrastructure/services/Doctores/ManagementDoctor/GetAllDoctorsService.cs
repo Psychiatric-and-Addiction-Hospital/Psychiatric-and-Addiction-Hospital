@@ -1,14 +1,8 @@
 ﻿using Application.Common.Interfaces.Doctores.ManagementDoctor;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
-using Domain.Entites.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.Doctores.ManagementDoctor
 {
@@ -22,20 +16,27 @@ namespace Infrastructure.services.Doctores.ManagementDoctor
 
         public async Task<BaseResponse<List<DoctorProfileResponse>>> GetAllDoctorsAsync(CancellationToken ct)
         {
-            var Profile = await _Context.DoctorProfiles
-                .Select(p => new DoctorProfileResponse
-                {
-                    Id = p.Id,
-                    FullName = p.FullName,
-                    Email = p.Email,
-                    PhoneNumber = p.PhoneNumber,
-                    Specialization = p.Specialization,
-                    Degree = p.Degree,
-                    Experience = p.Experience,
-                    ImagePath= p.ImagePath,
-                    Gender=p.Gender,       
-                }).ToListAsync(ct);
-            return ResponseFactory.Success(Profile, Profile.Any() ? "All Doctors retrieved successfully" : "No All Doctors found");
+            //var Profile = await _Context.DoctorProfiles
+            //    .Include(d=>d.Employee)
+            //    .FirstOrDefaultAsync(d => d.Employee.Id == d.Employee.Id)
+            //    //.Select(p => new DoctorProfileResponse
+            //    {
+            //        Id = p.Id,
+            //        //FullName = p.FullName,
+            //        //Email = p.Email,
+            //        //PhoneNumber = p.PhoneNumber,
+            //        //Specialization = p.Specialization,
+            //        //Degree = p.Degree,
+            //        //Experience = p.Experience,
+            //        //ImagePath= p.ImagePath,
+            //        //Gender=p.Gender,       
+            //    }).ToListAsync(ct);
+            //return ResponseFactory.Success(
+            //    //Profile, Profile.Any() ?
+            //    "All Doctors retrieved successfully" 
+            //    //: "No All Doctors found"
+            //    );
+            throw new NotImplementedException();
         }
 
     }

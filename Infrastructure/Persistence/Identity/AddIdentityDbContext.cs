@@ -1,15 +1,17 @@
-﻿using Domain.Entites;
+﻿using Domain.Common;
+using Domain.Entites;
 using Domain.Entites.Authentication;
 using Domain.Entites.BlogModule;
 using Domain.Entites.DoctorsModule;
 using Domain.Entites.Features;
-
 using Domain.Entites.HR;
-using Domain.Entites.HR.Applications;
-
+using Domain.Entites.HR.Leave;
+using Domain.Entites.HR.Performance;
+using Domain.Entites.HR.Recruitment;
 using Domain.Entites.ServicesModule;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RecruitmentApplication = Domain.Entites.HR.Recruitment.Application;
 
 
 namespace Infrastructure.Persistence.Identity
@@ -20,7 +22,7 @@ namespace Infrastructure.Persistence.Identity
             : base(options)
         {
         }
-       
+
         public DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
         public DbSet<PasswordResetCode> PasswordResetCodes { get; set; } = default!;
         public DbSet<Report> Reports { get; set; } = default!;
@@ -33,7 +35,6 @@ namespace Infrastructure.Persistence.Identity
         public DbSet<Notification> Notifications { get; set; } = default!;
         public DbSet<ChatMessage> ChatMessages { get; set; } = default!;
         public DbSet<DoctorSchedule> DoctorSchedules { get; set; } = default!;
-        public DbSet<Department> Departments { get; set; } = default!;
         public DbSet<PublicBooking> PublicBookings { get; set; } = default!;
 
         #region Blog
@@ -49,26 +50,65 @@ namespace Infrastructure.Persistence.Identity
         public DbSet<Service> Services { get; set; } = default!;
         #endregion
 
+        #region HR Core
+        public DbSet<Employee> Employees { get; set; } = default!;
+        public DbSet<Department> Departments { get; set; } = default!;
+        public DbSet<Position> Positions { get; set; } = default!;
+        public DbSet<Shift> Shifts { get; set; } = default!;
+        public DbSet<Attendance> Attendances { get; set; } = default!;
+        public DbSet<Payroll> Payrolls { get; set; } = default!;
+        public DbSet<Contract> Contracts { get; set; } = default!;
 
-        #region
-        public DbSet<Candidate> Candidates { get; set; }
-        public DbSet<Recruitment> Recruitments { get; set; }
-      
-        public DbSet<ApplicationProcess> ApplicationProcesses { get; set; }
-        public DbSet<ApplicationInterview> ApplicationInterviews { get; set; }
-        public DbSet<ApplicationOffer> ApplicationOffers { get; set; }
-        public DbSet<Employee> Employees { get; set; }
-        public DbSet<Contract> Contracts { get; set; }
-        public DbSet<Attendance> Attendances { get; set; }
-        public DbSet<Payroll> Payrolls { get; set; }
+        #region Recruitment 
+        public DbSet<JobPosting> JobPostings { get; set; } = default!;
+        public DbSet<Candidate> Candidates { get; set; } = default!;
+        public DbSet<RecruitmentApplication> Applications { get; set; } = default!;
+        public DbSet<ApplicationInterview> ApplicationInterviews { get; set; } = default!;
+        public DbSet<ApplicationOffer> ApplicationOffers { get; set; } = default!;
+        #endregion
+
+
+        #region Leave Management
+        // =========================
+        public DbSet<LeaveType> LeaveTypes { get; set; } = default!;
+        public DbSet<LeaveRequest> LeaveRequests { get; set; } = default!;
+        public DbSet<EmployeeLeaveBalance> EmployeeLeaveBalances { get; set; } = default!;
+        #endregion
+
+        #region Performance
+        // =========================
+        public DbSet<PerformanceCriteria> PerformanceCriteria { get; set; } = default!;
+        public DbSet<PerformanceReview> PerformanceReviews { get; set; } = default!;
+        public DbSet<PerformanceReviewItem> PerformanceReviewItems { get; set; } = default!;
 
         #endregion
+
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder); 
-
-           
+            base.OnModelCreating(builder);
             builder.ApplyConfigurationsFromAssembly(typeof(AddIdentityDbContext).Assembly);
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entries = ChangeTracker.Entries<BaseEntity>();
+
+            foreach (var entry in entries)
+            {
+                if (entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedAt = DateTime.UtcNow;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.UpdatedAt = DateTime.UtcNow;
+                }
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
     }
