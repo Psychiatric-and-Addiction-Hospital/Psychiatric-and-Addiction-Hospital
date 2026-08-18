@@ -23,7 +23,7 @@ namespace Application.Handlers.HR.JobPosting
         }
         public async Task<BaseResponse<JobPostingResponse>> Handle(CreateJobPostingCommand request, CancellationToken ct)
         {
-            return await _service.CreateAsync(request, ct);
+            return await _service.CreateAsync(request.Request, ct);
         }
     }
 }

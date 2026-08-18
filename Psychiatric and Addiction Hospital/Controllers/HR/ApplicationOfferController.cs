@@ -52,24 +52,6 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [AllowAnonymous]
-        [HttpPut("{id:guid}/AcceptApplicationOffer")]
-        public async Task<IActionResult> Accept(Guid id)
-        {
-            var result = await _sender.Send(new AcceptApplicationOfferCommand(id));
-
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-
-        [AllowAnonymous]
-        [HttpPut("{id:guid}/RejectApplicationOffer")]
-        public async Task<IActionResult> Reject(Guid id)
-        {
-            var result = await _sender.Send(new RejectApplicationOfferCommand(id));
-
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-
         [HttpDelete("{id:guid}/DeleteApplicationOffer")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -77,6 +59,9 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 
             return result.Success ? Ok(result) : BadRequest(result);
         }
+
+        
+
     }
 
 }

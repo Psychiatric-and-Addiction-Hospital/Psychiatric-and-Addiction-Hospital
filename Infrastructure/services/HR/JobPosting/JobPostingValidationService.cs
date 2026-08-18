@@ -27,14 +27,6 @@ namespace Infrastructure.services.HR.JobPosting
             if (!await PositionExists(request.PositionId, ct))
                 return ResponseFactory.Fail<bool>("Position not found.");
 
-            var manager = await GetHiringManager(request.HiringManagerId, ct);
-
-            if (manager == null)
-                return ResponseFactory.Fail<bool>("Hiring manager not found.");
-
-            if (!manager.IsActive)
-                return ResponseFactory.Fail<bool>("Hiring manager is inactive.");
-
             var dateValidation = ValidateDates(request.PublishedDate, request.ClosingDate);
             if (dateValidation != null)
                 return ResponseFactory.Fail<bool>(dateValidation);
@@ -61,14 +53,6 @@ namespace Infrastructure.services.HR.JobPosting
 
             if (!await PositionExists(Request.PositionId, ct))
                 return ResponseFactory.Fail<jobPostingEntity>("Position not found.");
-
-            var manager = await GetHiringManager(Request.HiringManagerId, ct);
-
-            if (manager == null)
-                return ResponseFactory.Fail<jobPostingEntity>("Hiring manager not found.");
-
-            if (!manager.IsActive)
-                return ResponseFactory.Fail<jobPostingEntity>("Hiring manager is inactive.");
 
             var dateValidation = ValidateDates(Request.PublishedDate, Request.ClosingDate);
             if (dateValidation != null)

@@ -29,9 +29,6 @@ namespace Application.Validators.HR.Position
             RuleFor(x => x.request.DepartmentId)
                 .NotEmpty().WithMessage("Department ID is required.");
 
-            RuleFor(x => x.request.EmployeeCodePrefix)
-               .NotEmpty().WithMessage("Employee code prefix is required.")
-              .MaximumLength(10).WithMessage("Employee code prefix cannot exceed 10 characters.");
         }
     }
 }

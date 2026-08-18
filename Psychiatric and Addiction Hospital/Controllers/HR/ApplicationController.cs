@@ -45,7 +45,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 
         [Authorize(Policy = "HROnly")]
         [HttpPut("{id:guid}/UpdateApplicationStatus")]
-        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateApplicationStatusRequest request)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromForm] UpdateApplicationStatusRequest request)
         {
             if (id != request.Id)
                 return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));
@@ -64,12 +64,6 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        //[HttpPut("{id:guid}/WithdrawApplication")]
-        //public async Task<IActionResult> Withdraw(Guid id)
-        //{
-        //    var result = await _sender.Send(new WithdrawApplicationCommand(id));
-
-        //    return result.Success ? Ok(result) : BadRequest(result);
-        //}
+      
     }
 }

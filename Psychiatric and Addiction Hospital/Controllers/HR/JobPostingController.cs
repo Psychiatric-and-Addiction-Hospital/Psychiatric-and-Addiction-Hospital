@@ -43,16 +43,16 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 
         [AllowAnonymous]
         [HttpGet("GetJobPostings")]
-        public async Task<IActionResult> GetAll([FromQuery] GetJobPostingsQuery request)
+        public async Task<IActionResult> GetAll([FromQuery] JobPostingListRequest request)
         {
-            var result = await _sender.Send(request);
+            var result = await _sender.Send(new GetJobPostingsQuery(request));
 
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
         [Authorize(Policy = "HRManagement")]
         [HttpPost("CreateJobPosting")]
-        public async Task<IActionResult> Create([FromBody] CreateJobPostingRequest request)
+        public async Task<IActionResult> Create([FromForm] CreateJobPostingRequest request)
         {
             var result = await _sender.Send(new CreateJobPostingCommand(request));
 
@@ -61,7 +61,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 
         [Authorize(Policy = "HRManagement")]
         [HttpPut("{id:guid}/UpdateJobPosting")]
-        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateJobPostingRequest request)
+        public async Task<IActionResult> Update(Guid id, [FromForm] UpdateJobPostingRequest request)
         {
             if (id != request.Id)
                 return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));

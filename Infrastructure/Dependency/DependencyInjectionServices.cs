@@ -12,6 +12,7 @@ using Application.Common.Interfaces.HR.ApplicationInterview;
 using Application.Common.Interfaces.HR.ApplicationOffer;
 using Application.Common.Interfaces.HR.Attendance;
 using Application.Common.Interfaces.HR.Candidate;
+using Application.Common.Interfaces.HR.CandidatePortal;
 using Application.Common.Interfaces.HR.Contract;
 using Application.Common.Interfaces.HR.Dashboard;
 using Application.Common.Interfaces.HR.Depertment;
@@ -40,6 +41,7 @@ using Infrastructure.services.HR.ApplicationInterview;
 using Infrastructure.services.HR.ApplicationOffer;
 using Infrastructure.services.HR.Attendance;
 using Infrastructure.services.HR.Candidate;
+using Infrastructure.services.HR.CandidatePortal;
 using Infrastructure.services.HR.Contract;
 using Infrastructure.services.HR.Dashboard;
 using Infrastructure.services.HR.Depertment;
@@ -126,14 +128,20 @@ namespace Infrastructure.Dependency
             #endregion
 
             #region Candidate
-
             services.AddScoped<ICreateCandidate, CreateCandidateService>();
             services.AddScoped<IUpdateCandidate, UpdateCandidateService>();
             services.AddScoped<IDeleteCandidate, DeleteCandidateService>();
             services.AddScoped<IGetCandidateById, GetCandidateByIdService>();
             services.AddScoped<IGetCandidates, GetCandidatesService>();
             services.AddScoped<ICreateCandidateAccount, CreateCandidateAccountService>();
-
+            services.AddScoped<IGetMyCandidateProfile, GetMyCandidateProfileService>();
+            services.AddScoped<IUpdateMyCandidateProfile, UpdateMyCandidateProfileService>();
+            services.AddScoped<IGetMyOffers, GetMyOffersService>();
+            services.AddScoped<IGetMyApplications, GetMyApplicationsService>();
+            services.AddScoped<IGetApplicationStatusHistory, GetApplicationStatusHistoryService>();
+            services.AddScoped<IApplicationStatusService, ApplicationStatusService>();
+            services.AddScoped<ICandidateDashboard, CandidateDashboardService>();
+            services.AddScoped<ICandidateInterview, CandidateInterviewService>();
             #endregion
 
             #region JobPosting

@@ -17,7 +17,7 @@ namespace Application.Handlers.HR.JobPosting
         }
         public async Task<BaseResponse<PagedResponse<JobPostingResponse>>> Handle(GetJobPostingsQuery request, CancellationToken cancellationToken)
         {
-            return await _service.GetAllAsync(request, cancellationToken);
+            return await _service.GetAllAsync(request.Request, cancellationToken);
         }
     }
 }

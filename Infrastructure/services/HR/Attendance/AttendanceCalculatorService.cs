@@ -27,16 +27,16 @@ namespace Infrastructure.services.HR.Attendance
             var workDate = checkIn.Date;
 
             if (shift.IsNightShift &&
-                checkIn.TimeOfDay < shift.EndTime)
+                checkIn.TimeOfDay < shift.EndTime.ToTimeSpan())
             {
                 workDate = workDate.AddDays(-1);
             }
 
-            var shiftStart = workDate + shift.StartTime;
+            var shiftStart = workDate.Add(shift.StartTime.ToTimeSpan());
 
             var shiftEnd = shift.IsNightShift
-                ? workDate.AddDays(1) + shift.EndTime
-                : workDate + shift.EndTime;
+                ? workDate.AddDays(1).Add(shift.EndTime.ToTimeSpan())
+                : workDate.Add(shift.EndTime.ToTimeSpan());
 
             result.ShiftStart = shiftStart;
             result.ShiftEnd = shiftEnd;

@@ -1194,15 +1194,8 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<string>("EmployeeCodePrefix")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<bool>("IsActive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -1220,8 +1213,6 @@ namespace Infrastructure.Migrations
                     b.ToTable("Positions", null, t =>
                         {
                             t.HasCheckConstraint("CK_Position_BasicSalary", "[BasicSalary] >= 0");
-
-                            t.HasCheckConstraint("CK_Position_EmployeeCodePrefix", "LEN(LTRIM(RTRIM([EmployeeCodePrefix]))) > 0");
 
                             t.HasCheckConstraint("CK_Position_Name_NotEmpty", "LEN(LTRIM(RTRIM([Name]))) > 0");
                         });
@@ -1419,6 +1410,37 @@ namespace Infrastructure.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationStatusHistory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ApplicationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ChangedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationId");
+
+                    b.ToTable("ApplicationStatusHistorys");
+                });
+
             modelBuilder.Entity("Domain.Entites.HR.Recruitment.Candidate", b =>
                 {
                     b.Property<Guid>("Id")
@@ -1552,7 +1574,7 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<Guid>("HiringManagerId")
+                    b.Property<Guid?>("HiringManagerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Location")
@@ -2526,6 +2548,17 @@ namespace Infrastructure.Migrations
                     b.Navigation("ApprovedByEmployee");
                 });
 
+            modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationStatusHistory", b =>
+                {
+                    b.HasOne("Domain.Entites.HR.Recruitment.Application", "Application")
+                        .WithMany("StatusHistory")
+                        .HasForeignKey("ApplicationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Application");
+                });
+
             modelBuilder.Entity("Domain.Entites.HR.Recruitment.Candidate", b =>
                 {
                     b.HasOne("Domain.Entites.AppUser", "AppUser")
@@ -2547,8 +2580,7 @@ namespace Infrastructure.Migrations
                     b.HasOne("Domain.Entites.HR.Employee", "HiringManager")
                         .WithMany("ManagedJobPostings")
                         .HasForeignKey("HiringManagerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Domain.Entites.HR.Position", "Position")
                         .WithMany("JobPostings")
@@ -2838,6 +2870,8 @@ namespace Infrastructure.Migrations
                     b.Navigation("Interviews");
 
                     b.Navigation("Offer");
+
+                    b.Navigation("StatusHistory");
                 });
 
             modelBuilder.Entity("Domain.Entites.HR.Recruitment.ApplicationOffer", b =>

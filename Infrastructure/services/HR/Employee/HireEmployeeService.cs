@@ -28,13 +28,14 @@ namespace Infrastructure.services.HR.Employee
 
         private readonly IEmployeeWelcomeEmailService _credentialEmail;
 
+        private readonly IApplicationStatusService _statusService;
         private readonly IConfiguration _configuration;
         public HireEmployeeService(AddIdentityDbContext context,
             IHireEmployeeVaildation Vaildation,
             UserManager<AppUser> userManager,
             IEmployeeCodeGenerator employeeCodeGenerator,
             IDoctorProfileCreator doctorProfileCreator,
-            IEmployeeWelcomeEmailService credentialEmail, IConfiguration onfiguration)
+            IEmployeeWelcomeEmailService credentialEmail, IConfiguration onfiguration, IApplicationStatusService statusService)
         {
             _context = context;
             _validation = Vaildation;
@@ -42,6 +43,7 @@ namespace Infrastructure.services.HR.Employee
             _employeeCodeGenerator = employeeCodeGenerator;
             _doctorProfileCreator = doctorProfileCreator;
             _credentialEmail = credentialEmail;
+            _statusService = statusService;
             _configuration = onfiguration;
         }
         public async Task<BaseResponse<EmployeeResponse>> HireAsync(HireEmployeeRequest request, CancellationToken ct)
@@ -128,7 +130,17 @@ namespace Infrastructure.services.HR.Employee
 
                 contract.Status = ContractStatus.Active;
                 contract.Offer.Status = OfferStatus.Accepted;
-                contract.Offer.Application.Status = ApplicationStatus.Hired;
+
+                var statusResult = await _statusService.ChangeStatusAsync(
+                    contract.Offer.Application.Id,
+                    ApplicationStatus.Hired,
+                    "Candidate was hired and converted to employee.", ct);
+
+                if (!statusResult.Success)
+                {
+                    await transaction.RollbackAsync(ct);
+                    return ResponseFactory.Fail<EmployeeResponse>(statusResult.Message, statusResult.Errors);
+                }
 
                 await _context.SaveChangesAsync(ct);
 

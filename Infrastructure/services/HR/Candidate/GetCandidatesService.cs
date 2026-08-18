@@ -1,16 +1,10 @@
 ﻿using Application.Common.Extensions;
 using Application.Common.Interfaces.HR.Candidate;
 using Application.Common.Responses;
+using Application.DTOS.Request.HR.Candidate;
 using Application.DTOS.Responses.HR.Candidate;
-using Application.Queries.HR.Candidate;
-using Domain.Entites.HR.Recruitment;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.HR.Candidate
 {
@@ -22,15 +16,15 @@ namespace Infrastructure.services.HR.Candidate
             _context = context;
         }
 
-        public async Task<BaseResponse<PagedResponse<CandidateResponse>>> GetAllAsync(GetCandidatesQuery request, CancellationToken ct)
+        public async Task<BaseResponse<PagedResponse<CandidateResponse>>> GetAllAsync(CandidateListRequest request, CancellationToken ct)
         {
             var query = _context.Candidates.
                 AsNoTracking().
                 AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(request.Request.Search))
+            if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                var search = request.Request.Search.Trim();
+                var search = request.Search.Trim();
 
                 query = query.Where(x =>
 
@@ -43,36 +37,36 @@ namespace Infrastructure.services.HR.Candidate
                     x.PhoneNumber.Contains(search));
             }
 
-            if (request.Request.IsActive.HasValue)
+            if (request.IsActive.HasValue)
             {
                 query = query.Where(x =>
-                    x.IsActive == request.Request.IsActive);
+                    x.IsActive == request.IsActive);
             }
 
-            query = (request.Request.SortBy?.ToLower()) switch
+            query = (request.SortBy?.ToLower()) switch
             {
-                "firstname" => request.Request.Descending
+                "firstname" => request.Descending
                     ? query.OrderByDescending(x => x.FirstName)
                     : query.OrderBy(x => x.FirstName),
 
-                "lastname" => request.Request.Descending
+                "lastname" => request.Descending
                     ? query.OrderByDescending(x => x.LastName)
                     : query.OrderBy(x => x.LastName),
 
-                "email" => request.Request.Descending
+                "email" => request.Descending
                     ? query.OrderByDescending(x => x.Email)
                     : query.OrderBy(x => x.Email),
 
-                "experience" => request.Request.Descending
+                "experience" => request.Descending
                     ? query.OrderByDescending(x => x.YearsOfExperience)
                     : query.OrderBy(x => x.YearsOfExperience),
 
-                _ => request.Request.Descending
+                _ => request.Descending
                     ? query.OrderByDescending(x => x.FirstName)
                     : query.OrderBy(x => x.FirstName)
             };
 
-            var pagedResult = await query.ToPagedResponseAsync(request.Request.PageNumber, request.Request.PageSize, ct);
+            var pagedResult = await query.ToPagedResponseAsync(request.PageNumber, request.PageSize, ct);
 
             var response = new PagedResponse<CandidateResponse>
             {

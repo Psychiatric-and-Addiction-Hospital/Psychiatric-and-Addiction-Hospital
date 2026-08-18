@@ -1,15 +1,8 @@
-﻿using Application.Common.Interfaces.HR;
-using Application.Common.Interfaces.HR.Depertment;
+﻿using Application.Common.Interfaces.HR.Depertment;
 using Application.Common.Responses;
 using Application.DTOS.Responses.HR;
-using Domain.Entites.ServicesModule;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.HR.Depertment
 {

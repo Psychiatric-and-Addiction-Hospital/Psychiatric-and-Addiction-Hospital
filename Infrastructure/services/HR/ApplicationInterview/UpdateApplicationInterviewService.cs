@@ -24,23 +24,11 @@ namespace Infrastructure.services.HR.ApplicationInterview
             UpdateApplicationInterviewCommand request,
             CancellationToken ct)
         {
-            //---------------------------------------
-            // Validation
-            //---------------------------------------
-
-            var validation = await _validation
-                .ValidateUpdateAsync(request.Request, ct);
+            var validation = await _validation.ValidateUpdateAsync(request.Request, ct);
 
             if (!validation.Success)
-            {
-                return ResponseFactory.Fail<ApplicationInterviewResponse>(
-                    validation.Message,
-                    validation.Errors);
-            }
+                return ResponseFactory.Fail<ApplicationInterviewResponse>(validation.Message, validation.Errors);
 
-            //---------------------------------------
-            // Entity
-            //---------------------------------------
 
             var interview = validation.Data!;
 
@@ -58,10 +46,6 @@ namespace Infrastructure.services.HR.ApplicationInterview
 
             await _context.SaveChangesAsync(ct);
 
-            //---------------------------------------
-            // Load Navigation Properties
-            //---------------------------------------
-
             var updatedInterview = await _context.ApplicationInterviews
                 .AsNoTracking()
                 .Include(x => x.Interviewer)
@@ -70,10 +54,6 @@ namespace Infrastructure.services.HR.ApplicationInterview
                 .Include(x => x.Application)
                     .ThenInclude(a => a.JobPosting)
                 .FirstAsync(x => x.Id == interview.Id, ct);
-
-            //---------------------------------------
-            // Response
-            //---------------------------------------
 
             var response = new ApplicationInterviewResponse
             {
@@ -108,9 +88,7 @@ namespace Infrastructure.services.HR.ApplicationInterview
                 Feedback = updatedInterview.Feedback
             };
 
-            return ResponseFactory.Success(
-                response,
-                "Interview updated successfully.");
+            return ResponseFactory.Success(response, "Interview updated successfully.");
         }
     }
 }

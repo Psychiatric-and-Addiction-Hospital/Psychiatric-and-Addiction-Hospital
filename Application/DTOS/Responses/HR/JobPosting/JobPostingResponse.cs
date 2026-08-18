@@ -1,9 +1,5 @@
 ﻿using Domain.Enums.HR;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.DTOS.Responses.HR.JobPosting
 {
@@ -43,9 +39,6 @@ namespace Application.DTOS.Responses.HR.JobPosting
 
         public string PositionName { get; set; } = string.Empty;
 
-        public Guid HiringManagerId { get; set; }
-
-        public string HiringManagerName { get; set; } = string.Empty;
     }
 }
 

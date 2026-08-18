@@ -45,8 +45,7 @@ namespace Infrastructure.services.HR.Candidate
                 candidate.Image =
                     await _fileStorage.SaveFileAsync(
                         request.Image,
-                        "candidate-images",
-                        ct);
+                        "candidate-images", ct);
             }
 
             if (request.Resume != null)

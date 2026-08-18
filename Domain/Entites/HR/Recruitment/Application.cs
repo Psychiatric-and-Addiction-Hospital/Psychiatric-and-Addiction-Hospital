@@ -15,10 +15,9 @@ namespace Domain.Entites.HR.Recruitment
         public ApplicationStatus Status { get; set; }
         public string? Notes { get; set; }
         public string? CoverLetter { get; set; }
-        public string ResumeSnapshotUrl { get; set; } = string.Empty;
-        // Interviews
+        public string ResumeSnapshotUrl { get; set; } = string.Empty;        
         public ICollection<ApplicationInterview> Interviews { get; set; } = new List<ApplicationInterview>();
-        // Final Offer
+        public ICollection<ApplicationStatusHistory> StatusHistory { get; set; }= new List<ApplicationStatusHistory>();
         public ApplicationOffer? Offer { get; set; }
     }
 }

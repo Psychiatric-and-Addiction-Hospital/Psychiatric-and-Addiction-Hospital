@@ -1,15 +1,11 @@
 ﻿using Application.Commands.HR.JobPosting;
 using Application.Common.Interfaces.HR.JobPosting;
 using Application.Common.Responses;
+using Application.DTOS.Request.HR.JobPosting;
 using Application.DTOS.Responses.HR.JobPosting;
 using Domain.Enums.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.HR.JobPosting
 {
@@ -24,67 +20,49 @@ namespace Infrastructure.services.HR.JobPosting
         }
 
         public async Task<BaseResponse<JobPostingResponse>> CreateAsync(
-            CreateJobPostingCommand request,
+            CreateJobPostingRequest request,
             CancellationToken ct)
         {
-            //-------------------------------------
-            // Validation
-            //-------------------------------------
-
-            var validation = await _validation
-                .ValidateCreateAsync(request.Request, ct);
+            var validation = await _validation.ValidateCreateAsync(request, ct);
 
             if (!validation.Success)
-            {
-                return ResponseFactory.Fail<JobPostingResponse>(
-                    validation.Message,
-                    validation.Errors);
-            }
-
-            //-------------------------------------
-            // Create Entity
-            //-------------------------------------
+                return ResponseFactory.Fail<JobPostingResponse>(validation.Message,validation.Errors);
 
             var jobPosting = new Domain.Entites.HR.Recruitment.JobPosting
             {
-                Title = request.Request.Title.Trim(),
+                Title = request.Title.Trim(),
 
-                Description = request.Request.Description.Trim(),
+                Description = request.Description.Trim(),
 
-                Location = request.Request.Location.Trim(),
+                Location = request.Location.Trim(),
 
-                MinSalary = request.Request.MinSalary,
+                MinSalary = request.MinSalary,
 
-                MaxSalary = request.Request.MaxSalary,
+                MaxSalary = request.MaxSalary,
 
-                Vacancies = request.Request.Vacancies,
+                Vacancies = request.Vacancies,
 
-                WorkMode = request.Request.WorkMode,
+                WorkMode = request.WorkMode,
 
-                EmploymentType = request.Request.EmploymentType,
+                EmploymentType = request.EmploymentType,
 
-                ExperienceLevel = request.Request.ExperienceLevel,
+                ExperienceLevel = request.ExperienceLevel,
 
-                PublishedDate = request.Request.PublishedDate,
+                PublishedDate = request.PublishedDate,
 
-                ClosingDate = request.Request.ClosingDate,
+                ClosingDate = request.ClosingDate,
 
                 Status = JobPostingStatus.Draft,
 
-                DepartmentId = request.Request.DepartmentId,
+                DepartmentId = request.DepartmentId,
 
-                PositionId = request.Request.PositionId,
+                PositionId = request.PositionId,
 
-                HiringManagerId = request.Request.HiringManagerId
             };
 
             _context.JobPostings.Add(jobPosting);
 
             await _context.SaveChangesAsync(ct);
-
-            //-------------------------------------
-            // Load Navigation Properties
-            //-------------------------------------
 
             var createdJobPosting = await _context.JobPostings
                .AsNoTracking()
@@ -92,10 +70,6 @@ namespace Infrastructure.services.HR.JobPosting
                .Include(x => x.Position)
                .Include(x => x.HiringManager)
                .FirstAsync(x => x.Id == jobPosting.Id, ct);
-
-            //-------------------------------------
-            // Response
-            //-------------------------------------
 
             var response = new JobPostingResponse
             {
@@ -133,9 +107,6 @@ namespace Infrastructure.services.HR.JobPosting
 
                 PositionName = createdJobPosting.Position.Name,
 
-                HiringManagerId = createdJobPosting.HiringManagerId,
-
-                HiringManagerName = createdJobPosting.HiringManager.FullName
             };
 
             return ResponseFactory.Success(response, "Job posting created successfully.");

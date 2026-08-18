@@ -18,7 +18,7 @@ namespace Application.Handlers.HR.Candidate
 
         public async Task<BaseResponse<PagedResponse<CandidateResponse>>> Handle(GetCandidatesQuery request, CancellationToken cancellationToken)
         {
-            return await _getCandidates.GetAllAsync(request, cancellationToken);
+            return await _getCandidates.GetAllAsync(request.Request, cancellationToken);
         }
     }
 }

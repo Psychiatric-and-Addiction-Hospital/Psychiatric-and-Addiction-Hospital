@@ -1,4 +1,5 @@
 ﻿using Application.Commands.HR.ApplicationOffer;
+using Application.Common.Interfaces.Common;
 using Application.Common.Interfaces.HR.ApplicationOffer;
 using Application.Common.Responses;
 using Domain.Enums.HR;
@@ -10,11 +11,15 @@ namespace Infrastructure.services.HR.ApplicationOffer
     {
         private readonly AddIdentityDbContext _context;
         private readonly IApplicationOfferValidation _validation;
+        private readonly IApplicationStatusService _statusService;
 
-        public DeleteApplicationOfferService(AddIdentityDbContext context, IApplicationOfferValidation validation)
+        public DeleteApplicationOfferService(AddIdentityDbContext context,
+            IApplicationOfferValidation validation,
+            IApplicationStatusService statusService)
         {
             _context = context;
             _validation = validation;
+            _statusService = statusService;
         }
 
         public async Task<BaseResponse<bool>> DeleteAsync(Guid OfferId, CancellationToken ct)
@@ -26,11 +31,16 @@ namespace Infrastructure.services.HR.ApplicationOffer
 
             var offer = validation.Data!;
 
-            // Remove Offer            
+            var statusResult = await _statusService.ChangeStatusAsync(
+                offer.ApplicationId,
+                ApplicationStatus.InterviewCompleted,
+                "Application offer was deleted.",
+                ct);
+
+            if (!statusResult.Success)
+                return ResponseFactory.Fail<bool>(statusResult.Message, statusResult.Errors);
 
             _context.ApplicationOffers.Remove(offer);
-
-            // Restore Application Status
 
             var application = await _context.Applications
                 .FindAsync(new object[] { offer.ApplicationId }, ct);

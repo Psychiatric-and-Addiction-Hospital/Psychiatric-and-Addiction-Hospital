@@ -65,6 +65,7 @@ namespace Infrastructure.Persistence.Identity
         public DbSet<RecruitmentApplication> Applications { get; set; } = default!;
         public DbSet<ApplicationInterview> ApplicationInterviews { get; set; } = default!;
         public DbSet<ApplicationOffer> ApplicationOffers { get; set; } = default!;
+        public DbSet<ApplicationStatusHistory> ApplicationStatusHistorys { get; set; } = default!;
         #endregion
 
 

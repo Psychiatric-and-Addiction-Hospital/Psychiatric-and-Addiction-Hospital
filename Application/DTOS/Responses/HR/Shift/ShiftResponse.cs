@@ -8,9 +8,9 @@ namespace Application.DTOS.Responses.HR.Shift
 
         public string Name { get; set; } = string.Empty;
 
-        public TimeSpan StartTime { get; set; }
+        public TimeOnly StartTime { get; set; }
 
-        public TimeSpan EndTime { get; set; }
+        public TimeOnly EndTime { get; set; }
 
         public int BreakMinutes { get; set; }
 

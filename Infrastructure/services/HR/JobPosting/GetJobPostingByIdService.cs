@@ -63,9 +63,6 @@ namespace Infrastructure.services.HR.JobPosting
 
                 PositionName = jobPosting.Position.Name,
 
-                HiringManagerId = jobPosting.HiringManagerId,
-
-                HiringManagerName = jobPosting.HiringManager.FullName
             };
 
             return ResponseFactory.Success(response, "Job posting retrieved successfully.");

@@ -18,11 +18,7 @@ namespace Infrastructure.Persistence.Configurations.HR
 
                 table.HasCheckConstraint(
                     "CK_Position_Name_NotEmpty",
-                    "LEN(LTRIM(RTRIM([Name]))) > 0");
-
-                table.HasCheckConstraint(
-                  "CK_Position_EmployeeCodePrefix",
-                  "LEN(LTRIM(RTRIM([EmployeeCodePrefix]))) > 0");
+                    "LEN(LTRIM(RTRIM([Name]))) > 0");              
             });
 
             #endregion
@@ -40,12 +36,7 @@ namespace Infrastructure.Persistence.Configurations.HR
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
-            builder.Property(p => p.IsActive)
-                .HasDefaultValue(true);
-
-            builder.Property(p => p.EmployeeCodePrefix)
-                .IsRequired()
-                .HasMaxLength(10);
+            builder.Property(p => p.IsActive);
 
             #endregion
 
@@ -78,17 +69,7 @@ namespace Infrastructure.Persistence.Configurations.HR
 
             #endregion
 
-            #region Constraints
-
-            builder.HasCheckConstraint(
-                "CK_Position_BasicSalary",
-                "[BasicSalary] >= 0");
-
-            builder.HasCheckConstraint(
-                "CK_Position_Name_NotEmpty",
-                "LEN(LTRIM(RTRIM([Name]))) > 0");
-
-            #endregion
+          
         }
     }
 }

@@ -33,6 +33,5 @@ namespace Application.DTOS.Request.HR.JobPosting
 
         public Guid PositionId { get; set; }
 
-        public Guid HiringManagerId { get; set; }
     }
 }

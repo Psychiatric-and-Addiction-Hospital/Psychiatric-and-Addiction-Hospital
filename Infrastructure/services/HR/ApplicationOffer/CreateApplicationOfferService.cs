@@ -1,4 +1,5 @@
 ﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.Common;
 using Application.Common.Interfaces.HR.ApplicationOffer;
 using Application.Common.Responses;
 using Application.DTOS.Request.HR.ApplicationOffer;
@@ -15,11 +16,16 @@ namespace Infrastructure.services.HR.ApplicationOffer
         private readonly AddIdentityDbContext _context;
         private readonly IApplicationOfferValidation _validation;
         private readonly IJobOfferEmailService _emailService;
-        public CreateApplicationOfferService(AddIdentityDbContext context, IApplicationOfferValidation validation, IJobOfferEmailService emailService)
+        private readonly IApplicationStatusService _statusService;
+
+        public CreateApplicationOfferService(AddIdentityDbContext context,
+            IApplicationOfferValidation validation,
+            IJobOfferEmailService emailService, IApplicationStatusService statusService)
         {
             _context = context;
             _validation = validation;
             _emailService = emailService;
+            _statusService = statusService;
         }
         public async Task<BaseResponse<ApplicationOfferResponse>> CreateAsync(CreateApplicationOfferRequest request, CancellationToken ct)
         {
@@ -52,7 +58,14 @@ namespace Infrastructure.services.HR.ApplicationOffer
             var application = await _context.Applications
                 .FirstAsync(x => x.Id == request.ApplicationId, ct);
 
-            application.Status = ApplicationStatus.Offered;
+            var statusResult = await _statusService.ChangeStatusAsync(
+                application.Id,
+                ApplicationStatus.Offered,
+                "Job offer created and sent to candidate.", ct);
+
+            if (!statusResult.Success)
+                return ResponseFactory.Fail<ApplicationOfferResponse>(statusResult.Message, statusResult.Errors);
+
 
             await _context.SaveChangesAsync(ct);
 

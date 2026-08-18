@@ -1,5 +1,5 @@
-﻿using Application.Commands.HR.Contract;
-using Application.Common.Interfaces.HR.Contract;
+﻿using Application.Commands.HR.CandidatePortal;
+using Application.Common.Interfaces.HR.CandidatePortal;
 using Application.Common.Responses;
 using Application.DTOS.Responses.HR.Contract;
 using MediatR;

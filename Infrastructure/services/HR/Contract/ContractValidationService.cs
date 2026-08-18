@@ -1,8 +1,9 @@
-﻿using Application.Common.Interfaces.HR.Contract;
+﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.HR.Contract;
 using Application.Common.Responses;
-using Infrastructure.Persistence.Identity;
 using Application.DTOS.Request.HR.Contract;
 using Domain.Enums.HR;
+using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using ContractEntity = Domain.Entites.HR.Contract;
 using Offer = Domain.Entites.HR.Recruitment.ApplicationOffer;
@@ -12,10 +13,11 @@ namespace Infrastructure.services.HR.Contract
     public class ContractValidationService : IContractValidation
     {
         private readonly AddIdentityDbContext _context;
-
-        public ContractValidationService(AddIdentityDbContext context)
+        private readonly ICurrentUser _currentUser;
+        public ContractValidationService(AddIdentityDbContext context, ICurrentUser currentUser)
         {
             _context = context;
+            _currentUser = currentUser;
         }
 
         public async Task<BaseResponse<bool>> ValidateCreateAsync(CreateContractRequest request, CancellationToken ct)
@@ -101,6 +103,22 @@ namespace Infrastructure.services.HR.Contract
             if (contract.StartDate < DateTime.UtcNow.Date)
                 return ResponseFactory.Fail<ContractEntity>("Cannot sign a contract whose start date has already passed.");
 
+            if (!_currentUser.IsAuthenticated)
+                return ResponseFactory.Fail<ContractEntity>("User must be authenticated to sign a contract.");
+
+            var userId = _currentUser.UserId;
+
+            if (string.IsNullOrWhiteSpace(userId))
+                return ResponseFactory.Fail<ContractEntity>("Authenticated user must have a valid user ID.");
+
+            var candidate = contract.Offer?.Application?.Candidate;
+
+            if (candidate == null)
+                return ResponseFactory.Fail<ContractEntity>("Candidate information was not found.");
+
+            if (candidate.AppUserId != userId)
+                return ResponseFactory.Fail<ContractEntity>("You are not authorized to sign this contract.");
+
             return ResponseFactory.Success(contract, "Validation succeeded.");
         }
 
@@ -134,7 +152,12 @@ namespace Infrastructure.services.HR.Contract
 
         private async Task<ContractEntity?> GetContract(Guid id, CancellationToken ct)
         {
-            return await _context.Contracts.Include(x => x.Offer).FirstOrDefaultAsync(x => x.Id == id, ct);
+            return await _context.Contracts
+                .Include(x => x.Offer)
+                    .ThenInclude(x => x.Application)
+                        .ThenInclude(x => x.Candidate)
+                .FirstOrDefaultAsync(
+                    x => x.Id == id, ct);
         }
 
         private BaseResponse<bool>? ValidateSalary(decimal salary)

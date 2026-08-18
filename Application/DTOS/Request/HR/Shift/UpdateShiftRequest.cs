@@ -10,8 +10,8 @@ namespace Application.DTOS.Request.HR.Shift
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public TimeSpan StartTime { get; set; }
-        public TimeSpan EndTime { get; set; }
+        public TimeOnly StartTime { get; set; }
+        public TimeOnly EndTime { get; set; }
         public int BreakMinutes { get; set; }
         public bool IsNightShift { get; set; }
         public int ToleranceMinutes { get; set; }

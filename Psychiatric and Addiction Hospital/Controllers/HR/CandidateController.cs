@@ -1,4 +1,6 @@
 ﻿using Application.Commands.HR.Candidate;
+using Application.Commands.HR.Contract;
+using Application.Common.Constants;
 using Application.Common.Responses;
 using Application.DTOS.Request.HR.Candidate;
 using Application.Queries.HR.Candidate;
@@ -25,17 +27,10 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("account")]
-        [AllowAnonymous]
-        public async Task<IActionResult> CreateAccount([FromBody] CreateCandidateAccountRequest request)
-        {
-            var result = await _sender.Send(new CreateCandidateAccountCommand(request));
 
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
 
         [Authorize(Policy = "HRManagement")]
-        [HttpPut("{id:guid}/UpdateCandidate")]
+        [HttpPut("{Id:guid}/UpdateCandidate")]
         public async Task<IActionResult> Update([FromRoute] Guid Id, [FromForm] UpdateCandidateRequest request)
         {
             if (Id != request.Id)

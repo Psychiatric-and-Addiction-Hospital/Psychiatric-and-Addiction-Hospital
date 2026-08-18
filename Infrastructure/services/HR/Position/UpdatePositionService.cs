@@ -21,6 +21,7 @@ namespace Infrastructure.services.HR.Position
             request.Name = request.Name.Trim();
 
             var position = await _context.Positions
+                  .Include(p => p.Department)
                 .FirstOrDefaultAsync(p => p.Id == request.Id, ct);
 
             if (position is null)
@@ -54,7 +55,6 @@ namespace Infrastructure.services.HR.Position
             position.Description = request.Description?.Trim();
             position.BasicSalary = request.BasicSalary;
             position.DepartmentId = request.DepartmentId;
-            position.EmployeeCodePrefix = request.EmployeeCodePrefix?.Trim();
 
             await _context.SaveChangesAsync(ct);
 
@@ -65,7 +65,8 @@ namespace Infrastructure.services.HR.Position
                 Description = position.Description,
                 BasicSalary = position.BasicSalary,
                 IsActive = position.IsActive,
-                DepartmentId = position.DepartmentId
+                DepartmentId = position.DepartmentId,
+                DepartmentName = position.Department.Name
             },
                 "Position updated successfully.");
         }

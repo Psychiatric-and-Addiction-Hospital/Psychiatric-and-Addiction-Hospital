@@ -1,13 +1,9 @@
 ﻿using Application.Commands.HR.Position;
-using Application.Commands.HR.Shift;
 using Application.Common.Responses;
 using Application.DTOS.Request.HR.Position;
-using Application.DTOS.Request.HR.Shift;
 using Application.Queries.HR.Position;
-using Application.Queries.HR.Shift;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.HR

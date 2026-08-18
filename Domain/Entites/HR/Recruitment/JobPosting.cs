@@ -34,8 +34,8 @@ namespace Domain.Entites.HR.Recruitment
         public Guid PositionId { get; set; }
         public Position Position { get; set; } = null!;
 
-        public Guid HiringManagerId { get; set; }
-        public Employee HiringManager { get; set; } = null!;
+        public Guid? HiringManagerId { get; set; }
+        public Employee? HiringManager { get; set; } = null!;
 
         public ICollection<Application> Applications { get; set; } = new List<Application>();
     }

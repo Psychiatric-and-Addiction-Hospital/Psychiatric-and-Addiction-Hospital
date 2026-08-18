@@ -37,5 +37,7 @@ namespace Application.DTOS.Responses.HR.Candidate
         public string? Notes { get; set; }
 
         public bool IsActive { get; set; }
+
+        public string userId { get; set; }
     }
 }

@@ -22,9 +22,7 @@ namespace Application.Handlers.HR.Shift
             CreateShiftCommand request,
             CancellationToken cancellationToken)
         {
-            return await _service.CreateAsync(
-               request,
-                cancellationToken);
+            return await _service.CreateAsync(request.request, cancellationToken);
         }
     }
 }

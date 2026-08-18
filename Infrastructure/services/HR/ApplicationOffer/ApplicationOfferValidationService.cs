@@ -1,12 +1,12 @@
-﻿using Application.Common.Interfaces.HR.ApplicationOffer;
+﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.HR.ApplicationOffer;
 using Application.Common.Responses;
 using Application.DTOS.Request.HR.ApplicationOffer;
-using Domain.Entites.HR;
 using Domain.Enums.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using Offer = Domain.Entites.HR.Recruitment.ApplicationOffer;
 using ApplicationEntity = Domain.Entites.HR.Recruitment.Application;
+using Offer = Domain.Entites.HR.Recruitment.ApplicationOffer;
 
 namespace Infrastructure.services.HR.ApplicationOffer
 {
@@ -14,9 +14,11 @@ namespace Infrastructure.services.HR.ApplicationOffer
     {
         private readonly AddIdentityDbContext _context;
 
-        public ApplicationOfferValidationService(AddIdentityDbContext context)
+        private readonly ICurrentUser _currentUser;
+        public ApplicationOfferValidationService(AddIdentityDbContext context, ICurrentUser currentUser)
         {
             _context = context;
+            _currentUser = currentUser;
         }
 
         public async Task<BaseResponse<bool>> ValidateCreateAsync(CreateApplicationOfferRequest request, CancellationToken ct)
@@ -59,23 +61,18 @@ namespace Infrastructure.services.HR.ApplicationOffer
                     return ResponseFactory.Fail<bool>("Approver is inactive.");
             }
 
-            var salaryValidation =
-                ValidateSalary(request.OfferedSalary);
+            var salaryValidation = ValidateSalary(request.OfferedSalary);
 
             if (salaryValidation != null)
                 return salaryValidation;
 
             var dateValidation =
-                ValidateDates(
-                    request.OfferDate,
-                    request.ExpiryDate);
+                ValidateDates(request.OfferDate, request.ExpiryDate);
 
             if (dateValidation != null)
                 return dateValidation;
 
-            return ResponseFactory.Success(
-                true,
-                "Validation succeeded.");
+            return ResponseFactory.Success(true, "Validation succeeded.");
         }
 
         public async Task<BaseResponse<Offer>> ValidateUpdateAsync(UpdateApplicationOfferRequest request, CancellationToken ct)
@@ -151,10 +148,25 @@ namespace Infrastructure.services.HR.ApplicationOffer
             if (offer.Contract != null)
                 return ResponseFactory.Fail<Offer>("Contract already exists.");
 
+            if (!_currentUser.IsAuthenticated)
+                return ResponseFactory.Fail<Offer>("User is not authenticated.");
 
-            return ResponseFactory.Success(
-                offer,
-                "Validation succeeded.");
+            var currentUserId = _currentUser.UserId;
+
+            if (string.IsNullOrWhiteSpace(currentUserId))
+                return ResponseFactory.Fail<Offer>("User is not authenticated.");
+
+            var candidate = await _context.Candidates
+                .FirstOrDefaultAsync(
+                    x => x.AppUserId == currentUserId, ct);
+
+            if (candidate == null)
+                return ResponseFactory.Fail<Offer>("Candidate profile was not found.");
+
+            if (offer.Application.CandidateId != candidate.Id)
+                return ResponseFactory.Fail<Offer>("You are not authorized to respond to this offer.");
+
+            return ResponseFactory.Success(offer, "Validation succeeded.");
         }
 
         public async Task<BaseResponse<Offer>> ValidateRejectAsync(Guid offerId, CancellationToken ct)
@@ -166,12 +178,27 @@ namespace Infrastructure.services.HR.ApplicationOffer
                     "Offer not found.");
 
             if (offer.Status != OfferStatus.Pending)
-                return ResponseFactory.Fail<Offer>(
-                    "Only pending offers can be rejected.");
+                return ResponseFactory.Fail<Offer>("Only pending offers can be rejected.");
 
-            return ResponseFactory.Success(
-                offer,
-                "Validation succeeded.");
+            if (!_currentUser.IsAuthenticated)
+                return ResponseFactory.Fail<Offer>("User is not authenticated.");
+
+            var currentUserId = _currentUser.UserId;
+
+            if (string.IsNullOrWhiteSpace(currentUserId))
+                return ResponseFactory.Fail<Offer>("User is not authenticated.");
+
+            var candidate = await _context.Candidates
+                .FirstOrDefaultAsync(
+                    x => x.AppUserId == currentUserId, ct);
+
+            if (candidate == null)
+                return ResponseFactory.Fail<Offer>("Candidate profile was not found.");
+
+            if (offer.Application.CandidateId != candidate.Id)
+                return ResponseFactory.Fail<Offer>("You are not authorized to respond to this offer.");
+
+            return ResponseFactory.Success(offer, "Validation succeeded.");
         }
 
         public async Task<BaseResponse<Offer>> ValidateDeleteAsync(Guid offerId, CancellationToken ct)
@@ -208,16 +235,16 @@ namespace Infrastructure.services.HR.ApplicationOffer
                 .FirstOrDefaultAsync(x => x.Id == id, ct);
         }
 
-        private async Task<Offer?>
-            GetOffer(Guid id, CancellationToken ct)
+        private async Task<Offer?> GetOffer(Guid id, CancellationToken ct)
         {
             return await _context.ApplicationOffers
                 .Include(x => x.Contract)
-                .FirstOrDefaultAsync(x => x.Id == id, ct);
+                .Include(x => x.Application)
+                     .ThenInclude(x => x.Candidate)
+                     .FirstOrDefaultAsync(x => x.Id == id, ct);
         }
 
-        private async Task<Domain.Entites.HR.Employee?>
-            GetEmployee(Guid id, CancellationToken ct)
+        private async Task<Domain.Entites.HR.Employee?> GetEmployee(Guid id, CancellationToken ct)
         {
             return await _context.Employees
                 .FirstOrDefaultAsync(x => x.Id == id, ct);
@@ -231,9 +258,7 @@ namespace Infrastructure.services.HR.ApplicationOffer
             return null;
         }
 
-        private BaseResponse<bool>? ValidateDates(
-            DateTime offerDate,
-            DateTime expiryDate)
+        private BaseResponse<bool>? ValidateDates(DateTime offerDate, DateTime expiryDate)
         {
             if (expiryDate < offerDate)
                 return ResponseFactory.Fail<bool>("Expiry date must be after offer date.");

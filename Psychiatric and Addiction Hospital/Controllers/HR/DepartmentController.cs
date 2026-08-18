@@ -26,7 +26,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
         }
 
         [Authorize(Policy = "HRManagement")]
-        [HttpPut("{id:guid}/UpdateDepartment")]
+        [HttpPut("{Id:guid}/UpdateDepartment")]
         public async Task<IActionResult> UpdateDepartment([FromRoute] Guid Id, [FromBody] UpdateDepartmentCommand request)
         {
             if (Id != request.Id)
@@ -38,9 +38,9 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 
         [Authorize(Policy = "AdminOnly")]
         [HttpDelete("{Id:guid}/DeleteDepartment")]
-        public async Task<IActionResult> DeleteDepartment([FromRoute] Guid DepartmentId)
+        public async Task<IActionResult> DeleteDepartment( Guid Id)
         {
-            var result = await _sender.Send(new DeleteDepartmentCommand(DepartmentId));
+            var result = await _sender.Send(new DeleteDepartmentCommand(Id));
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -52,7 +52,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
             return result.Success ? Ok(result) : BadRequest(result);
         }
         [AllowAnonymous]
-        [HttpGet("{Id}DepertmentById")]
+        [HttpGet("{Id:guid}/GetDepertmentById")]
         public async Task<IActionResult> GetDepertmentById(Guid Id)
         {
             var result = await _sender.Send(new GetDepertmentByIdQuery(Id));

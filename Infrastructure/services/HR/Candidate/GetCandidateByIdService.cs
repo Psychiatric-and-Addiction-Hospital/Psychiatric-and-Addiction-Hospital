@@ -9,15 +9,12 @@ namespace Infrastructure.services.HR.Candidate
     public class GetCandidateByIdService : IGetCandidateById
     {
         private readonly AddIdentityDbContext _context;
-        public GetCandidateByIdService(
-            AddIdentityDbContext context)
+        public GetCandidateByIdService(AddIdentityDbContext context)
         {
             _context = context;
         }
 
-        public async Task<BaseResponse<CandidateResponse>> GetByIdAsync(
-            Guid id,
-            CancellationToken ct)
+        public async Task<BaseResponse<CandidateResponse>> GetByIdAsync(Guid id, CancellationToken ct)
         {
             var candidate = await _context.Candidates
                 .AsNoTracking()
@@ -63,7 +60,9 @@ namespace Infrastructure.services.HR.Candidate
 
                 Notes = candidate.Notes,
 
-                IsActive = candidate.IsActive
+                IsActive = candidate.IsActive,
+
+                userId = candidate.AppUserId
             };
 
             return ResponseFactory.Success(response, "Candidate retrieved successfully.");

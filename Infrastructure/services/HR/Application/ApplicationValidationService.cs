@@ -1,6 +1,8 @@
-﻿using Application.Common.Interfaces.HR.Application;
+﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.HR.Application;
 using Application.Common.Responses;
 using Application.DTOS.Request.HR.Application;
+using Application.DTOS.Responses.HR.Application;
 using Domain.Enums.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -12,9 +14,11 @@ namespace Infrastructure.services.HR.Application
     {
         private readonly AddIdentityDbContext _context;
 
-        public ApplicationValidationService(AddIdentityDbContext context)
+        private readonly ICurrentUser _currentUser;
+        public ApplicationValidationService(AddIdentityDbContext context, ICurrentUser currentUser)
         {
             _context = context;
+            _currentUser = currentUser;
         }
 
         public async Task<BaseResponse<bool>> ValidateApplyAsync(CreateApplicationRequest request, CancellationToken ct)
@@ -54,9 +58,7 @@ namespace Infrastructure.services.HR.Application
             return ResponseFactory.Success(true, "Validation succeeded.");
         }
 
-        public async Task<BaseResponse<applicationEntity>> ValidateStatusUpdateAsync(
-            Guid applicationId,
-            CancellationToken ct)
+        public async Task<BaseResponse<applicationEntity>> ValidateStatusUpdateAsync(Guid applicationId, CancellationToken ct)
         {
             var application = await _context.Applications
                 .Include(x => x.Candidate)
@@ -71,22 +73,34 @@ namespace Infrastructure.services.HR.Application
 
         public async Task<BaseResponse<applicationEntity>> ValidateStatusTransitionAsync(Guid applicationId, ApplicationStatus newStatus, CancellationToken ct)
         {
+            if (!_currentUser.IsAuthenticated)
+                return ResponseFactory.Fail<applicationEntity>("User must be authenticated.");
+
+            var userId = _currentUser.UserId;
+
+            if (string.IsNullOrWhiteSpace(userId))
+                return ResponseFactory.Fail<applicationEntity>("Authenticated user must have a valid user ID.");
+
             var application = await _context.Applications
                 .Include(x => x.Candidate)
                 .Include(x => x.JobPosting)
-                .ThenInclude(x => x.Department)
+                     .ThenInclude(x => x.Department)
                 .Include(x => x.JobPosting)
-                .ThenInclude(x => x.Position)
+                     .ThenInclude(x => x.Position)
                 .FirstOrDefaultAsync(x => x.Id == applicationId, ct);
 
             if (application == null)
                 return ResponseFactory.Fail<applicationEntity>("Application not found.");
 
+
+            if (application.Candidate == null)
+                return ResponseFactory.Fail<applicationEntity>("Candidate information was not found.");
+
+            if (application.Candidate.AppUserId != userId)
+                return ResponseFactory.Fail<applicationEntity>("You are not authorized to modify this application.");
+
             if (!IsValidStatusTransition(application.Status, newStatus))
-            {
-                return ResponseFactory.Fail<applicationEntity>(
-                    $"Cannot change status from {application.Status} to {newStatus}.");
-            }
+                return ResponseFactory.Fail<applicationEntity>($"Cannot change status from {application.Status} to {newStatus}.");
 
             return ResponseFactory.Success(application, "Validation succeeded.");
         }

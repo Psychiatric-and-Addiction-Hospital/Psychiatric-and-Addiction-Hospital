@@ -59,8 +59,6 @@ namespace Infrastructure.services.HR.JobPosting
 
             jobPosting.PositionId = request.Request.PositionId;
 
-            jobPosting.HiringManagerId = request.Request.HiringManagerId;
-
             await _context.SaveChangesAsync(ct);
 
             var updatedJobPosting = await _context.JobPostings
@@ -105,10 +103,6 @@ namespace Infrastructure.services.HR.JobPosting
                 PositionId = updatedJobPosting.PositionId,
 
                 PositionName = updatedJobPosting.Position.Name,
-
-                HiringManagerId = updatedJobPosting.HiringManagerId,
-
-                HiringManagerName = updatedJobPosting.HiringManager.FullName
             };
 
             return ResponseFactory.Success(response, "Job posting updated successfully.");

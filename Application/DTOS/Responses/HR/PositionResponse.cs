@@ -12,8 +12,6 @@ namespace Application.DTOS.Responses.HR
 
         public decimal BasicSalary { get; set; }
 
-        public string EmployeeCodePrefix { get; set; } = string.Empty;
-
         public bool IsActive { get; set; }
 
         public Guid DepartmentId { get; set; }

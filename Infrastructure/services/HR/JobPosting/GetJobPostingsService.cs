@@ -1,15 +1,10 @@
 ﻿using Application.Common.Extensions;
 using Application.Common.Interfaces.HR.JobPosting;
 using Application.Common.Responses;
+using Application.DTOS.Request.HR.JobPosting;
 using Application.DTOS.Responses.HR.JobPosting;
-using Application.Queries.HR.JobPosting;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.HR.JobPosting
 {
@@ -20,7 +15,7 @@ namespace Infrastructure.services.HR.JobPosting
         {
             _context = context;
         }
-        public async Task<BaseResponse<PagedResponse<JobPostingResponse>>> GetAllAsync(GetJobPostingsQuery request, CancellationToken ct)
+        public async Task<BaseResponse<PagedResponse<JobPostingResponse>>> GetAllAsync(JobPostingListRequest request, CancellationToken ct)
         {
             var query = _context.JobPostings
                 .AsNoTracking()
@@ -29,27 +24,28 @@ namespace Infrastructure.services.HR.JobPosting
                 .Include(x => x.HiringManager)
                 .AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(request.Request.Search))
+
+            if (!string.IsNullOrWhiteSpace(request.Search))
             {
-                var search = request.Request.Search.Trim();
+                var search = request.Search.Trim();
 
                 query = query.Where(x =>
                     x.Title.Contains(search));
             }
 
-            if (request.Request.DepartmentId.HasValue)
-                query = query.Where(x => x.DepartmentId == request.Request.DepartmentId);
+            if (request.DepartmentId.HasValue)
+                query = query.Where(x => x.DepartmentId == request.DepartmentId);
 
-            if (request.Request.Status.HasValue)
-                query = query.Where(x => x.Status == request.Request.Status);
+            if (request.Status.HasValue)
+                query = query.Where(x => x.Status == request.Status);
 
-            if (request.Request.WorkMode.HasValue)
-                query = query.Where(x => x.WorkMode == request.Request.WorkMode);
+            if (request.WorkMode.HasValue)
+                query = query.Where(x => x.WorkMode == request.WorkMode);
 
-            if (request.Request.EmploymentType.HasValue)
-                query = query.Where(x => x.EmploymentType == request.Request.EmploymentType);
+            if (request.EmploymentType.HasValue)
+                query = query.Where(x => x.EmploymentType == request.EmploymentType);
 
-            query = request.Request.Descending
+            query = request.Descending
                 ? query.OrderByDescending(x => x.PublishedDate)
                 : query.OrderBy(x => x.PublishedDate);
 
@@ -88,14 +84,10 @@ namespace Infrastructure.services.HR.JobPosting
                 PositionId = x.PositionId,
 
                 PositionName = x.Position.Name,
-
-                HiringManagerId = x.HiringManagerId,
-
-                HiringManagerName = x.HiringManager.FullName
             });
 
 
-            var pagedResult = await responseQuery.ToPagedResponseAsync(request.Request.PageNumber, request.Request.PageSize, ct);
+            var pagedResult = await responseQuery.ToPagedResponseAsync(request.PageNumber, request.PageSize, ct);
 
             return ResponseFactory.Success(pagedResult, "Job postings retrieved successfully.");
         }

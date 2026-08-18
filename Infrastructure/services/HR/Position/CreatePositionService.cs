@@ -44,7 +44,6 @@ namespace Infrastructure.services.HR.Position
                 Description = request.Description?.Trim(),
                 BasicSalary = request.BasicSalary,
                 DepartmentId = request.DepartmentId,
-                EmployeeCodePrefix = request.EmployeeCodePrefix
             };
 
             await _Context.Positions.AddAsync(position, ct);
@@ -58,7 +57,8 @@ namespace Infrastructure.services.HR.Position
                 Description = position.Description,
                 BasicSalary = position.BasicSalary,
                 IsActive = position.IsActive,
-                DepartmentId = position.DepartmentId
+                DepartmentId = position.DepartmentId,
+                DepartmentName = position.Department?.Name
             }, "Position created successfully.");
 
         }

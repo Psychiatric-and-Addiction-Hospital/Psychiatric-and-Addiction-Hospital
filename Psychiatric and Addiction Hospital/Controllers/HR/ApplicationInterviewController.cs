@@ -25,7 +25,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
             return result.Success ? Ok(result) : NotFound(result);
         }
         [HttpPost("CreateApplicationInterview")]
-        public async Task<IActionResult> Create([FromBody] CreateApplicationInterviewRequest request)
+        public async Task<IActionResult> Create([FromForm] CreateApplicationInterviewRequest request)
         {
             var result = await _sender.Send(new CreateApplicationInterviewCommand(request));
             return result.Success ? Ok(result) : BadRequest(result);

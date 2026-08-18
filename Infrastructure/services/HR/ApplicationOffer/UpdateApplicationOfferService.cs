@@ -39,10 +39,6 @@ namespace Infrastructure.services.HR.ApplicationOffer
 
             var offer = validation.Data!;
 
-            //-------------------------------------------------
-            // Update
-            //-------------------------------------------------
-
             offer.OfferedSalary = request.OfferedSalary;
 
             offer.OfferDate = request.OfferDate;
@@ -55,10 +51,6 @@ namespace Infrastructure.services.HR.ApplicationOffer
 
             await _context.SaveChangesAsync(ct);
 
-            //-------------------------------------------------
-            // Reload
-            //-------------------------------------------------
-
             var updatedOffer = await _context.ApplicationOffers
                 .AsNoTracking()
                 .Include(x => x.Application)
@@ -67,10 +59,6 @@ namespace Infrastructure.services.HR.ApplicationOffer
                     .ThenInclude(x => x.JobPosting)
                 .Include(x => x.ApprovedByEmployee)
                 .FirstAsync(x => x.Id == offer.Id, ct);
-
-            //-------------------------------------------------
-            // Response
-            //-------------------------------------------------
 
             var response = new ApplicationOfferResponse
             {
