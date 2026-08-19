@@ -26,7 +26,7 @@ namespace Application.Handlers.HR.ApplicationInterview
             CompleteInterviewCommand request,
             CancellationToken cancellationToken)
         {
-            return await _service.CompleteAsync(request, cancellationToken);
+            return await _service.CompleteAsync(request.Request, cancellationToken);
 
         }
     }

@@ -82,7 +82,7 @@ namespace Infrastructure.services.Authentication
             <div style='text-align:center;
                         margin:30px 0;'>
 
-                <a href='{{accountSetupUrl}}'
+                <a href='{accountSetupUrl}'
                    style='display:inline-block;
                           padding:14px 30px;
                           background:#2B3A67;

@@ -1,6 +1,7 @@
 ﻿using Application.Commands.HR.ApplicationInterview;
 using Application.Common.Interfaces.HR.ApplicationInterview;
 using Application.Common.Responses;
+using Application.DTOS.Request.HR.ApplicationInterview;
 using Application.DTOS.Responses.HR.ApplicationInterview;
 using Domain.Enums.HR;
 using Infrastructure.Persistence.Identity;
@@ -14,35 +15,31 @@ namespace Infrastructure.services.HR.ApplicationInterview
         private readonly AddIdentityDbContext _context;
         private readonly IApplicationInterviewValidation _validation;
 
-        public CompleteApplicationInterviewService(AddIdentityDbContext context,IApplicationInterviewValidation validation)
+        public CompleteApplicationInterviewService(AddIdentityDbContext context, IApplicationInterviewValidation validation)
         {
             _context = context;
             _validation = validation;
         }
 
         public async Task<BaseResponse<ApplicationInterviewResponse>> CompleteAsync(
-            CompleteInterviewCommand request,
+            CompleteInterviewRequest request,
             CancellationToken ct)
         {
             var validation = await _validation
-                .ValidateCompleteAsync(request.Request, ct);
+                .ValidateCompleteAsync(request, ct);
 
             if (!validation.Success)
-            {
-                return ResponseFactory.Fail<ApplicationInterviewResponse>(
-                    validation.Message,
-                    validation.Errors);
-            }
+                return ResponseFactory.Fail<ApplicationInterviewResponse>(validation.Message, validation.Errors);
 
             var interview = validation.Data!;
 
             interview.Status = InterviewStatus.Completed;
 
-            interview.Result = request.Request.Result;
+            interview.Result = request.Result;
 
-            interview.Score = request.Request.Score;
+            interview.Score = request.Score;
 
-            interview.Feedback = request.Request.Feedback?.Trim();
+            interview.Feedback = request.Feedback?.Trim();
 
 
             await _context.SaveChangesAsync(ct);

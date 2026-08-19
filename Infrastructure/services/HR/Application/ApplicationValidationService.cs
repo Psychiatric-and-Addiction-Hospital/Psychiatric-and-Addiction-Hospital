@@ -73,14 +73,6 @@ namespace Infrastructure.services.HR.Application
 
         public async Task<BaseResponse<applicationEntity>> ValidateStatusTransitionAsync(Guid applicationId, ApplicationStatus newStatus, CancellationToken ct)
         {
-            if (!_currentUser.IsAuthenticated)
-                return ResponseFactory.Fail<applicationEntity>("User must be authenticated.");
-
-            var userId = _currentUser.UserId;
-
-            if (string.IsNullOrWhiteSpace(userId))
-                return ResponseFactory.Fail<applicationEntity>("Authenticated user must have a valid user ID.");
-
             var application = await _context.Applications
                 .Include(x => x.Candidate)
                 .Include(x => x.JobPosting)
@@ -92,12 +84,8 @@ namespace Infrastructure.services.HR.Application
             if (application == null)
                 return ResponseFactory.Fail<applicationEntity>("Application not found.");
 
-
             if (application.Candidate == null)
                 return ResponseFactory.Fail<applicationEntity>("Candidate information was not found.");
-
-            if (application.Candidate.AppUserId != userId)
-                return ResponseFactory.Fail<applicationEntity>("You are not authorized to modify this application.");
 
             if (!IsValidStatusTransition(application.Status, newStatus))
                 return ResponseFactory.Fail<applicationEntity>($"Cannot change status from {application.Status} to {newStatus}.");

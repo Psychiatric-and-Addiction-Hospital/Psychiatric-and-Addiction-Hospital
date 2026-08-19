@@ -50,7 +50,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
         }
 
         [HttpPut("{id:guid}/CompleteInterview")]
-        public async Task<IActionResult> Complete(Guid id, [FromBody] CompleteInterviewRequest request)
+        public async Task<IActionResult> Complete(Guid id, [FromForm] CompleteInterviewRequest request)
         {
             if (id != request.Id)
                 return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));

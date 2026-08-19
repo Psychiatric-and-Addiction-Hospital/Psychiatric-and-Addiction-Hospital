@@ -73,6 +73,7 @@ namespace Infrastructure.Dependency
             services.AddScoped<IPasswordResetService, PasswordResetService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IVerifyOtp, VerifyOtp>();
+            services.AddScoped<IRegister, RegisterService>();
             services.AddScoped<ICurrentUser, CurrentUserService>();
             services.AddScoped<IPasswordGenerator, PasswordGeneratorService>();
             services.AddScoped<IEmployeeWelcomeEmailService, EmployeeWelcomeEmailService>();
