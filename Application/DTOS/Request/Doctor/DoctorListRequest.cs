@@ -1,14 +1,9 @@
-﻿using Domain.Enums.HR;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Application.DTOS.Request.HR.Employee
+namespace Application.DTOS.Request.Doctor
 {
-    public class EmployeeListRequest
+    public class DoctorListRequest
     {
         public string? Search { get; set; }
 
@@ -16,17 +11,13 @@ namespace Application.DTOS.Request.HR.Employee
 
         public Guid? PositionId { get; set; }
 
-        public Guid? ShiftId { get; set; }
-
-        public string? Role { get; set; }
-
-        public EmploymentStatus? EmploymentStatus { get; set; }
-
         public bool? IsActive { get; set; }
+
+        public string? Specialization { get; set; }
 
         public string? SortBy { get; set; }
 
-        public bool Descending { get; set; }
+        public bool Descending { get; set; } = false;
 
         [DefaultValue(1)]
         public int PageNumber { get; set; } = 1;

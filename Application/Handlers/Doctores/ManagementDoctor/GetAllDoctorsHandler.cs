@@ -3,25 +3,21 @@ using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Application.Queries.Doctor.ManagementDoctor;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Handlers.Doctores.ManagementDoctor
 {
-    public class GetAllDoctorsHandler : IRequestHandler<GetAllDoctorsQuery, BaseResponse<List<DoctorProfileResponse>>>
+    public class GetAllDoctorsHandler : IRequestHandler<GetAllDoctorsQuery, BaseResponse<PagedResponse<DoctorProfileResponse>>>
     {
-        private readonly IGetAllDoctors _getAllDoctors;
-        public GetAllDoctorsHandler(IGetAllDoctors getAllDoctors)
+        private readonly IGetAllDoctors _service;
+        public GetAllDoctorsHandler(IGetAllDoctors service)
         {
-            _getAllDoctors= getAllDoctors;
-        }   
-        public async Task<BaseResponse<List<DoctorProfileResponse>>> Handle(GetAllDoctorsQuery request, CancellationToken ct)
+            _service = service;
+        }
+        public async Task<BaseResponse<PagedResponse<DoctorProfileResponse>>> Handle(GetAllDoctorsQuery request, CancellationToken ct)
         {
-            return await _getAllDoctors.GetAllDoctorsAsync(ct);
+            return await _service.GetAllDoctorsAsync(request.request, ct);
         }
     }
 }

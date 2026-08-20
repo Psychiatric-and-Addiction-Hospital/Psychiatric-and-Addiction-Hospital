@@ -16,7 +16,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] HireEmployeeRequest request)
+        public async Task<IActionResult> Create([FromForm] HireEmployeeRequest request)
         {
             var result = await _sender.Send(new HireEmployeeCommand(request));
             return result.Success ? Ok(result) : BadRequest(result);

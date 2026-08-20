@@ -1,4 +1,5 @@
-﻿using Application.DTOS.Request.Doctor;
+﻿using Application.Common.Enums;
+using Application.DTOS.Request.Doctor;
 using System;
 
 namespace Application.DTOS.Request.HR.Employee
@@ -15,7 +16,7 @@ namespace Application.DTOS.Request.HR.Employee
 
         public Guid? ManagerId { get; set; }
 
-        public string Role { get; set; } = string.Empty;
+        public EmployeeRole Role { get; set; } 
 
         public DoctorProfileRequest? DoctorProfile { get; set; }
     }

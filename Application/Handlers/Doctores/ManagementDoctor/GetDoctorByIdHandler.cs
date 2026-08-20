@@ -3,10 +3,6 @@ using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Application.Queries.Doctor.ManagementDoctor;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,15 +10,15 @@ namespace Application.Handlers.Doctores.ManagementDoctor
 {
     public class GetDoctorByIdHandler : IRequestHandler<GetDoctorByIdQuery, BaseResponse<DoctorProfileResponse>>
     {
-        private readonly IGetDoctorById _getDoctorById;
-        public GetDoctorByIdHandler(IGetDoctorById getDoctorById)
+        private readonly IGetDoctorById _service;
+        public GetDoctorByIdHandler(IGetDoctorById service)
         {
-            _getDoctorById = getDoctorById;
+            _service = service;
         }
 
         public async Task<BaseResponse<DoctorProfileResponse>> Handle(GetDoctorByIdQuery request, CancellationToken ct)
         {
-            return await _getDoctorById.GetDoctorByIdAsync(request.Id, ct);
+            return await _service.GetDoctorByIdAsync(request.Id, ct);
         }
     }
 }

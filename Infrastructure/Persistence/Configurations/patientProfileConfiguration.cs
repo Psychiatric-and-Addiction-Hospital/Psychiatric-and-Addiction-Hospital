@@ -13,7 +13,7 @@ namespace Infrastructure.Persistence.Configurations
     {
         public void Configure(EntityTypeBuilder<PatientProfile> builder)
         {
-            builder.HasOne(P => P.User)
+            builder.HasOne(P => P.AppUser)
                  .WithOne(A=> A.PatientProfile)
                  .HasForeignKey<PatientProfile>(P => P.UserId)
                  .OnDelete(DeleteBehavior.Cascade);

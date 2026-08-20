@@ -1,9 +1,9 @@
 ﻿using Application.Common.Responses;
+using Application.DTOS.Request.Doctor;
 using Application.DTOS.Responses;
 using MediatR;
-using System.Collections.Generic;
 
 namespace Application.Queries.Doctor.ManagementDoctor
 {
-    public record GetAllDoctorsQuery() : IRequest<BaseResponse<List<DoctorProfileResponse>>>;
+    public record GetAllDoctorsQuery(DoctorListRequest request) : IRequest<BaseResponse<PagedResponse<DoctorProfileResponse>>>;
 }

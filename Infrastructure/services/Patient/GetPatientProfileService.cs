@@ -3,8 +3,6 @@ using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.Patient
 {
@@ -20,7 +18,7 @@ namespace Infrastructure.services.Patient
         public async Task<BaseResponse<PatientProfileResponse>> GetProfileAsync(string userId, CancellationToken ct)
         {
             var profile = await _context.PatientProfiles
-                .Include(p => p.User)
+                .Include(p => p.AppUser)
                 .FirstOrDefaultAsync(p => p.UserId == userId, ct);
 
             if (profile == null)
@@ -31,15 +29,14 @@ namespace Infrastructure.services.Patient
             {
                 Id = profile.Id,
                 UserId = profile.UserId,
-                FullName = profile.FullName,
+                FullName = $"{profile.AppUser.FirstName} {profile.AppUser.LastName}",
                 DateOfBirth = profile.DateOfBirth,
-                Gender = profile.Gender.ToString(),
+                Gender = profile.AppUser.Gender.ToString(),
                 MaritalStatus = profile.MaritalStatus.ToString(),
-                Occupation = profile.Occupation,
-                Address = profile.Address,
+                Address = profile.AppUser.Address,
                 PhoneNumber = profile.PhoneNumber,
-                ImageUrl = profile.ImageUrl,
-                Email = profile.User?.Email
+                ImageUrl = profile.AppUser.ImageUrl,
+                Email = profile.AppUser?.Email
             }, "Patient profile retrieved successfully");
         }
     }

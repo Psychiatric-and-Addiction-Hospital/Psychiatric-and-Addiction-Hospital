@@ -8,11 +8,7 @@ using Domain.Entites;
 using Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.services.Authentication
 {
@@ -73,10 +69,9 @@ namespace Infrastructure.services.Authentication
 
             var patientProfile = new PatientProfile
             {
-                FullName = $"{user.FirstName} {user.LastName}".Trim(),
-                Gender = user.Gender,
-                Address = user.Address ?? string.Empty,
                 PhoneNumber = user.PhoneNumber ?? string.Empty,
+                DateOfBirth=request.DateOfBirth,
+                MaritalStatus = request.MaritalStatus,
                 UserId = user.Id
             };
 

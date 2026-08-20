@@ -3,44 +3,53 @@ using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.Doctores.ManagementDoctor
 {
     public class GetDoctorByIdService : IGetDoctorById
     {
-        private readonly AddIdentityDbContext _Context;
+        private readonly AddIdentityDbContext _context;
         public GetDoctorByIdService(AddIdentityDbContext context)
         {
-            _Context = context;
+            _context = context;
         }
 
         public async Task<BaseResponse<DoctorProfileResponse>> GetDoctorByIdAsync(Guid Id, CancellationToken ct)
         {
-            var Profile = await _Context.DoctorProfiles
-               .FirstOrDefaultAsync(p => p.Id == Id, ct);
-            if (Profile == null)
-            {
-                return ResponseFactory.Fail<DoctorProfileResponse>("Doctor not found.");
-              
-            }
-            return ResponseFactory.Success(new DoctorProfileResponse
-            {
-                //Id = Profile.Id,
-                //FullName = Profile.FullName,
-                //Email = Profile.Email,
-                //PhoneNumber = Profile.PhoneNumber,
-                //Specialization = Profile.Specialization,
-                //Degree = Profile.Degree,
-                //Experience = Profile.Experience,
-                //ImagePath = Profile.ImagePath,
-                
+            var doctor = await _context.DoctorProfiles
+                .AsNoTracking()
+                .Where(x => x.Id == Id)
+                .Select(x => new DoctorProfileResponse
+                {
+                    Id = x.Id,
+                    EmployeeId = x.EmployeeId,
 
-            },"Doctor Profile Retrieved Successfully");
+                    FullName = x.Employee.FullName,
+                    Email = x.Employee.Email,
+                    PhoneNumber = x.Employee.PhoneNumber,
+
+                    Specialization = x.Specialization,
+                    LicenseNumber = x.LicenseNumber,
+                    Degree = x.Degree,
+                    YearsOfExperience = x.YearsOfExperience,
+
+                    ImagePath = x.Employee.AppUser.ImageUrl,
+                    Gender = x.Employee.AppUser.Gender,
+
+                    DepartmentId = x.Employee.DepartmentId,
+                    DepartmentName = x.Employee.Department.Name,
+
+                    PositionId = x.Employee.PositionId,
+                    PositionName = x.Employee.Position.Name,
+
+                    IsActive = x.Employee.IsActive
+                }).FirstOrDefaultAsync(ct);
+
+            if (doctor == null)
+                return ResponseFactory.Fail<DoctorProfileResponse>("Doctor not found.");
+
+            return ResponseFactory.Success(doctor, "Doctor Profile Retrieved Successfully");
+
         }
     }
 }

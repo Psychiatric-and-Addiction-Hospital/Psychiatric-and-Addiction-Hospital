@@ -2,14 +2,12 @@
 using Application.Common.Interfaces.HR.Employee;
 using Application.Common.Responses;
 using Application.DTOS.Request.HR.Employee;
-using Azure.Core;
-using Domain.Entites.HR;
 using Domain.Enums.HR;
 using Infrastructure.Persistence.Identity;
-using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ContractEntity = Domain.Entites.HR.Contract;
+using Application.Common.Mappings;
 
 namespace Infrastructure.services.HR.Employee
 {
@@ -80,12 +78,14 @@ namespace Infrastructure.services.HR.Employee
             if (nationalIdExists)
                 return ResponseFactory.Fail<ContractEntity>("Employee with this national ID already exists.");
 
-            var roleExists = await _roleManager.RoleExistsAsync(request.Role);
+            var identityRole = request.Role.ToIdentityRole();
+
+            var roleExists = await _roleManager.RoleExistsAsync(identityRole);
 
             if (!roleExists)
                 return ResponseFactory.Fail<ContractEntity>("Role not found.");
 
-            if (request.Role == Roles.Doctor)
+            if (identityRole == Roles.Doctor)
             {
                 if (string.IsNullOrWhiteSpace(request.DoctorProfile?.Specialization))
                     return ResponseFactory.Fail<ContractEntity>("Specialization is required for doctors.");

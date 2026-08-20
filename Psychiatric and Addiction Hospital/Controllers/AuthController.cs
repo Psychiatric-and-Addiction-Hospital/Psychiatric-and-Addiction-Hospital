@@ -15,7 +15,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterCommand command)
+        public async Task<IActionResult> Register([FromForm] RegisterCommand command)
         {
             var result = await _sender.Send(command);
 

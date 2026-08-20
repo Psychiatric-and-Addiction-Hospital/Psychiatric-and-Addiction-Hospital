@@ -11,6 +11,7 @@ using Domain.Enums.HR;
 using Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Application.Common.Mappings;
 
 namespace Infrastructure.services.HR.Employee
 {
@@ -57,7 +58,9 @@ namespace Infrastructure.services.HR.Employee
 
             var candidate = contract.Offer.Application.Candidate;
 
-            var employeeCode = await _employeeCodeGenerator.GenerateAsync(request.Role, ct);
+            var identityRole = request.Role.ToIdentityRole();
+
+            var employeeCode = await _employeeCodeGenerator.GenerateAsync(identityRole, ct);
 
             AppUser? appUser = null;
 
@@ -80,8 +83,7 @@ namespace Infrastructure.services.HR.Employee
 
                 if (currentRoles.Contains(Roles.Candidate))
                 {
-                    var removeResult =
-                        await _userManager.RemoveFromRoleAsync(appUser, Roles.Candidate);
+                    var removeResult = await _userManager.RemoveFromRoleAsync(appUser, Roles.Candidate);
 
                     if (!removeResult.Succeeded)
                     {
@@ -90,7 +92,7 @@ namespace Infrastructure.services.HR.Employee
                     }
                 }
 
-                var roleResult = await _userManager.AddToRoleAsync(appUser, request.Role);
+                var roleResult = await _userManager.AddToRoleAsync(appUser, identityRole);
 
                 if (!roleResult.Succeeded)
                 {
@@ -119,7 +121,7 @@ namespace Infrastructure.services.HR.Employee
 
                 await _context.Employees.AddAsync(employee, ct);
 
-                if (request.Role == Roles.Doctor)
+                if (identityRole == Roles.Doctor)
                 {
                     await _doctorProfileCreator.CreateAsync(
                         appUser,
