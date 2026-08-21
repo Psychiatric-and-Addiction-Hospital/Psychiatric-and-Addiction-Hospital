@@ -8,7 +8,7 @@ namespace Application.Commands.Session
     public record CreateSessionCommand(
     string DoctorId,
     string PatientId,
-    DateTime ScheduledDate,
+    DateOnly ScheduledDate,
     int DurationMinutes,
     SessionType SessionType) : IRequest<BaseResponse<Guid>>;
 }

@@ -6,6 +6,5 @@ using System.Collections.Generic;
 
 namespace Application.Queries.Doctor.DoctorSchedule
 {
-    public record GetDoctorPublicBookingsQuery(Guid DoctorId)
-        : IRequest<BaseResponse<List<PublicBookingResponse>>>;
+    public record GetDoctorPublicBookingsQuery() : IRequest<BaseResponse<List<PublicBookingResponse>>>;
 }

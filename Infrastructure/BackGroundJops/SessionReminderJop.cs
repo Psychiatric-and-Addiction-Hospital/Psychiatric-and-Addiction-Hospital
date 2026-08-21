@@ -23,7 +23,7 @@ public class SessionReminderJob : BackgroundService
                 // جلب الجلسات التي ستبدأ خلال الـ 24 ساعة القادمة ولم يتم إرسال تذكير لها
                 var tomorrow = DateTime.UtcNow.AddDays(1);
                 var sessions = await context.Sessions
-                    .Where(s => s.ScheduledDate.Date == tomorrow.Date && s.Status == SessionStatus.Scheduled)
+                    //.Where(s => s.ScheduledDate.Date == tomorrow.Date && s.Status == SessionStatus.Scheduled)
                     .ToListAsync();
 
                 foreach (var session in sessions)

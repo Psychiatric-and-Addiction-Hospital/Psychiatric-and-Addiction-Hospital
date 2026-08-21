@@ -15,11 +15,11 @@ namespace Infrastructure.services.Patient
             _context = context;
         }
 
-        public async Task<BaseResponse<PatientProfileResponse>> GetProfileAsync(string userId, CancellationToken ct)
+        public async Task<BaseResponse<PatientProfileResponse>> GetProfileAsync(Guid userId, CancellationToken ct)
         {
             var profile = await _context.PatientProfiles
                 .Include(p => p.AppUser)
-                .FirstOrDefaultAsync(p => p.UserId == userId, ct);
+                .FirstOrDefaultAsync(p => p.Id == userId, ct);
 
             if (profile == null)
                 return ResponseFactory.Fail<PatientProfileResponse>("Patient profile not found",
@@ -36,7 +36,10 @@ namespace Infrastructure.services.Patient
                 Address = profile.AppUser.Address,
                 PhoneNumber = profile.PhoneNumber,
                 ImageUrl = profile.AppUser.ImageUrl,
-                Email = profile.AppUser?.Email
+                Email = profile.AppUser?.Email,
+                IsEmailConfirmed = profile.AppUser.EmailConfirmed,
+                IsActived = profile.AppUser.IsActive,
+
             }, "Patient profile retrieved successfully");
         }
     }

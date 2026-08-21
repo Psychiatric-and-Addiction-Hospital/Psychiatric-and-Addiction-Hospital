@@ -3,10 +3,6 @@ using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.Patient
 {
@@ -19,11 +15,11 @@ namespace Infrastructure.services.Patient
             _context = context;
         }
 
-        public async Task<BaseResponse<List<SessionSummaryResponse>>> GetSessionsAsync(string patientId, CancellationToken ct)
+        public async Task<BaseResponse<List<SessionSummaryResponse>>> GetSessionsAsync(Guid patientId, CancellationToken ct)
         {
             var sessions = await _context.Sessions
                 .Include(s => s.Doctor)
-                .Where(s => s.PatientId == patientId)
+                .Where(s => s.Id == patientId)
                 .OrderByDescending(s => s.ScheduledDate)
                 .ToListAsync(ct);
 

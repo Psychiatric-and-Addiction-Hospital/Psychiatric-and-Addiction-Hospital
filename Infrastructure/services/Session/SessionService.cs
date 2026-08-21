@@ -27,9 +27,9 @@ namespace Infrastructure.services.Sessions
             // التحقق من تضارب المواعيد (Conflict Check)
             var isBusy = await _context.Sessions.AnyAsync(s =>
                 s.DoctorId == command.DoctorId &&
-                s.Status == SessionStatus.Scheduled &&
-                s.ScheduledDate < command.ScheduledDate.AddMinutes(command.DurationMinutes) &&
-                command.ScheduledDate < s.ScheduledDate.AddMinutes(s.DurationMinutes), ct);
+                s.Status == SessionStatus.Scheduled, ct);
+            //s.ScheduledDate < command.ScheduledDate.AddMinutes(command.DurationMinutes) &&
+            //command.ScheduledDate < s.ScheduledDate.AddMinutes(s.DurationMinutes), ct);
 
             if (isBusy)
             {
@@ -144,7 +144,7 @@ namespace Infrastructure.services.Sessions
                     new List<string> { "Only scheduled sessions can be modified." });
             }
 
-            session.ScheduledDate = command.NewDate;
+            //session.ScheduledDate = command.NewDate;
             session.DurationMinutes = command.NewDuration;
 
             await _context.SaveChangesAsync(ct);

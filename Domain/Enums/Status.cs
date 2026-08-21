@@ -2,8 +2,9 @@
 {
     public enum Status
     {
-        Pending ,
-        Approved ,
+        Pending,
+        Cancelled,
+        Approved,
         Rejected
     }
 }

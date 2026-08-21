@@ -1,14 +1,13 @@
 ﻿using Application.Common.Responses;
 using Application.DTOS.Request.Patient;
 using Application.DTOS.Responses;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Common.Interfaces.Patient
 {
-    public interface ICreatePublicBooking
+    public interface IGetAllPatient
     {
-        Task<BaseResponse<PublicBookingResponse>> CreatePublicBooking(CreatePublicBookingRequest rquest, CancellationToken ct);
+        Task<BaseResponse<PagedResponse<PatientProfileResponse>>> GetAllAsync(PatientListRequest request, CancellationToken ct);
     }
 }

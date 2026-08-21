@@ -275,6 +275,7 @@ namespace Infrastructure.Dependency
             services.AddScoped<IGetPatientProfile, GetPatientProfileService>();
             services.AddScoped<IUpdatePatientProfile, UpdatePatientProfileService>();
             services.AddScoped<IUploadPatientImage, UploadPatientImageService>();
+            services.AddScoped<IGetAllPatient, GetAllPatientService>();
 
             // Patient Management
             services.AddScoped<IGetPatientSessions, GetPatientSessionsService>();

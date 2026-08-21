@@ -1,14 +1,9 @@
 ﻿using Application.Common.Responses;
+using Application.DTOS.Request.Patient;
 using Application.DTOS.Responses;
 using MediatR;
-using System;
 
 namespace Application.Commands.Patient
 {
-    public record CreatePublicBookingCommand
-        (string FullName, string PhoneNumber,string Email, Guid DoctorId, Guid ScheduleId, string Notes) 
-        : IRequest<BaseResponse<PublicBookingResponse>>;
-
-     
-    
+    public record CreatePublicBookingCommand(CreatePublicBookingRequest request) : IRequest<BaseResponse<PublicBookingResponse>>;
 }

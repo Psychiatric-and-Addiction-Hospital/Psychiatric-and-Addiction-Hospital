@@ -6,7 +6,7 @@ namespace Application.DTOS.Responses
     public class SessionDetailResponse
     {
         public Guid Id { get; set; }
-        public DateTime ScheduledDate { get; set; }
+        public DateOnly ScheduledDate { get; set; }
         public int DurationMinutes { get; set; }
         public string SessionType { get; set; }
         public string Status { get; set; }

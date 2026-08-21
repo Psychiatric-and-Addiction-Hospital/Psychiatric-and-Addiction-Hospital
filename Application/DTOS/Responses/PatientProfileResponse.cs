@@ -15,5 +15,7 @@ namespace Application.DTOS.Responses
         public string PhoneNumber { get; set; }
         public string? ImageUrl { get; set; }
         public string Email { get; set; }
+        public bool IsEmailConfirmed { get; set; }
+        public bool IsActived { get; set; }
     }
 }

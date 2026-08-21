@@ -1,6 +1,7 @@
 using Application.Common.Interfaces.Patient;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
+using Domain.Enums;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,14 +23,14 @@ namespace Infrastructure.services.Patient
 
         public async Task<BaseResponse<PatientDashboardResponse>> GetDashboardAsync(string patientId, CancellationToken ct)
         {
-            var now = DateTime.UtcNow;
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
 
             // Next upcoming appointment (Scheduled, future)
             var nextSession = await _context.Sessions
                 .Include(s => s.Doctor)
                 .Where(s => s.PatientId == patientId
-                         && s.Status == Domain.Enums.SessionStatus.Scheduled
-                         && s.ScheduledDate >= now)
+                         && s.Status == SessionStatus.Scheduled
+                         && s.ScheduledDate >= today)
                 .OrderBy(s => s.ScheduledDate)
                 .FirstOrDefaultAsync(ct);
 

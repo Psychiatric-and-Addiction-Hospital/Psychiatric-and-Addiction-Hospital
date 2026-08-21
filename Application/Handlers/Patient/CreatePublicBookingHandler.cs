@@ -17,10 +17,7 @@ namespace Application.Handlers.Patient
         }
         public async Task<BaseResponse<PublicBookingResponse>> Handle(CreatePublicBookingCommand request, CancellationToken ct)
         {
-            return await _Booking.CreatePublicBooking(
-                request.FullName, request.PhoneNumber, request.Email,
-                request.DoctorId, request.ScheduleId, request.Notes,ct
-                );
+            return await _Booking.CreatePublicBooking(request.request, ct);
         }
     }
 }

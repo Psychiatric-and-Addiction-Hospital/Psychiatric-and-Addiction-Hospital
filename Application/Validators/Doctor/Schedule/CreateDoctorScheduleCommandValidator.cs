@@ -8,28 +8,24 @@ namespace Application.Validators.Doctor.Schedule
     {
         public CreateDoctorScheduleCommandValidator()
         {
-            RuleFor(x => x.DoctorId)
-                .NotEmpty().WithMessage("DoctorId is required.");
-
-            RuleFor(x => x.Date)
+            RuleFor(x => x.request.Date)
                 .NotEmpty().WithMessage("Date is required.")
                 .Must(BeFutureDate)
                 .WithMessage("Date must be in the future.");
 
-            RuleFor(x => x.Time)
+            RuleFor(x => x.request.Time)
                 .NotEmpty().WithMessage("Time is required.")
                 .Must(BeValidTime)
-                .WithMessage("Time must be in HH:mm format (e.g., 14:30).");
+                .WithMessage("Time is invalid.");
         }
 
-        private bool BeFutureDate(DateTime date)
+        private bool BeFutureDate(DateOnly date)
         {
-            return date.Date >= DateTime.UtcNow.Date;
+            return date >= DateOnly.FromDateTime(DateTime.UtcNow);
         }
-
-        private bool BeValidTime(string time)
+        private bool BeValidTime(TimeOnly time)
         {
-            return TimeSpan.TryParse(time, out _);
+            return time.Hour >= 0 && time.Hour <= 23;
         }
 
     }

@@ -3,10 +3,6 @@ using Application.Common.Interfaces.Doctores.Schedule;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,7 +18,7 @@ namespace Application.Handlers.Doctores.Schedule
 
         public async Task<BaseResponse<ScheduleResponse>> Handle(CreateDoctorScheduleCommand request, CancellationToken ct)
         {
-            return await _Schedule.CreateDoctorSchedule(request.DoctorId, request.Date, request.Time, ct);
+            return await _Schedule.CreateDoctorSchedule(request.request, ct);
         }
     }
 }

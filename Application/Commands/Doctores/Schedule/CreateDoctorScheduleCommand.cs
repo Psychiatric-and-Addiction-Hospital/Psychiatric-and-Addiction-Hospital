@@ -1,12 +1,9 @@
 ﻿using Application.Common.Responses;
+using Application.DTOS.Request.Doctor;
 using Application.DTOS.Responses;
 using MediatR;
-using System;
 
 namespace Application.Commands.Doctores.Schedule
 {
-    public record CreateDoctorScheduleCommand(Guid DoctorId, DateTime Date, string Time)
-        : IRequest<BaseResponse<ScheduleResponse>>;
-
-
+    public record CreateDoctorScheduleCommand(CreateDoctorRequest request) : IRequest<BaseResponse<ScheduleResponse>>;
 }

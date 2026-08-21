@@ -5,11 +5,6 @@ using Application.DTOS.Request.HR.ApplicationInterview;
 using Application.DTOS.Responses.HR.ApplicationInterview;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.HR.ApplicationInterview
 {
@@ -26,17 +21,10 @@ namespace Infrastructure.services.HR.ApplicationInterview
             ApplicationInterviewListRequest request,
             CancellationToken ct)
         {
-            //-----------------------------------------
-            // Query
-            //-----------------------------------------
-
+          
             var query = _context.ApplicationInterviews
                 .AsNoTracking()
                 .AsQueryable();
-
-            //-----------------------------------------
-            // Search
-            //-----------------------------------------
 
             if (!string.IsNullOrWhiteSpace(request.Search))
             {
@@ -47,10 +35,6 @@ namespace Infrastructure.services.HR.ApplicationInterview
                     x.Application.JobPosting.Title.Contains(search) ||
                     x.Interviewer.FullName.Contains(search));
             }
-
-            //-----------------------------------------
-            // Filters
-            //-----------------------------------------
 
             if (request.ApplicationId.HasValue)
             {
@@ -94,10 +78,6 @@ namespace Infrastructure.services.HR.ApplicationInterview
                     x.ScheduledAt <= request.ToDate.Value);
             }
 
-            //-----------------------------------------
-            // Sorting
-            //-----------------------------------------
-
             query = request.SortBy?.ToLower() switch
             {
                 "candidate" => request.Descending
@@ -116,10 +96,6 @@ namespace Infrastructure.services.HR.ApplicationInterview
                     ? query.OrderByDescending(x => x.ScheduledAt)
                     : query.OrderBy(x => x.ScheduledAt)
             };
-
-            //-----------------------------------------
-            // Projection
-            //-----------------------------------------
 
             var response = query.Select(x => new ApplicationInterviewResponse
             {
@@ -154,9 +130,6 @@ namespace Infrastructure.services.HR.ApplicationInterview
                 Feedback = x.Feedback
             });
 
-            //-----------------------------------------
-            // Pagination
-            //-----------------------------------------
 
             var pagedResult = await response.ToPagedResponseAsync(
                 request.PageNumber,

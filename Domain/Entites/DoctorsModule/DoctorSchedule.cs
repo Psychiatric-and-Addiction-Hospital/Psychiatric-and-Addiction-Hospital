@@ -8,8 +8,8 @@ namespace Domain.Entites.DoctorsModule
         public Guid DoctorProfileId { get; set; }
         public DoctorProfile DoctorProfile { get; set; }
 
-        public DateTime Date { get; set; }
-        public string Time { get; set; }
+        public DateOnly Date { get; set; }
+        public TimeOnly Time { get; set; }
         public bool IsBooked { get; set; } 
     }
 }

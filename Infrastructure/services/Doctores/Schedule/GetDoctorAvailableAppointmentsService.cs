@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.services.Doctores.Schedule
 {
-    public class GetDoctorAvailableAppointmentsService: IGetDoctorAvailableAppointments
+    public class GetDoctorAvailableAppointmentsService : IGetDoctorAvailableAppointments
     {
         private readonly AddIdentityDbContext _Context;
         public GetDoctorAvailableAppointmentsService(AddIdentityDbContext context)
@@ -14,19 +14,29 @@ namespace Infrastructure.services.Doctores.Schedule
             _Context = context;
         }
 
-        public async Task<BaseResponse<List<DoctorAppointmentResponse>>> GetAvailableAsync(Guid doctorId)
+        public async Task<BaseResponse<List<DoctorAppointmentResponse>>> GetAvailableAsync(Guid doctorId,CancellationToken ct)
         {
-            var appointments = await _Context.DoctorSchedules
-               .Where(x => x.DoctorProfileId == doctorId && x.IsBooked == false)
-               .Select(x => new DoctorAppointmentResponse
-               {
-                   AppointmentId = x.Id,
-                   Date = x.Date,
-                   Time = x.Time
-               })
-               .ToListAsync();
+            var now = DateTime.Now;
+            var today = DateOnly.FromDateTime(now);
+            var currentTime = TimeOnly.FromDateTime(now);
 
-            if(appointments == null || appointments.Count == 0)
+            var appointments = await _Context.DoctorSchedules
+                 .AsNoTracking()
+                 .Where(x =>
+                     x.DoctorProfileId == doctorId &&
+                     !x.IsBooked &&
+                     (x.Date > today || (x.Date == today && x.Time >= currentTime)))
+                 .OrderBy(x => x.Date)
+                 .ThenBy(x => x.Time)
+                 .Select(x => new DoctorAppointmentResponse
+                 {
+                     AppointmentId = x.Id,
+                     Date = x.Date,
+                     Time = x.Time
+                 })
+                 .ToListAsync(ct);
+
+            if ( appointments.Count == 0)
             {
                 return ResponseFactory.Fail<List<DoctorAppointmentResponse>>("No available appointments",
                     new List<string> { "There are no available appointments for the specified doctor." });

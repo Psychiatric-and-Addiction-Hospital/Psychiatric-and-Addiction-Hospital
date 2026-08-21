@@ -20,9 +20,9 @@ namespace Application.Handlers.Doctores.Schedule
         {
             _getDoctorAvailableAppointments = getDoctorAvailableAppointments;
         }
-        public async Task<BaseResponse<List<DoctorAppointmentResponse>>> Handle(GetDoctorAvailableAppointmentsQuery request, CancellationToken cancellationToken)
+        public async Task<BaseResponse<List<DoctorAppointmentResponse>>> Handle(GetDoctorAvailableAppointmentsQuery request, CancellationToken ct)
         {
-          return await _getDoctorAvailableAppointments.GetAvailableAsync(request.DoctorId);
+            return await _getDoctorAvailableAppointments.GetAvailableAsync(request.DoctorId, ct);
         }
     }
 }
