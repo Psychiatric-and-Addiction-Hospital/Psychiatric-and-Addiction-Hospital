@@ -1,5 +1,5 @@
 using Application.Common.Responses;
-using Application.DTOS.Responses;
+using Application.DTOS.Responses.Session;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

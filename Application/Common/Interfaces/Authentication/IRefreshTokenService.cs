@@ -1,4 +1,4 @@
-﻿using Application.Common.Responses;
+using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Domain.Entites;
 using FluentResults;
@@ -11,5 +11,6 @@ namespace Application.Common.Interfaces.Authentication
     {
         Task<string> GenerateRefreshTokenAsync(AppUser user);
         Task<BaseResponse<AuthResult>> RefreshAsync(string refreshToken);
+        Task RevokeAllUserTokensAsync(string userId);
     }
 }

@@ -37,7 +37,7 @@ namespace Infrastructure.services.Patient
                 return ResponseFactory.Fail<SessionNoteResponse>("Doctor not found",
                     new List<string> { "No user exists with the given doctorId." });
 
-            var report = new Report
+            var report = new  Domain.Entites.Report
             {
                 DoctorId = command.DoctorId,
                 PatientId = command.PatientId,

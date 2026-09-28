@@ -9,8 +9,9 @@ namespace Application.Common.Interfaces.HR.ApplicationInterview
 {
     public interface ICreateApplicationInterview
     {
-        Task<BaseResponse<ApplicationInterviewResponse>> CreateApplicationInterviewAsync(Guid applicationProcessId, 
-            DateTime scheduledTime,string interviewerName, InterviewType interviewType, string location,CancellationToken
+        Task<BaseResponse<ApplicationInterviewResponse>> CreateApplicationInterviewAsync(Guid applicationProcessId,
+            DateTime scheduledTime, string interviewerName, InterviewType interviewType, string location, CancellationToken
             ct);
     }
 }
+

@@ -20,7 +20,6 @@ public class SessionReminderJob : BackgroundService
                 var context = scope.ServiceProvider.GetRequiredService<AddIdentityDbContext>();
                 var notifyService = scope.ServiceProvider.GetRequiredService<INotificationService>();
 
-                // جلب الجلسات التي ستبدأ خلال الـ 24 ساعة القادمة ولم يتم إرسال تذكير لها
                 var tomorrow = DateTime.UtcNow.AddDays(1);
                 var sessions = await context.Sessions
                     .Where(s => s.ScheduledDate.Date == tomorrow.Date && s.Status == SessionStatus.Scheduled)
@@ -38,7 +37,7 @@ public class SessionReminderJob : BackgroundService
                 }
             }
 
-            await Task.Delay(TimeSpan.FromHours(12), stoppingToken); // يفحص مرتين في اليوم
+            await Task.Delay(TimeSpan.FromHours(12), stoppingToken); 
         }
     }
 }

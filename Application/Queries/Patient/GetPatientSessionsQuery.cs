@@ -1,5 +1,5 @@
 using Application.Common.Responses;
-using Application.DTOS.Responses;
+using Application.DTOS.Responses.Session;
 using MediatR;
 using System.Collections.Generic;
 

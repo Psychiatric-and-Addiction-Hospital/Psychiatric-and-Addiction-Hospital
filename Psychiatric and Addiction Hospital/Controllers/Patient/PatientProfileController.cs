@@ -18,9 +18,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
             _sender = sender;
         }
 
-        /// <summary>
-        /// Get patient profile by UserId
-        /// </summary>
+
         [HttpGet("GetProfile/{userId}")]
         public async Task<IActionResult> GetProfile(string userId, CancellationToken ct)
         {
@@ -28,9 +26,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
             return result.Success ? Ok(result) : NotFound(result);
         }
 
-        /// <summary>
-        /// Update patient info (name, DOB, gender, marital status, occupation, address, phone)
-        /// </summary>
+       
         [HttpPut("UpdateProfile")]
         public async Task<IActionResult> UpdateProfile([FromBody] UpdatePatientProfileCommand request, CancellationToken ct)
         {
@@ -38,9 +34,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        /// <summary>
-        /// Upload / update patient profile image (send ImageUrl as string)
-        /// </summary>
+     
         [HttpPut("UploadImage")]
         public async Task<IActionResult> UploadImage([FromBody] UploadPatientImageCommand request, CancellationToken ct)
         {

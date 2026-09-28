@@ -1,6 +1,8 @@
-﻿using Application.Commands.Authentication;
+using Application.Commands.Authentication;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers
 {
@@ -52,6 +54,18 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         public async Task<IActionResult> Refresh(RefreshTokenCommand command)
         {
             var result = await _sender.Send(command);
+            return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout(CancellationToken ct)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var result = await _sender.Send(new LogoutCommand(userId), ct);
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

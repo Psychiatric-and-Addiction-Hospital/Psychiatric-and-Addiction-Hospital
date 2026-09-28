@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces;
+using Application.Common.Interfaces;
 using Application.Common.Interfaces.Admin;
 using Application.Common.Interfaces.Authentication;
 using Application.Common.Interfaces.ChatMessage;
@@ -145,6 +145,11 @@ namespace Infrastructure.Dependency
             services.AddScoped<IGetSessionDetails, GetSessionDetailsService>();
             services.AddScoped<IAddSessionNote, AddSessionNoteService>();
             services.AddScoped<IGetPatientDashboard, GetPatientDashboardService>();
+            services.AddScoped<IMyAppointmentsService, MyAppointmentsService>();
+            services.AddScoped<ISettingsService, SettingsService>();
+
+            // Reports
+            services.AddScoped<IReportService, ReportService>();
             #endregion
 
 
