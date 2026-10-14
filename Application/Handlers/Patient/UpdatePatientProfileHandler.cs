@@ -19,7 +19,7 @@ namespace Application.Handlers.Patient
 
         public async Task<BaseResponse<PatientProfileResponse>> Handle(UpdatePatientProfileCommand request, CancellationToken ct)
         {
-            return await _service.UpdateAsync(request, ct);
+            return await _service.UpdateAsync(request.request, ct);
         }
     }
 }

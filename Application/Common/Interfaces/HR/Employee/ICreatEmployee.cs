@@ -1,5 +1,6 @@
 using Application.Common.Responses;
 using Application.DTOS.Responses.HR;
+using Application.DTOS.Responses.HR.Employee;
 using System;
 using System.Threading;
 using System.Threading.Tasks;

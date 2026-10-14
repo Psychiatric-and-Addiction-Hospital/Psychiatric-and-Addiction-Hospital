@@ -3,9 +3,6 @@ using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.Patient
 {
@@ -21,29 +18,28 @@ namespace Infrastructure.services.Patient
         public async Task<BaseResponse<PatientProfileResponse>> UploadImageAsync(string userId, string imageUrl, CancellationToken ct)
         {
             var profile = await _context.PatientProfiles
-                .Include(p => p.User)
+                .Include(p => p.AppUser)
                 .FirstOrDefaultAsync(p => p.UserId == userId, ct);
 
             if (profile == null)
                 return ResponseFactory.Fail<PatientProfileResponse>("Patient profile not found",
                     new List<string> { "No profile exists for the given userId." });
 
-            profile.ImageUrl = imageUrl;
+            profile.AppUser.ImageUrl = imageUrl;
             await _context.SaveChangesAsync(ct);
 
             return ResponseFactory.Success(new PatientProfileResponse
             {
                 Id = profile.Id,
                 UserId = profile.UserId,
-                FullName = profile.FullName,
+                FullName = $"{profile.AppUser.FirstName}{profile.AppUser.LastName}",
                 DateOfBirth = profile.DateOfBirth,
-                Gender = profile.Gender.ToString(),
-                MaritalStatus = profile.MaritalStatus.ToString(),
-                Occupation = profile.Occupation,
-                Address = profile.Address,
+                Gender = profile.AppUser.Gender.ToString(),
+                MaritalStatus = profile.MaritalStatus.ToString(),                
+                Address = profile.AppUser.Address,
                 PhoneNumber = profile.PhoneNumber,
-                ImageUrl = profile.ImageUrl,
-                Email = profile.User?.Email
+                ImageUrl = profile.AppUser.ImageUrl,
+                Email = profile.AppUser?.Email
             }, "Patient image uploaded successfully");
         }
     }

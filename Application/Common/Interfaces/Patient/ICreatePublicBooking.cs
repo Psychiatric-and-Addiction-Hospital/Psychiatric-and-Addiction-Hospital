@@ -1,4 +1,5 @@
 ﻿using Application.Common.Responses;
+using Application.DTOS.Request.Patient;
 using Application.DTOS.Responses;
 using System;
 using System.Threading;
@@ -8,7 +9,6 @@ namespace Application.Common.Interfaces.Patient
 {
     public interface ICreatePublicBooking
     {
-        Task<BaseResponse<PublicBookingResponse>> CreatePublicBooking(string fullName, string phoneNumber,
-         string email, Guid doctorId, Guid ScheduleId, string notes,CancellationToken ct);
+        Task<BaseResponse<PublicBookingResponse>> CreatePublicBooking(CreatePublicBookingRequest rquest, CancellationToken ct);
     }
 }

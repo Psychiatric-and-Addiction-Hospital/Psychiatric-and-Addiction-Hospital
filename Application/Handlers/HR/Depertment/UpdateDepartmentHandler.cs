@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace Application.Handlers.HR.Depertment
 {
     public class UpdateDepartmentHandler
-    : IRequestHandler<UpdateDepartmentCommand, BaseResponse<DepertmentResponse>>
+    : IRequestHandler<UpdateDepartmentCommand, BaseResponse<DepartmentResponse>>
     {
         private readonly IUpdateDepartment _updateService;
 
@@ -22,7 +22,7 @@ namespace Application.Handlers.HR.Depertment
             _updateService = updateService;
         }
 
-        public async Task<BaseResponse<DepertmentResponse>> Handle(UpdateDepartmentCommand request, CancellationToken ct)
+        public async Task<BaseResponse<DepartmentResponse>> Handle(UpdateDepartmentCommand request, CancellationToken ct)
         {
             return await _updateService.UpdateAsync(request.Id, request.Name, request.Description, ct);
         }

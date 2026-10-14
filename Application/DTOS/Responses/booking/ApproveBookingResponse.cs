@@ -9,7 +9,7 @@ namespace Application.DTOS.Responses.booking
         public Status BookingStatus { get; set; }
 
         public Guid SessionId { get; set; }
-        public DateTime SessionDate { get; set; }
+        public DateOnly SessionDate { get; set; }
         public SessionStatus SessionStatus { get; set; }
 
         public string DoctorName { get; set; }

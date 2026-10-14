@@ -1,4 +1,5 @@
 ﻿using Domain.Entites;
+using Infrastructure.Persistence.Identity;
 using Infrastructure.Persistence.Seed;
 using Microsoft.AspNetCore.Identity;
 
@@ -14,9 +15,13 @@ namespace Psychiatric_and_Addiction_Hospital.Extesion
 
                 var userManager = services.GetRequiredService<UserManager<AppUser>>();
                 var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var context = services.GetRequiredService<AddIdentityDbContext>();
 
-               // await DefaultUsersSeeder.SeedAdminsAsync(userManager, roleManager);
-               // await DefaultRolesSeeder.SeedRolesAsync(roleManager);
+                await DefaultUsersSeeder.SeedAdminsAsync(userManager, roleManager);
+                await DefaultRolesSeeder.SeedRolesAsync(roleManager);
+                await DefaultEmployeesSeeder.SeedEmployeesAsync(userManager, context);
+                await DefaultDoctorsSeeder.SeedDoctorAsync(userManager, roleManager, context);
+                await DefaultPatientsSeeder.SeedPatientAsync(userManager, roleManager, context);
             }
         }
     }

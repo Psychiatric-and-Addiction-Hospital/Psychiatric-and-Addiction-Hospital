@@ -1,9 +1,6 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Application.DTOS.Request.HR.Employee;
+using Application.DTOS.Responses.HR.Employee;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,9 +8,6 @@ namespace Application.Common.Interfaces.HR.Employee
 {
     public interface IUpdateEmployee
     {
-        Task<BaseResponse<EmployeeResponse>> UpdateEmployee(string UserId, string EmployeeCode, string FirstName, string LastName, string Email, Guid DepartmentId, CancellationToken ct)
-        {
-            throw new NotImplementedException();
-        }
+        Task<BaseResponse<EmployeeResponse>> UpdateAsync(UpdateEmployeeRequest request, CancellationToken ct);
     }
 }

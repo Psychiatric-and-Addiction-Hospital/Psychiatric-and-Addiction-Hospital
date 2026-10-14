@@ -1,12 +1,10 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+using Application.DTOS.Request.HR.ApplicationOffer;
+using Application.DTOS.Responses.HR.ApplicationOffer;
 using MediatR;
-using System;
-
 
 namespace Application.Commands.HR.ApplicationOffer
 {
-    public record CreateApplicationOfferCommand(Guid ApplicationProcessId, decimal OfferedSalary, DateTime ExpiryDate)
-        : IRequest<BaseResponse<ApplicationOfferResponse>>;
+    public record CreateApplicationOfferCommand(CreateApplicationOfferRequest request) : IRequest<BaseResponse<ApplicationOfferResponse>>;
 
 }

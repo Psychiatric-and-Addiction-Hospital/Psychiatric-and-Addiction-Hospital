@@ -1,54 +1,72 @@
 ﻿using Application.Commands.HR.Employee;
-using Application.Queries.Employee;
+using Application.Common.Responses;
+using Application.DTOS.Request.HR.Employee;
+using Application.Queries.HR.Employee;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.HR
 {
-    [Route("api/[controller]")]
-    [ApiController]
+
     public class EmployeeController : BaseController
     {
         private readonly ISender _sender;
-
         public EmployeeController(ISender sender)
         {
             _sender = sender;
         }
 
-        [HttpPost("CreateEmployee")]
-        public async Task<IActionResult> CreateEmployee([FromBody] CreateEmployeeCommand request)
+        [Authorize(Policy = "AdminOnly")]
+        [HttpPut("{id:guid}/DeleteEmployee")]
+        public async Task<IActionResult> Delete(Guid id, [FromBody] DeleteEmployeeRequest request)
         {
-            var result = await _sender.Send(request);
+            if (id != request.EmployeeId)
+                return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));
+
+            var result = await _sender.Send(new DeleteEmployeeCommand(request));
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPut("UpdateEmployee")]
-        public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeCommand request)
+        [Authorize(Policy = "HRManagement")]
+        [HttpPut("{id:guid}/UpdateEmployee")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateEmployeeRequest request)
         {
-            var result = await _sender.Send(request);
+            if (id != request.EmployeeId)
+                return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));
+
+            var result = await _sender.Send(new UpdateEmployeeCommand(request));
+
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpDelete("DeleteEmployee/{id}")]
-        public async Task<IActionResult> DeleteEmployee(Guid id)
-        {
-            var result = await _sender.Send(new DeleteEmployeeCommand(id));
-            return result.Success ? Ok(result) : BadRequest(result);
-        }
-
+        [Authorize(Policy = "HRManagement")]
         [HttpGet("GetAllEmployees")]
-        public async Task<IActionResult> GetAllEmployees()
+        public async Task<IActionResult> GetAll([FromQuery] EmployeeListRequest request)
         {
-            var result = await _sender.Send(new GetAllEmployeesQuery());
+            var result = await _sender.Send(new GetEmployeesQuery(request));
+
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetEmployeeById/{id}")]
-        public async Task<IActionResult> GetEmployeeById(Guid id)
+        [Authorize(Policy = "HRManagement")]
+        [HttpGet("{id:guid}/GetByIdEmployee")]
+        public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _sender.Send(new GetEmployeeByIdQuery(id));
+
+            return result.Success ? Ok(result) : NotFound(result);
+        }
+
+        [Authorize(Policy = "AdminOnly")]
+        [HttpPut("{id:guid}/RestoreEmployee")]
+        public async Task<IActionResult> RestoreEmployee(Guid id, [FromBody] RestoreEmployeeRequest request)
+        {
+            if (id != request.EmployeeId)
+                return BadRequest(ResponseFactory.Fail<bool>("Route id does not match request id."));
+
+            var result = await _sender.Send(new RestoreEmployeeCommand(request));
+
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

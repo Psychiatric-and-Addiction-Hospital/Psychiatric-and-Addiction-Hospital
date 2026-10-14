@@ -1,9 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Common.Constants;
+using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Persistence.Seed
 {
@@ -11,7 +7,7 @@ namespace Infrastructure.Persistence.Seed
     {
         public static async Task SeedRolesAsync(RoleManager<IdentityRole> roleManager)
         {
-            string[] roles = { "Admin", "Doctor", "Patient" ,"HR"};
+            string[] roles = { Roles.Admin, Roles.HR, Roles.Doctor, Roles.Nurse, Roles.Patient, Roles.Receptionist, Roles.Candidate };
 
             foreach (var role in roles)
             {

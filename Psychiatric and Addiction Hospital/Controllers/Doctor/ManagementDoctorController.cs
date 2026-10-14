@@ -1,6 +1,6 @@
-﻿using Application.Queries.Doctor.ManagementDoctor;
+﻿using Application.DTOS.Request.Doctor;
+using Application.Queries.Doctor.ManagementDoctor;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.Doctor
@@ -16,9 +16,9 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Doctor
         }
 
         [HttpGet("GetAllDoctors")]
-        public async Task<IActionResult> GetAllDoctors()
+        public async Task<IActionResult> GetAllDoctors([FromQuery] DoctorListRequest request)
         {
-            var result = await _Sender.Send(new GetAllDoctorsQuery());
+            var result = await _Sender.Send(new GetAllDoctorsQuery(request));
             return result.Success ? Ok(result) : BadRequest(result);
         }
 

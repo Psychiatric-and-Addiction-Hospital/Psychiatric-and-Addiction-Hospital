@@ -17,8 +17,8 @@ namespace Application.DTOS.Responses
 
         public Guid DoctorId { get; set; }
        public string DoctorName { get; set; }
-        public DateTime PreferredDate { get; set; }
-        public string PreferredTime { get; set; }
+        public DateOnly PreferredDate { get; set; }
+        public TimeOnly PreferredTime { get; set; }
 
         public Status Status { get; set; }
         public object RejectionReason { get; set; }

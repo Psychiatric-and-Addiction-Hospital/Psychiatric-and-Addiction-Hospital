@@ -31,7 +31,7 @@ namespace Infrastructure.services.Patient
 
             query = status?.ToLower() switch
             {
-                "upcoming"  => query.Where(s => s.Status == SessionStatus.Scheduled && s.ScheduledDate >= DateTime.UtcNow),
+                "upcoming"  => query.Where(s => s.Status == SessionStatus.Scheduled && s.ScheduledDate >= DateOnly.FromDateTime(DateTime.UtcNow)),
                 "completed" => query.Where(s => s.Status == SessionStatus.Completed),
                 "cancelled" => query.Where(s => s.Status == SessionStatus.Cancelled),
                 _           => query   // "all" أو أي قيمة تانية
@@ -54,8 +54,7 @@ namespace Infrastructure.services.Patient
             return ResponseFactory.Success(sessions, $"{sessions.Count} appointment(s) found");
         }
 
-        // ── GET single ──────────────────────────────────────────────────────────
-        public async Task<BaseResponse<SessionDetailsResponse>> GetAppointmentDetailsAsync(
+           public async Task<BaseResponse<SessionDetailsResponse>> GetAppointmentDetailsAsync(
             Guid sessionId, string patientId, CancellationToken ct)
         {
             var s = await _context.Sessions
@@ -68,16 +67,16 @@ namespace Infrastructure.services.Patient
             if (s == null)
                 return ResponseFactory.Fail<SessionDetailsResponse>("Appointment not found");
 
-            // Specialty يمكن إضافته لاحقاً عبر join مع DoctorProfiles
+         
             var doctorSpecialty = await _context.DoctorProfiles
-                .Where(dp => dp.UserId == s.DoctorId)
-                .Select(dp => (string)null)   // BaseDoctore يحتوي الـ Specialty — placeholder
+                .Where(dp => dp.Employee.AppUserId == s.DoctorId)
+                .Select(dp => dp.Specialization)
                 .FirstOrDefaultAsync(ct) ?? "";
 
             return ResponseFactory.Success(new SessionDetailsResponse
             {
                 Id                 = s.Id,
-                ScheduledDate      = s.ScheduledDate,
+                ScheduledDate      = s.ScheduledDate.ToDateTime(TimeOnly.MinValue),
                 CreatedAt          = s.CreatedAt,
                 DurationMinutes    = s.DurationMinutes,
                 Status             = s.Status,

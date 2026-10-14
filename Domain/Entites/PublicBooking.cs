@@ -12,8 +12,8 @@ namespace Domain.Entites
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        public DateTime PreferredDate { get; set; }
-        public string PreferredTime { get; set; }
+        public DateOnly PreferredDate { get; set; }
+        public TimeOnly PreferredTime { get; set; }
 
         public string Notes { get; set; }
 

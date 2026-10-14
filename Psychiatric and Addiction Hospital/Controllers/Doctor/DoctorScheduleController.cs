@@ -1,9 +1,7 @@
 ﻿using Application.Commands.Doctores.Schedule;
+using Application.DTOS.Request.Doctor;
 using Application.Queries.Doctor.DoctorSchedule;
-using Azure.Core;
-using Domain.Entites;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.Doctor
@@ -14,20 +12,20 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Doctor
 
         public DoctorScheduleController(ISender sender)
         {
-            _sender=sender;
+            _sender = sender;
         }
 
         [HttpPost("CreateDoctorSchedule")]
-        public async Task<IActionResult> CreateSchedule([FromBody] CreateDoctorScheduleCommand request)
+        public async Task<IActionResult> CreateSchedule([FromBody] CreateDoctorRequest request)
         {
-            var result = await _sender.Send(request);
+            var result = await _sender.Send(new CreateDoctorScheduleCommand(request));
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("GetSchedules/{DoctorId}")]
-        public async Task<IActionResult> GetSchedules(Guid DoctorId)
+        [HttpGet("GetSchedules")]
+        public async Task<IActionResult> GetSchedules([FromQuery] GetDoctorScheduleListRequest request)
         {
-            var result = await _sender.Send(new GetDoctorSchedulesQuery(DoctorId));
+            var result = await _sender.Send(new GetDoctorSchedulesQuery(request));
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
@@ -38,19 +36,19 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Doctor
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("available-appointments/{doctorId}")]
+        [HttpGet("available-appointments/{doctorId:guid}")]
         public async Task<IActionResult> GetAvailableAppointments(Guid doctorId)
         {
             var result = await _sender.Send
-               ( new GetDoctorAvailableAppointmentsQuery(doctorId));
+               (new GetDoctorAvailableAppointmentsQuery(doctorId));
 
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpGet("doctor/public-bookings{doctorId}")]
-        public async Task<IActionResult> GetDoctorBookings(Guid doctorId)
+        [HttpGet("doctor/public-bookings")]
+        public async Task<IActionResult> GetDoctorBookings()
         {
-            var result = await _sender.Send(new GetDoctorPublicBookingsQuery(doctorId));
+            var result = await _sender.Send(new GetDoctorPublicBookingsQuery());
             return Ok(result);
         }
     }

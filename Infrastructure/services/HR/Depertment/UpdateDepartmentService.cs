@@ -15,17 +15,25 @@ namespace Infrastructure.services.HR.Depertment
             _Context = context;
         }
 
-        public async Task<BaseResponse<DepertmentResponse>> UpdateAsync(Guid id, string name, string description, CancellationToken ct)
+        public async Task<BaseResponse<DepartmentResponse>> UpdateAsync(Guid id, string name, string description, CancellationToken ct)
         {
 
             var department = await _Context.Departments.FirstOrDefaultAsync(d => d.Id == id);
-            if (department == null)
-                return ResponseFactory.Fail<DepertmentResponse>("Department Not Found");
+            if (department is null)
+                return ResponseFactory.Fail<DepartmentResponse>("Department Not Found");
+
+            bool exists = await _Context.Departments
+               .AnyAsync(x => x.Id != id && x.Name == name, ct);
+
+            if (exists)
+                return ResponseFactory.Fail<DepartmentResponse>("Department name already exists.");
+
             department.Name = name;
-            department.Description = description;
+            department.Description = description.Trim();
+
             await _Context.SaveChangesAsync(ct);
             return ResponseFactory.Success(
-                new DepertmentResponse
+                new DepartmentResponse
                 {
                     Id = department.Id,
                     Name = department.Name,

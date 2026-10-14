@@ -7,10 +7,12 @@ namespace Psychiatric_and_Addiction_Hospital.Extesion
     public class GlobalExceptionExtension
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<GlobalExceptionExtension> _logger;
 
-        public GlobalExceptionExtension(RequestDelegate next)
+        public GlobalExceptionExtension(RequestDelegate next, ILogger<GlobalExceptionExtension> logger)
         {
             _next = next;
+            _logger = logger;
         }
         public async Task Invoke(HttpContext context)
         {
@@ -25,6 +27,7 @@ namespace Psychiatric_and_Addiction_Hospital.Extesion
         }
         private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
+            _logger.LogError(ex, "Unhandled exception at {Path}", context.Request.Path);
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 

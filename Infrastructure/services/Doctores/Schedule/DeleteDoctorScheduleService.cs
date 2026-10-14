@@ -1,48 +1,59 @@
-﻿using Application.Common.Interfaces.Doctores.Schedule;
+﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.Doctores.Schedule;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Infrastructure.Persistence.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.services.Doctores.Schedule
 {
-    public class DeleteDoctorScheduleService: IDeleteDoctorSchedule
+    public class DeleteDoctorScheduleService : IDeleteDoctorSchedule
     {
         private readonly AddIdentityDbContext _Context;
-        public DeleteDoctorScheduleService(AddIdentityDbContext context) 
+        private readonly ICurrentUser _currentUser;
+        public DeleteDoctorScheduleService(AddIdentityDbContext context, ICurrentUser currentUser)
         {
             _Context = context;
+            _currentUser = currentUser;
         }
 
         public async Task<BaseResponse<ScheduleResponse>> DeleteDoctorScheduleAsync(Guid Id, CancellationToken ct)
         {
-            var schedule = await _Context.DoctorSchedules.FindAsync(Id);
-            if (schedule == null) 
-            {
-                return ResponseFactory.Fail<ScheduleResponse>("Schedule not found.");
-                //return new BaseResponse<ScheduleResponse>
-                //{
+            if (!_currentUser.IsAuthenticated)
+                return ResponseFactory.Fail<ScheduleResponse>("User must be authenticated.");
 
-                //    Success = false,
-                //    Message = "Schedule not found",
-                //    Data = null,
-                //    Errors = new List<string> { "Schedule with the provided ID does not exist." }
-                //};
-            }
-             _Context.DoctorSchedules.Remove(schedule);
+            var userId = _currentUser.UserId;
+
+            if (string.IsNullOrWhiteSpace(userId))
+                return ResponseFactory.Fail<ScheduleResponse>("Authenticated user must have a valid user ID.");
+
+            var slot = await _Context.DoctorSchedules
+                 .FirstOrDefaultAsync(s => s.Id == Id, ct);
+
+            if (slot is null)
+                return ResponseFactory.Fail<ScheduleResponse>("Schedule slot not found.");
+
+            var doctorOwnsSlot = await _Context.DoctorProfiles
+                .AsNoTracking()
+                .AnyAsync(d => d.Id == slot.DoctorProfileId && d.Employee.AppUserId == userId, ct);
+
+            if (!doctorOwnsSlot)
+                return ResponseFactory.Fail<ScheduleResponse>("You are not authorized to delete this schedule slot.");
+
+            if (slot.IsBooked)
+                return ResponseFactory.Fail<ScheduleResponse>("Cannot delete a schedule slot that is already booked.");
+
+            _Context.DoctorSchedules.Remove(slot);
             await _Context.SaveChangesAsync(ct);
-            return ResponseFactory.Success<ScheduleResponse>(null, "Schedule Deleted Successfully");
-            //return new BaseResponse<ScheduleResponse>
-            //{
-            //    Success = true,
-            //    Message = "Schedule Deleted Successfully",
-            //    Data = null,
-            //    Errors = null
-            //
+
+            return ResponseFactory.Success(new ScheduleResponse
+            {
+                Id = slot.Id,
+                DoctorId = slot.DoctorProfileId,
+                Date = slot.Date,
+                Time = slot.Time,
+                IsBooked = slot.IsBooked
+            }, "Schedule slot deleted successfully.");
         }
     }
 }

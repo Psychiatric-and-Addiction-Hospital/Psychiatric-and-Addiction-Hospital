@@ -6,6 +6,6 @@ using System;
 
 namespace Application.Commands.HR.Department
 {
-    public record DeleteDepartmentCommand(Guid Id) : IRequest<BaseResponse<DepertmentResponse>>;
+    public record DeleteDepartmentCommand(Guid Id) : IRequest<BaseResponse<DepartmentResponse>>;
    
 }

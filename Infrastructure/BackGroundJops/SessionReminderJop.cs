@@ -22,7 +22,7 @@ public class SessionReminderJob : BackgroundService
 
                 var tomorrow = DateTime.UtcNow.AddDays(1);
                 var sessions = await context.Sessions
-                    .Where(s => s.ScheduledDate.Date == tomorrow.Date && s.Status == SessionStatus.Scheduled)
+                    //.Where(s => s.ScheduledDate.Date == tomorrow.Date && s.Status == SessionStatus.Scheduled)
                     .ToListAsync();
 
                 foreach (var session in sessions)

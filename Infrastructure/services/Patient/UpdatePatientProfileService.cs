@@ -1,12 +1,10 @@
 using Application.Commands.Patient;
 using Application.Common.Interfaces.Patient;
 using Application.Common.Responses;
+using Application.DTOS.Request.Patient;
 using Application.DTOS.Responses;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Infrastructure.services.Patient
 {
@@ -19,23 +17,23 @@ namespace Infrastructure.services.Patient
             _context = context;
         }
 
-        public async Task<BaseResponse<PatientProfileResponse>> UpdateAsync(UpdatePatientProfileCommand command, CancellationToken ct)
+        public async Task<BaseResponse<PatientProfileResponse>> UpdateAsync(UpdatePatientProfileRequest request, CancellationToken ct)
         {
             var profile = await _context.PatientProfiles
-                .Include(p => p.User)
-                .FirstOrDefaultAsync(p => p.UserId == command.UserId, ct);
+                .Include(p => p.AppUser)
+                .FirstOrDefaultAsync(p => p.UserId == request.UserId, ct);
 
             if (profile == null)
                 return ResponseFactory.Fail<PatientProfileResponse>("Patient profile not found",
                     new List<string> { "No profile exists for the given userId." });
 
-            profile.FullName = command.FullName;
-            profile.DateOfBirth = command.DateOfBirth;
-            profile.Gender = command.Gender;
-            profile.MaritalStatus = command.MaritalStatus;
-            profile.Occupation = command.Occupation;
-            profile.Address = command.Address;
-            profile.PhoneNumber = command.PhoneNumber;
+            profile.AppUser.FirstName = request.FirstName;
+            profile.AppUser.LastName = request.LastName;
+            profile.DateOfBirth = request.DateOfBirth;
+            profile.AppUser.Gender = request.Gender;
+            profile.MaritalStatus = request.MaritalStatus;
+            profile.AppUser.Address = request.Address;
+            profile.PhoneNumber = request.PhoneNumber;
 
             await _context.SaveChangesAsync(ct);
 
@@ -43,15 +41,14 @@ namespace Infrastructure.services.Patient
             {
                 Id = profile.Id,
                 UserId = profile.UserId,
-                FullName = profile.FullName,
+                FullName = $"{ profile.AppUser.FirstName }{profile.AppUser.LastName}",
                 DateOfBirth = profile.DateOfBirth,
-                Gender = profile.Gender.ToString(),
+                Gender = profile.AppUser.Gender.ToString(),
                 MaritalStatus = profile.MaritalStatus.ToString(),
-                Occupation = profile.Occupation,
-                Address = profile.Address,
+                Address = profile.AppUser.Address,
                 PhoneNumber = profile.PhoneNumber,
-                ImageUrl = profile.ImageUrl,
-                Email = profile.User?.Email
+                ImageUrl = profile.AppUser.ImageUrl,
+                Email = profile.AppUser?.Email
             }, "Patient profile updated successfully");
         }
     }

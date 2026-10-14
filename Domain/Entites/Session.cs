@@ -10,7 +10,7 @@ namespace Domain.Entites
 {
     public class Session:BaseEntity
     {
-        public DateTime ScheduledDate { get; set; }
+        public DateOnly ScheduledDate { get; set; }
         public int DurationMinutes { get; set; }
         public SessionType SessionType { get; set; }
         public DateTime CreatedAt { get; set; }

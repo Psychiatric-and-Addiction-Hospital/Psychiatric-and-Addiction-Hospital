@@ -15,7 +15,6 @@ namespace Infrastructure.Persistence.Configurations
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
 
-            builder.Property(A => A.RoleType).HasConversion<string>();
             builder.Property(A => A.Gender).HasConversion<string>();
         }
     }

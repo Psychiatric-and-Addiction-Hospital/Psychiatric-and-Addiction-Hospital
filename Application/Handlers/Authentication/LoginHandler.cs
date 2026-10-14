@@ -9,12 +9,13 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Handlers.Authentication
 {
-    public  class LoginHandler : IRequestHandler<LoginCommand, BaseResponse<AuthResult>>
+    public class LoginHandler : IRequestHandler<LoginCommand, BaseResponse<AuthResult>>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtGenerator _jwtGenerator;
@@ -41,12 +42,17 @@ namespace Application.Handlers.Authentication
             if (user == null)
             {
                 _logger.LogWarning("Login failed: user not found");
-                
+
                 return ResponseFactory.Fail<AuthResult>(
                     message: "Invalid password or email",
                     errors: new List<string> { "User with this email does not exist" }
                 );
             }
+
+            if (!user.EmailConfirmed)
+                return ResponseFactory.Fail<AuthResult>("Please verify your email before logging in.");
+
+            var roles = await _userManager.GetRolesAsync(user);
 
             var checkPassword = await _userManager.CheckPasswordAsync(user, request.Password);
 
@@ -66,13 +72,13 @@ namespace Application.Handlers.Authentication
             {
                 AccessToken = accessToken,
                 RefreshToken = refreshToken,
-                Role = user.RoleType.ToString(),
+                Role = roles.FirstOrDefault() ?? string.Empty
             };
 
             return ResponseFactory.Success(authResult, "Login successful");
 
         }
 
-       
+
     }
 }

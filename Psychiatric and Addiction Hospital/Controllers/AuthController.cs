@@ -1,4 +1,5 @@
 using Application.Commands.Authentication;
+using Application.DTOS.Request.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +16,31 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody]RegisterCommand command)
+        public async Task<IActionResult> Register([FromForm] RegisterCommand command)
         {
             var result = await _sender.Send(command);
 
             return result.Success ? Ok(result) : BadRequest(result);
         }
+
+        [HttpPost("verify-email")]
+        [AllowAnonymous]
+        public async Task<IActionResult> VerifyEmail([FromBody] VerifyEmailCommand command)
+        {
+            var result = await _sender.Send(command);
+
+           return result.Success ? Ok(result) : BadRequest(result);
+        }
+
+        [HttpPost("resend-verification-email")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ResendVerificationEmail([FromBody] ResendVerificationEmailCommand command)
+        {
+            var result = await _sender.Send(command);
+
+           return result.Success ? Ok(result) : BadRequest(result);
+        }
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginCommand command)
         {
@@ -28,6 +48,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
 
             return result.Success ? Ok(result) : BadRequest(result);
         }
+
         [HttpPost("forgot-password")]
         public async Task<IActionResult> ForgotPassword(SendForgetPasswordOtpCommand command)
         {
@@ -57,15 +78,12 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        [HttpPost("logout")]
         [Authorize]
-        public async Task<IActionResult> Logout(CancellationToken ct)
+        [HttpPost("ChangePassword")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordRequest request)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if (string.IsNullOrEmpty(userId))
-                return Unauthorized();
+            var result = await _sender.Send(new ChangePasswordCommand(request));
 
-            var result = await _sender.Send(new LogoutCommand(userId), ct);
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

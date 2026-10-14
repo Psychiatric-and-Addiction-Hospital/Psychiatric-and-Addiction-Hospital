@@ -2,28 +2,27 @@
 using Domain.Entites.BlogModule;
 using Domain.Entites.DoctorsModule;
 using Domain.Entites.Features;
+using Domain.Entites.HR.Recruitment;
 using Domain.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Domain.Entites
 {
     public class AppUser : IdentityUser
-    {    
+    {
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
-       
-        public RoleType RoleType { get; set; }
-      
-
+        public string Address { get; set; } = string.Empty;
         public Gender Gender { get; set; }
+        public string? ImageUrl { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.UtcNow;
         public bool IsActive { get; set; }
-        public string Addres { get; set; }
+        public Candidate? Candidate { get; set; }
+        public PatientProfile PatientProfile { get; set; }
+        public DoctorProfile DoctorProfile { get; set; }
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
         public ICollection<ProgressTracker> ProgressTrackers { get; set; } = new List<ProgressTracker>();
         public ICollection<Report> DoctorReports { get; set; } = new List<Report>();
@@ -35,10 +34,8 @@ namespace Domain.Entites
         public ICollection<ChatMessage> SentMessages { get; set; } = new List<ChatMessage>();
         public ICollection<ChatMessage> ReceivedMessages { get; set; } = new List<ChatMessage>();
         public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
-        public PatientProfile PatientProfile { get; set; }
-        public DoctorProfile DoctorProfile { get; set; }
-        public ICollection<BlogPost> BlogPosts { get; set; }= new List<BlogPost>();
-        public ICollection<Comments> Comments { get; set; }=new List<Comments>();
+        public ICollection<BlogPost> BlogPosts { get; set; } = new List<BlogPost>();
+        public ICollection<Comments> Comments { get; set; } = new List<Comments>();
 
 
     }

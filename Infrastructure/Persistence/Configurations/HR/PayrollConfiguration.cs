@@ -1,11 +1,6 @@
 ﻿using Domain.Entites.HR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Configurations.HR
 {
@@ -13,44 +8,65 @@ namespace Infrastructure.Persistence.Configurations.HR
     {
         public void Configure(EntityTypeBuilder<Payroll> builder)
         {
-        
-            builder.ToTable("Payrolls", t =>
+            builder.ToTable("Payrolls", table =>
             {
-               
-                t.HasCheckConstraint("CK_Payroll_GrossPay", "[GrossPay] >= 0");
-                t.HasCheckConstraint("CK_Payroll_Deductions", "[Deductions] >= 0");
-                t.HasCheckConstraint("CK_Payroll_OvertimeRate", "[OvertimeSefite] >= 0");
+                table.HasCheckConstraint(
+                    "CK_Payroll_Amount",
+                    "[Amount] >= 0");
             });
 
-           
-            builder.Property(p => p.PaymentDate)
-                .HasColumnType("date")
-                .IsRequired();
+            #region Properties
 
-            
-            builder.Property(p => p.OverSefit) 
+            builder.Property(p => p.Amount)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
-            builder.Property(p => p.OvertimeSefite)
-                .HasColumnType("decimal(18,2)")
+            builder.Property(p => p.EffectiveDate)
                 .IsRequired();
 
-            builder.Property(p => p.GrossPay)
-                .HasColumnType("decimal(18,2)")
+            builder.Property(p => p.PayrollType)
+                .HasConversion<string>()
+                .HasMaxLength(30)
                 .IsRequired();
 
-            builder.Property(p => p.Deductions)
-                .HasColumnType("decimal(18,2)")
+            builder.Property(p => p.Status)
+                .HasConversion<string>()
+                .HasMaxLength(30)
                 .IsRequired();
 
-            builder.Ignore(p => p.NetPay);
+            builder.Property(p => p.Description)
+                .HasMaxLength(1000);
+
+            builder.Property(p => p.ReferenceNumber)
+                .HasMaxLength(100);
+
+            #endregion
+
+            #region Indexes
+
+            builder.HasIndex(p => p.EmployeeId);
+
+            builder.HasIndex(p => p.EffectiveDate);
+
+            builder.HasIndex(p => p.Status);
+
+            builder.HasIndex(p => p.PayrollType);
+
+            builder.HasIndex(p => p.ReferenceNumber)
+                .IsUnique()
+                .HasFilter("[ReferenceNumber] IS NOT NULL");
+
+            #endregion
+
+            #region Relationships
 
             builder.HasOne(p => p.Employee)
-                .WithMany(e => e.Payrolls) 
+                .WithMany(e => e.Payrolls)
                 .HasForeignKey(p => p.EmployeeId)
-              
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
+
+            #endregion
         }
     }
 }
+

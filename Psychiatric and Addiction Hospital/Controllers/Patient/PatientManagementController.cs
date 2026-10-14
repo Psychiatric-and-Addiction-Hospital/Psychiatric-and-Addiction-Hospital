@@ -8,8 +8,6 @@ using System.Threading.Tasks;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class PatientManagementController : BaseController
     {
         private readonly ISender _sender;
@@ -21,7 +19,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
 
       
         [HttpGet("GetSessions/{patientId}")]
-        public async Task<IActionResult> GetSessions(string patientId, CancellationToken ct)
+        public async Task<IActionResult> GetSessions(Guid patientId, CancellationToken ct)
         {
             var result = await _sender.Send(new GetPatientSessionsQuery(patientId), ct);
             return result.Success ? Ok(result) : BadRequest(result);

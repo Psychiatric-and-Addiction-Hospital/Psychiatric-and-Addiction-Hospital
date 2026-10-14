@@ -8,6 +8,6 @@ namespace Application.Common.Interfaces.HR.Depertment
 {
     public interface IUpdateDepartment
     {
-        Task<BaseResponse<DepertmentResponse>> UpdateAsync(Guid id, string name, string description, CancellationToken ct);
+        Task<BaseResponse<DepartmentResponse>> UpdateAsync(Guid id, string name, string description, CancellationToken ct);
     }
 }

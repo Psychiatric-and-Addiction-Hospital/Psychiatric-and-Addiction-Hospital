@@ -1,14 +1,11 @@
 using Application.Commands.Patient;
+using Application.DTOS.Request.Patient;
 using Application.Queries.Patient;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class PatientProfileController : BaseController
     {
         private readonly ISender _sender;
@@ -20,7 +17,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
 
 
         [HttpGet("GetProfile/{userId}")]
-        public async Task<IActionResult> GetProfile(string userId, CancellationToken ct)
+        public async Task<IActionResult> GetProfile(Guid  userId, CancellationToken ct)
         {
             var result = await _sender.Send(new GetPatientProfileQuery(userId), ct);
             return result.Success ? Ok(result) : NotFound(result);

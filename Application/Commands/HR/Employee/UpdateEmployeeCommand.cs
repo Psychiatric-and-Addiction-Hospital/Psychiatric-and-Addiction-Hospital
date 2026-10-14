@@ -1,16 +1,9 @@
-using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
+﻿using Application.Common.Responses;
+using Application.DTOS.Request.HR.Employee;
+using Application.DTOS.Responses.HR.Employee;
 using MediatR;
-using System;
 
 namespace Application.Commands.HR.Employee
 {
-    public record UpdateEmployeeCommand(
-        string UserId,
-        string EmployeeCode,
-        string FirstName,
-        string LastName,
-        string Email,
-        Guid DepartmentId
-    ) : IRequest<BaseResponse<EmployeeResponse>>;
+    public record UpdateEmployeeCommand(UpdateEmployeeRequest request) : IRequest<BaseResponse<EmployeeResponse>>;
 }

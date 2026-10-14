@@ -1,6 +1,6 @@
 ﻿using Application.Common.Responses;
-using Application.DTOS.Responses.HR;
-using Microsoft.AspNetCore.Http;
+using Application.DTOS.Request.HR.Candidate;
+using Application.DTOS.Responses.HR.Candidate;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -8,7 +8,7 @@ namespace Application.Common.Interfaces.HR.Candidate
 {
     public interface ICreateCandidate
     {
-        Task<BaseResponse<CandidateResponse>> CreateCandidateAsync(
-            string fullName, string email, string phone, IFormFile resumeUrl,CancellationToken ct);
+        Task<BaseResponse<CandidateResponse>> CreateAsync
+            (CreateCandidateRequest request, CancellationToken ct);
     }
 }

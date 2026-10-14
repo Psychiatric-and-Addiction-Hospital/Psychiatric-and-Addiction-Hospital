@@ -3,23 +3,25 @@ using Application.Common.Interfaces.HR.Employee;
 using Application.Common.Responses;
 using Application.DTOS.Responses.HR;
 using MediatR;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Handlers.HR.Employee
 {
-    public class DeleteEmployeeHandler : IRequestHandler<DeleteEmployeeCommand, BaseResponse<EmployeeResponse>>
+    public class DeleteEmployeeHandler : IRequestHandler<DeleteEmployeeCommand, BaseResponse<bool>>
     {
-        private readonly IDeleteEmployee _deleteService;
-
-        public DeleteEmployeeHandler(IDeleteEmployee deleteService)
+        private readonly IDeleteEmployee _service;
+        public DeleteEmployeeHandler(IDeleteEmployee service)
         {
-            _deleteService = deleteService;
+            _service = service;
         }
-
-        public async Task<BaseResponse<EmployeeResponse>> Handle(DeleteEmployeeCommand request, CancellationToken ct)
+        public async Task<BaseResponse<bool>> Handle(DeleteEmployeeCommand request, CancellationToken cancellationToken)
         {
-            return await _deleteService.DeleteEmployee(request.id, ct);
+            return await _service.DeleteAsync(request.request, cancellationToken);
         }
     }
 }
