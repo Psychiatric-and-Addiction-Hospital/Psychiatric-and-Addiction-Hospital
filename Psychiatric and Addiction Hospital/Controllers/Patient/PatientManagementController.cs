@@ -17,6 +17,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
             _sender = sender;
         }
 
+      
         [HttpGet("GetSessions/{patientId}")]
         public async Task<IActionResult> GetSessions(Guid patientId, CancellationToken ct)
         {
@@ -24,7 +25,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-      
+       
         [HttpGet("GetSessionDetails/{sessionId}")]
         public async Task<IActionResult> GetSessionDetails(Guid sessionId, CancellationToken ct)
         {
@@ -32,6 +33,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
             return result.Success ? Ok(result) : NotFound(result);
         }
 
+     
         [HttpPost("AddSessionNote")]
         public async Task<IActionResult> AddSessionNote([FromBody] AddSessionNoteCommand request, CancellationToken ct)
         {
@@ -39,6 +41,7 @@ namespace Psychiatric_and_Addiction_Hospital.Controllers.Patient
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+       
         [HttpGet("Dashboard/{patientId}")]
         public async Task<IActionResult> GetDashboard(string patientId, CancellationToken ct)
         {

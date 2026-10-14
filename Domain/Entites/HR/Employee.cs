@@ -31,7 +31,7 @@ namespace Domain.Entites.HR
         public string? TerminationReason { get; set; }
         public EmploymentStatus EmploymentStatus { get; set; }
         public Guid DepartmentId { get; set; }
-        public Department Department { get; set; } = null!;
+        public Department Department { get; set; } = null;
         public Guid PositionId { get; set; }
         public Position Position { get; set; } = null!;
         public Guid ShiftId { get; set; }

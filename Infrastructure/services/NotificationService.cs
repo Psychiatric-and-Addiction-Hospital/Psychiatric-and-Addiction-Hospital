@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces;
+using Application.Common.Interfaces;
 using Application.Common.Responses;
 using Application.DTOS.Responses; 
 using Domain.Entites.Features;
@@ -46,6 +46,18 @@ namespace Infrastructure.services
                 notification.IsRead = true;
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task MarkAllAsReadAsync(string userId)
+        {
+            var unread = await _context.Notifications
+                .Where(n => n.RecipientId == userId && !n.IsRead)
+                .ToListAsync();
+
+            foreach (var n in unread)
+                n.IsRead = true;
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task<BaseResponse<List<NotificationResponse>>> GetUserNotificationsAsync(string userId)

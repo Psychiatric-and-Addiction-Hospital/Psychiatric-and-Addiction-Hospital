@@ -36,7 +36,7 @@ namespace Infrastructure.Persistence.Seed
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(
-                        admin,
+                        admin,// in a debug helper or during startup (temporarily)
                         Roles.Admin);
                 }
             }

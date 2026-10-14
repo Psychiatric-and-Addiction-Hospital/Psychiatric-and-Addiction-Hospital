@@ -1,8 +1,9 @@
-﻿using Application.Commands.Authentication;
+using Application.Commands.Authentication;
 using Application.DTOS.Request.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Psychiatric_and_Addiction_Hospital.Controllers
 {

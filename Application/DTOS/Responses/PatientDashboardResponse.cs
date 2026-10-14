@@ -1,3 +1,4 @@
+using Application.DTOS.Responses.Session;
 using System.Collections.Generic;
 
 namespace Application.DTOS.Responses

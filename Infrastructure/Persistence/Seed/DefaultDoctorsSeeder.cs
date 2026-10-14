@@ -11,22 +11,19 @@ namespace Infrastructure.Persistence.Seed
 {
     public class DefaultDoctorsSeeder
     {
-        private static readonly Guid DoctorDepartmentId = Guid.Parse("48777980-0ad7-4cec-9ad1-f77f48409d67");
-        private static readonly Guid DoctorPositionId = Guid.Parse("1c9e0b9b-d329-4d02-b100-df92b3f1c1a4");
-        private static readonly Guid DoctorShiftId = Guid.Parse("c7aadaa0-7ef4-474b-8441-75a4478a98da");
-
         public static async Task SeedDoctorAsync(
             UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager,
             AddIdentityDbContext context)
         {
+            // 1. التأكد من وجود الرول
             if (!await roleManager.RoleExistsAsync(Roles.Doctor))
                 await roleManager.CreateAsync(new IdentityRole(Roles.Doctor));
 
             var doctorEmail = "doctor@kaha.health";
-
             var appUser = await userManager.FindByEmailAsync(doctorEmail);
 
+            // 2. التأكد من وجود المستخدم
             if (appUser is null)
             {
                 appUser = new AppUser
@@ -45,14 +42,46 @@ namespace Infrastructure.Persistence.Seed
                     return;
             }
 
+            // 3. إضافة المستخدم لرول الدكتور
             if (!await userManager.IsInRoleAsync(appUser, Roles.Doctor))
                 await userManager.AddToRoleAsync(appUser, Roles.Doctor);
 
+            // 4. التأكد من وجود الموظف (الدكتور)
             var employee = await context.Employees
                 .FirstOrDefaultAsync(e => e.AppUserId == appUser.Id);
 
             if (employee is null)
             {
+                // ==========================================
+                // الحل: جلب أو إنشاء القسم والوظيفة والوردية
+                // ==========================================
+
+                var department = await context.Departments.FirstOrDefaultAsync();
+                if (department == null)
+                {
+                    department = new Department { Name = "Medical Department" };
+                    context.Departments.Add(department);
+                    await context.SaveChangesAsync();
+                }
+
+                var position = await context.Positions.FirstOrDefaultAsync();
+                if (position == null)
+                {
+                    position = new Position { Name = "Doctor", DepartmentId = department.Id };
+                    context.Positions.Add(position);
+                    await context.SaveChangesAsync();
+                }
+
+                var shift = await context.Shifts.FirstOrDefaultAsync();
+                if (shift == null)
+                {
+                    shift = new Shift { Name = "Medical Shift", StartTime = TimeOnly.FromTimeSpan(TimeSpan.FromHours(8)), EndTime = TimeOnly.FromTimeSpan(TimeSpan.FromHours(16)) };
+                    context.Shifts.Add(shift);
+                    await context.SaveChangesAsync();
+                }
+
+                // ==========================================
+
                 employee = new Employee
                 {
                     EmployeeCode = $"{EmployeeCodePrefixes.Doctor}-0001",
@@ -63,9 +92,12 @@ namespace Infrastructure.Persistence.Seed
                     HireDate = DateTime.UtcNow,
                     NationalId = "00000000000003",
                     EmploymentStatus = EmploymentStatus.Active,
-                    DepartmentId = DoctorDepartmentId,
-                    PositionId = DoctorPositionId,
-                    ShiftId = DoctorShiftId,
+
+                    // استخدام الـ Ids الحقيقية بدل الثابتة
+                    DepartmentId = department.Id,
+                    PositionId = position.Id,
+                    ShiftId = shift.Id,
+
                     AppUserId = appUser.Id
                 };
 
@@ -73,6 +105,7 @@ namespace Infrastructure.Persistence.Seed
                 await context.SaveChangesAsync();
             }
 
+            // 5. التأكد من وجود البروفايل الخاص بالدكتور
             var doctorProfileExists = await context.Set<DoctorProfile>()
                 .AnyAsync(d => d.EmployeeId == employee.Id);
 
@@ -81,8 +114,8 @@ namespace Infrastructure.Persistence.Seed
                 var doctorProfile = new DoctorProfile
                 {
                     EmployeeId = employee.Id,
-                    Specialization = "Psychiatry", // TODO: عدّل حسب التخصص المطلوب
-                    LicenseNumber = "LIC-0001",     // TODO: رقم ترخيص حقيقي
+                    Specialization = "Psychiatry",
+                    LicenseNumber = "LIC-0001",
                     Qualifications = "MBBCh, MSc Psychiatry",
                     Degree = "MSc",
                     YearsOfExperience = 5

@@ -1,4 +1,4 @@
-﻿using Application.Common.Responses;
+using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Domain.Enums;
 using System;
@@ -13,6 +13,7 @@ namespace Application.Common.Interfaces
     {
         Task SendNotificationAsync(string recipientId, string title, string message, NotificationType type, Guid? relatedId = null);
         Task MarkAsReadAsync(Guid notificationId);
+        Task MarkAllAsReadAsync(string userId);
         Task<BaseResponse<List<NotificationResponse>>> GetUserNotificationsAsync(string userId);
     }
 }

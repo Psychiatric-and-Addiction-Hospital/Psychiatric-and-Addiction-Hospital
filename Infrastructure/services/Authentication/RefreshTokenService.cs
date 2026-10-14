@@ -1,4 +1,4 @@
-﻿using Application.Common.Interfaces.Authentication;
+using Application.Common.Interfaces.Authentication;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
 using Domain.Entites;
@@ -71,6 +71,17 @@ namespace Infrastructure.services.Authentication
 
             return ResponseFactory.Success(authResult, "Token refreshed successfully");
         }
+
+        public async Task RevokeAllUserTokensAsync(string userId)
+        {
+            var tokens = await _context.Set<RefreshToken>()
+                .Where(t => t.UserId == userId && !t.IsRevoked)
+                .ToListAsync();
+
+            foreach (var token in tokens)
+                token.IsRevoked = true;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
-

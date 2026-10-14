@@ -1,6 +1,7 @@
 using Application.Common.Interfaces.Patient;
 using Application.Common.Responses;
 using Application.DTOS.Responses;
+using Application.DTOS.Responses.Session;
 using Domain.Enums;
 using Infrastructure.Persistence.Identity;
 using Microsoft.EntityFrameworkCore;

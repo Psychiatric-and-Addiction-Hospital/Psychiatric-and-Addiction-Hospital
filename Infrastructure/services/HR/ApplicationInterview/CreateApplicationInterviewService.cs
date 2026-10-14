@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.services.HR.ApplicationInterview
 {
-    public class CreateApplicationInterviewService : ICreateApplicationInterview
+    public class CreateApplicationInterviewService :ICreateApplicationInterview
     {
         private readonly AddIdentityDbContext _context;
         private readonly IApplicationInterviewValidation _validation;
@@ -25,7 +25,7 @@ namespace Infrastructure.services.HR.ApplicationInterview
             _emailService = emailService;
         }
 
-        public async Task<BaseResponse<ApplicationInterviewResponse>> CreateAsync(CreateApplicationInterviewCommand request, CancellationToken ct)
+        public async Task<BaseResponse<ApplicationInterviewResponse>> CreateApplicationInterviewAsync(CreateApplicationInterviewCommand request, CancellationToken ct)
         {
 
             var validation = await _validation

@@ -17,7 +17,7 @@ namespace Application.Handlers.HR.ApplicationInterview
         }
         public async Task<BaseResponse<ApplicationInterviewResponse>> Handle(CreateApplicationInterviewCommand request, CancellationToken cancellationToken)
         {
-            return await _service.CreateAsync(request, cancellationToken);
+            return await _service.CreateApplicationInterviewAsync(request, cancellationToken);
         }
     }
 }

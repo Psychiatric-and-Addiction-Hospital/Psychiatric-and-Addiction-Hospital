@@ -6,15 +6,10 @@ using Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Infrastructure.Persistence.Seed
 {
     public static class DefaultEmployeesSeeder
     {
-        private static readonly Guid DefaultDepartmentId = Guid.Parse("48777980-0ad7-4cec-9ad1-f77f48409d67");
-        private static readonly Guid DefaultPositionId = Guid.Parse("1c9e0b9b-d329-4d02-b100-df92b3f1c1a4");
-        private static readonly Guid DefaultShiftId = Guid.Parse("c7aadaa0-7ef4-474b-8441-75a4478a98da");
-
         public static async Task SeedEmployeesAsync(
             UserManager<AppUser> userManager,
             AddIdentityDbContext context)
@@ -37,7 +32,7 @@ namespace Infrastructure.Persistence.Seed
         {
             var appUser = await userManager.FindByEmailAsync(email);
             if (appUser is null)
-                return; // لازم الـ AppUser يتعمل الأول عن طريق DefaultUsersSeeder
+                return; // لازم الـ AppUser يتعمل الأول
 
             var alreadyExists = await context.Employees
                 .AnyAsync(e => e.AppUserId == appUser.Id);
@@ -45,6 +40,34 @@ namespace Infrastructure.Persistence.Seed
             if (alreadyExists)
                 return;
 
+            // 1. جلب أول قسم متاح من قاعدة البيانات
+            var department = await context.Departments.FirstOrDefaultAsync();
+            if (department == null)
+            {
+                department = new Department { Name = "General Department" }; // تأكد من الخصائص المطلوبة في كلاس القسم
+                context.Departments.Add(department);
+                await context.SaveChangesAsync();
+            }
+
+            // 2. جلب أول وظيفة متاحة
+            var position = await context.Positions.FirstOrDefaultAsync();
+            if (position == null)
+            {
+                position = new Position { Name = "General Position", DepartmentId = department.Id }; // تأكد من الخصائص المطلوبة
+                context.Positions.Add(position);
+                await context.SaveChangesAsync();
+            }
+
+            // 3. جلب أول وردية متاحة
+            var shift = await context.Shifts.FirstOrDefaultAsync();
+            if (shift == null)
+            {
+                shift = new Shift { Name = "Morning Shift", StartTime = TimeOnly.FromTimeSpan(TimeSpan.FromHours(9)), EndTime = TimeOnly.FromTimeSpan(TimeSpan.FromHours(17)) }; // تأكد من الخصائص المطلوبة
+                context.Shifts.Add(shift);
+                await context.SaveChangesAsync();
+            }
+
+            // 4. إنشاء الموظف بالـ Ids الحقيقية من الداتابيز
             var employee = new Employee
             {
                 EmployeeCode = employeeCode,
@@ -55,16 +78,17 @@ namespace Infrastructure.Persistence.Seed
                 HireDate = DateTime.UtcNow,
                 NationalId = nationalId,
                 EmploymentStatus = EmploymentStatus.Active,
-                DepartmentId = DefaultDepartmentId,
-                PositionId = DefaultPositionId,
-                ShiftId = DefaultShiftId,
+
+             
+                DepartmentId = department.Id,
+                PositionId = position.Id,
+                ShiftId = shift.Id,
+
                 AppUserId = appUser.Id
             };
 
             context.Employees.Add(employee);
             await context.SaveChangesAsync();
-
-
         }
     }
 }

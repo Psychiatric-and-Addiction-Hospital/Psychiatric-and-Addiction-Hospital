@@ -1,6 +1,6 @@
 using System;
 
-namespace Application.DTOS.Responses
+namespace Application.DTOS.Responses.Session
 {
     public class SessionSummaryResponse
     {
